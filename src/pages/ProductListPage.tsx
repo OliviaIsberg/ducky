@@ -5,6 +5,7 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Rating,
   Typography,
 } from '@mui/material'
 import { useState } from 'react'
@@ -12,6 +13,7 @@ import { mockedProducts } from '../Api/Data'
 
 function ProductListPage() {
   const [products] = useState(mockedProducts)
+  const [value] = useState(5)
 
   return (
     <Container maxWidth="md">
@@ -31,6 +33,7 @@ function ProductListPage() {
             <Typography variant="body2" color="text.secondary">
               {product.information}
             </Typography>
+            <Rating name="read-only" value={value} readOnly />
           </CardContent>
           <CardActions>
             <Button>Information</Button>
