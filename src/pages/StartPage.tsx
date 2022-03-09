@@ -1,4 +1,7 @@
-function StartPage (){
+import ShowCarousel from "../components/Carousel";
+
+function StartPage() {
+  return <ShowCarousel />;
 }
 
-export default StartPage
+export default StartPage;
