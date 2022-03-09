@@ -1,5 +1,7 @@
 import {
+  Button,
   Card,
+  CardActions,
   CardContent,
   CardMedia,
   Container,
@@ -30,6 +32,10 @@ function ProductListPage() {
               {product.information}
             </Typography>
           </CardContent>
+          <CardActions>
+            <Button>Information</Button>
+            <Button variant="contained">Köp nu {product.price}kr</Button>
+          </CardActions>
         </Card>
       ))}
     </Container>
