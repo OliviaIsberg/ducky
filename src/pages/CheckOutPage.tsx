@@ -4,6 +4,10 @@ import PaymentForm from "../components/Forms/PaymentForm";
 import ShipmentBox from "../components/Forms/ShipmentBox";
 import ShippingForm from "../components/Forms/ShippingForm";
 
+function onShippingSubmit(){
+
+}
+
 function CheckOutPage() {
   return (
     <div className="checkOutContainer">
@@ -15,7 +19,7 @@ function CheckOutPage() {
         nedan för att se tillgängliga leveransval.
       </p>
       <h3>Delivery adress</h3>
-      <ShippingForm />
+      <ShippingForm onSubmit={onShippingSubmit}/>
       <h3>Delivery method</h3>
       <ShipmentBox />
 
