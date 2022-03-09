@@ -1,6 +1,8 @@
 import { Button, Checkbox, FormControlLabel } from "@mui/material";
 import PaymentBox from "../components/Forms/PaymentBox";
+import PaymentForm from "../components/Forms/PaymentForm";
 import ShipmentBox from "../components/Forms/ShipmentBox";
+import ShippingForm from "../components/Forms/ShippingForm";
 
 function CheckOutPage() {
   return (
@@ -13,14 +15,14 @@ function CheckOutPage() {
         nedan för att se tillgängliga leveransval.
       </p>
       <h3>Delivery adress</h3>
-      {/* < ShippingForm /> */}
+      <ShippingForm />
       <h3>Delivery method</h3>
       <ShipmentBox />
 
       <h3>Payment method</h3>
       <PaymentBox />
       <h3>Payment details</h3>
-      {/* < PaymentForm /> */}
+      <PaymentForm />
       {/* Newsletter checkbox, does nothing for now */}
       <FormControlLabel
         control={<Checkbox defaultChecked />}
