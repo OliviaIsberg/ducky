@@ -6,7 +6,7 @@ interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
   let navigate = useNavigate()
-  const [value, setValue] = useState('start')
+  const [value, setValue] = useState('/')
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
