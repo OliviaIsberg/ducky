@@ -21,7 +21,7 @@ function CategoriesCard() {
         container
         sx={{ gap: "5rem" }}
       >
-        <Card sx={{ maxWidth: 400 }}>
+        <Card sx={{ maxWidth: 400, borderRadius: "1rem" }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -36,7 +36,7 @@ function CategoriesCard() {
             <Button>Buy</Button>
           </CardActionArea>
         </Card>
-        <Card sx={{ maxWidth: 400 }}>
+        <Card sx={{ maxWidth: 400, borderRadius: "1rem" }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -51,7 +51,7 @@ function CategoriesCard() {
             <Button>Buy</Button>
           </CardActionArea>
         </Card>
-        <Card sx={{ maxWidth: 400 }}>
+        <Card sx={{ maxWidth: 400, borderRadius: "1rem" }}>
           <CardActionArea>
             <CardMedia
               component="img"
