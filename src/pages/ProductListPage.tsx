@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { mockedProducts } from '../Api/Data'
 
 function ProductListPage() {
@@ -38,7 +39,9 @@ function ProductListPage() {
               <Rating name="read-only" value={ratingValue} readOnly />
             </CardContent>
             <CardActions>
-              <Button>Information</Button>
+              <Link to={`/products/${product.id}`}>
+                <Button>Information</Button>
+              </Link>
               <Button variant="contained">Köp nu {product.price}kr</Button>
             </CardActions>
           </Card>
