@@ -1,4 +1,5 @@
-function PaymentForm (){
+function PaymentForm() {
+  return null;
 }
 
-export default PaymentForm
+export default PaymentForm;
