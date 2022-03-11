@@ -7,7 +7,7 @@ import {
   Container,
   Typography,
 } from '@mui/material'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Product } from '../Api/Data'
 
@@ -17,12 +17,12 @@ interface Props {
 
 function ProductPage({ productList }: Props) {
   let { id } = useParams()
-  const [product] = useState<Product | undefined>(
-    productList.find((item) => item.id.toString() === id)
-  )
-  // const product: Product | undefined = productList.find(
-  //   (item) => item.id.toString() === id
+  // const [product] = useState<Product | undefined>(
+  //   productList.find((item) => item.id.toString() === id)
   // )
+  const product: Product | undefined = productList.find(
+    (item) => item.id.toString() === id
+  )
   console.log(product)
 
   return (
