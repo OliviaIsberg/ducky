@@ -1,9 +1,9 @@
-import { Route, Routes } from 'react-router-dom'
-import ProductListPage from '../pages/ProductListPage'
-import Layout from './Layout'
-import StartPage from '../pages/StartPage'
-import TextPage from '../pages/TextPage'
-import CheckOutPage from '../pages/CheckOutPage'
+import { Route, Routes } from "react-router-dom";
+import ProductListPage from "../pages/ProductListPage";
+import Layout from "./Layout";
+import StartPage from "../pages/StartPage";
+import TextPage from "../pages/TextPage";
+import CheckOutPage from "../pages/CheckOutPage";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path="about" element={<TextPage />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
