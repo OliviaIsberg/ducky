@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = () => {
           aria-label="secondary tabs example"
         >
           <Tab value="/" label="Start" />
-          <Tab value="ProductListPage" label="Products" />
+          <Tab value="products" label="Products" />
           <Tab value="about" label="About" />
         </Tabs>
       </Box>
