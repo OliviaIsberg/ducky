@@ -57,9 +57,9 @@ function ShippingForm(props: Props) {
     <form onSubmit={handleSubmit}>
       {/* First name input */}
       <InputField
-        label="firstName"
-        id="firstName"
-        name="firstName"
+        label="Förnamn: "
+        id="Förnamn"
+        name="Förnamn"
         type="text"
         value={values.firstName}
         onChange={handleChange}
@@ -69,9 +69,9 @@ function ShippingForm(props: Props) {
 
       {/* Last name input */}
       <InputField
-        label="lastName"
-        id="lastName"
-        name="lastName"
+        label="Efternamn: "
+        id="Efternamn"
+        name="Efternamn"
         type="text"
         value={values.lastName}
         onChange={handleChange}
@@ -81,9 +81,9 @@ function ShippingForm(props: Props) {
 
       {/* Street adress input */}
       <InputField
-        label="streetAdress"
-        id="streetAdress"
-        name="streetAdress"
+        label="Postadress: "
+        id="Postadress"
+        name="Postadress"
         type="text"
         value={values.streetAdress}
         onChange={handleChange}
@@ -93,9 +93,9 @@ function ShippingForm(props: Props) {
 
       {/* Post code input */}
       <InputField
-        label="postCode"
-        id="postCode"
-        name="postCode"
+        label="Postnummer: "
+        id="Postnummer"
+        name="Postnummer"
         type="text"
         value={values.postCode}
         onChange={handleChange}
@@ -106,9 +106,9 @@ function ShippingForm(props: Props) {
 
       {/* city input */}
       <InputField
-        label="city"
-        id="city"
-        name="city"
+        label="Stad: "
+        id="Stad"
+        name="Stad"
         type="text"
         value={values.city}
         onChange={handleChange}
@@ -118,9 +118,9 @@ function ShippingForm(props: Props) {
 
       {/* phone number input */}
       <InputField
-        label="phoneNumber"
-        id="phoneNumber"
-        name="phoneNumber"
+        label="Telefonnummer: "
+        id="Telefonnummer"
+        name="Telefonnummer"
         type="text"
         pattern="[0-9 -+]{}"
         value={values.phoneNumber}
@@ -131,8 +131,8 @@ function ShippingForm(props: Props) {
 
       {/* email adress input */}
       <InputField
-        label="emailAdress"
-        id="emailAdress"
+        label="E-postadress: "
+        id="E-postadress"
         name="emailAdress"
         type="text"
         value={values.emailAdress}
