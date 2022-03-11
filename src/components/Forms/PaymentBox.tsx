@@ -33,26 +33,32 @@ function PaymentBox() {
 
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      <List component="nav" aria-label="Payment options list">
+      <List
+        component="nav"
+        aria-label="Payment options list"
+        sx={{ bgcolor: "inherit" }}
+      >
         {/* Klarna */}
         <ListItemButton
+          sx={{ bgcolor: "inherit" }}
           selected={selectedIndex === 0}
           onClick={(event) => handleListItemClick(event, 0)}
         >
-          <Accordion>
-            <AccordionSummary
-              sx={{
-                margin: "0",
-                color: "inherit",
-                padding: "0",
-                border: "none",
-                bgcolor: "inherit",
-              }}
-            >
+          <Accordion
+            sx={{
+              boxShadow: 0,
+              margin: 0,
+              color: "inherit",
+              padding: 0,
+              border: "none",
+            }}
+          >
+            <AccordionSummary sx={{ bgcolor: "inherit" }}>
               <ListItemAvatar>
                 <Avatar alt="Klarna logotyp" src={klarna} />
               </ListItemAvatar>
               <ListItemText
+                sx={{ bgcolor: "inherit" }}
                 primary="Klarna"
                 secondary="Välj mellan delbetalning och andra alternativ"
               />
@@ -69,7 +75,15 @@ function PaymentBox() {
           selected={selectedIndex === 1}
           onClick={(event) => handleListItemClick(event, 1)}
         >
-          <Accordion>
+          <Accordion
+            sx={{
+              boxShadow: 0,
+              margin: 0,
+              color: "inherit",
+              padding: 0,
+              border: "none",
+            }}
+          >
             <AccordionSummary
               sx={{
                 margin: "0",
@@ -101,7 +115,15 @@ function PaymentBox() {
           selected={selectedIndex === 2}
           onClick={(event) => handleListItemClick(event, 2)}
         >
-          <Accordion>
+          <Accordion
+            sx={{
+              boxShadow: 0,
+              margin: 0,
+              color: "inherit",
+              padding: 0,
+              border: "none",
+            }}
+          >
             <AccordionSummary
               sx={{
                 margin: "0",
