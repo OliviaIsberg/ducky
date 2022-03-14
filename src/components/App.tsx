@@ -15,11 +15,10 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<StartPage />} />
-        <Route path="products" element={<ProductListPage />} />
-        <Route
-          path="products/:id"
-          element={<ProductPage productList={products} />}
-        />
+        <Route path="products">
+          <Route index element={<ProductListPage productList={products} />} />
+          <Route path=":id" element={<ProductPage productList={products} />} />
+        </Route>
         <Route path="checkoutPage" element={<CheckOutPage />} />
         <Route path="about" element={<TextPage />} />
       </Route>

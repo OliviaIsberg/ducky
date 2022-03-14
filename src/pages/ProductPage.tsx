@@ -23,7 +23,6 @@ function ProductPage({ productList }: Props) {
   const product: Product | undefined = productList.find(
     (item) => item.id.toString() === id
   )
-  console.log(product)
 
   return (
     <Container maxWidth="md">
