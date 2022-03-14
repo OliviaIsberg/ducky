@@ -10,6 +10,7 @@ import {
   AccordionDetails,
   Accordion,
   AccordionSummary,
+  ListItem,
 } from "@mui/material";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import klarna from "../../assets/PaymentLogos/klarna-square.jpg";
@@ -40,7 +41,6 @@ function PaymentBox() {
       >
         {/* Klarna */}
         <ListItemButton
-          sx={{ bgcolor: "inherit" }}
           selected={selectedIndex === 0}
           onClick={(event) => handleListItemClick(event, 0)}
         >
@@ -48,26 +48,28 @@ function PaymentBox() {
             sx={{
               boxShadow: 0,
               margin: 0,
-              color: "inherit",
+              bgcolor: "transparent",
               padding: 0,
               border: "none",
             }}
           >
-            <AccordionSummary sx={{ bgcolor: "inherit" }}>
+            <AccordionSummary sx={{ padding: 0 }}>
+           
               <ListItemAvatar>
                 <Avatar alt="Klarna logotyp" src={klarna} />
               </ListItemAvatar>
               <ListItemText
-                sx={{ bgcolor: "inherit" }}
                 primary="Klarna"
                 secondary="Välj mellan delbetalning och andra alternativ"
               />
+             
             </AccordionSummary>
             <AccordionDetails>
               <KlarnaForm onSubmit={onPaymentSubmit} />
             </AccordionDetails>
           </Accordion>
-        </ListItemButton>
+          </ListItemButton>
+        
         <Divider />
 
         {/* Swish */}
@@ -79,7 +81,7 @@ function PaymentBox() {
             sx={{
               boxShadow: 0,
               margin: 0,
-              color: "inherit",
+              bgcolor: "transparent",
               padding: 0,
               border: "none",
             }}
@@ -119,7 +121,7 @@ function PaymentBox() {
             sx={{
               boxShadow: 0,
               margin: 0,
-              color: "inherit",
+              bgcolor: "transparent",
               padding: 0,
               border: "none",
             }}

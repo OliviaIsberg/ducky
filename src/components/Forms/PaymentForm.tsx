@@ -1,3 +1,4 @@
+
 import {
   useFormik,
 } from "formik";
@@ -47,9 +48,9 @@ function PaymentForm(props: Props) {
     <form onSubmit={handleSubmit}>
       {/* Card number input */}
       <InputField
-        label="Kortnummer: "
-        id="Kortnummer"
-        name="Kortnummer"
+        label="kortnummer: "
+        id="cardNumber"
+        name="cardNumber"
         type="text"
         value={values.cardNumber}
         onChange={handleChange}
@@ -59,9 +60,9 @@ function PaymentForm(props: Props) {
 
       {/* CSV input */}
       <InputField
-        label="CSV: "
-        id="CSV"
-        name="CSV"
+        label="csv: "
+        id="csv"
+        name="csv"
         type="text"
         value={values.csv}
         onChange={handleChange}
@@ -71,9 +72,9 @@ function PaymentForm(props: Props) {
 
       {/* expiery date input */}
       <InputField
-        label="Utgångsdatum: "
-        id="Utgångsdatum"
-        name="Utgångsdatum"
+        label="utgångsdatum: "
+        id="expDate"
+        name="expDate"
         type="date"
         value={values.expDate}
         onChange={handleChange}
