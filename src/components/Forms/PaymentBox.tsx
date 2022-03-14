@@ -10,7 +10,6 @@ import {
   AccordionDetails,
   Accordion,
   AccordionSummary,
-  ListItem,
 } from "@mui/material";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import klarna from "../../assets/PaymentLogos/klarna-square.jpg";
