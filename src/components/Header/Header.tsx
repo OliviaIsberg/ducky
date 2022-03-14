@@ -1,6 +1,7 @@
-import { Box, Tabs, Tab, Container } from '@mui/material'
+import { Box, Tabs, Tab, Container, Badge } from '@mui/material'
 import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
 interface HeaderProps {}
 
@@ -16,7 +17,9 @@ const Header: FC<HeaderProps> = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
-      <Box sx={{ width: '100%' }}>
+      <Box
+        sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
@@ -24,10 +27,15 @@ const Header: FC<HeaderProps> = () => {
           indicatorColor="secondary"
           aria-label="secondary tabs example"
         >
-          <Tab value="/" label="Start" />
-          <Tab value="ProductListPage" label="Products" />
-          <Tab value="about" label="About" />
+          <Tab value="/" label="Hem" />
+          <Tab value="ProductListPage" label="Produkter" />
+          <Tab value="about" label="Information" />
         </Tabs>
+        <Box>
+          <Badge badgeContent={4} color="primary">
+            <ShoppingCartIcon color="action" />
+          </Badge>
+        </Box>
       </Box>
     </Container>
   )
