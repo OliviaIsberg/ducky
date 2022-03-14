@@ -2,6 +2,7 @@ import { Box, Tabs, Tab, Container, Badge } from '@mui/material'
 import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 interface HeaderProps {}
 
@@ -18,7 +19,12 @@ const Header: FC<HeaderProps> = () => {
     <Container maxWidth="md">
       <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
       <Box
-        sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+        }}
       >
         <Tabs
           value={value}
@@ -32,6 +38,7 @@ const Header: FC<HeaderProps> = () => {
           <Tab value="about" label="Information" />
         </Tabs>
         <Box>
+          <AccountCircleIcon />
           <Badge badgeContent={4} color="primary">
             <ShoppingCartIcon color="action" />
           </Badge>
