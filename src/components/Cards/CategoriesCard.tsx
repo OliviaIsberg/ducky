@@ -7,10 +7,10 @@ import {
   Container,
   Grid,
   Typography,
-} from "@mui/material";
-import spidermanDuck from "../../assets/CategoriesPictures/spidermanDuck.jpg";
-import weddingDuck from "../../assets/CategoriesPictures/weddingDuck.jpg";
-import glowingDuck from "../../assets/CategoriesPictures/glowingDuck.jpg";
+} from '@mui/material';
+import spidermanDuck from '../../assets/CategoriesPictures/spidermanDuck.jpg';
+import weddingDuck from '../../assets/CategoriesPictures/weddingDuck.jpg';
+import glowingDuck from '../../assets/CategoriesPictures/glowingDuck.jpg';
 
 function CategoriesCard() {
   return (
@@ -19,9 +19,9 @@ function CategoriesCard() {
         justifyContent="center"
         alignItems="center"
         container
-        sx={{ gap: "5rem" }}
+        sx={{ gap: '5rem' }}
       >
-        <Card sx={{ maxWidth: 400, borderRadius: "1rem" }}>
+        <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -30,13 +30,13 @@ function CategoriesCard() {
             ></CardMedia>
             <CardContent>
               <Typography gutterBottom variant="h6">
-                Spiderman Ducks
+                Spiderman
               </Typography>
             </CardContent>
             <Button>Buy</Button>
           </CardActionArea>
         </Card>
-        <Card sx={{ maxWidth: 400, borderRadius: "1rem" }}>
+        <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -45,13 +45,13 @@ function CategoriesCard() {
             ></CardMedia>
             <CardContent>
               <Typography gutterBottom variant="h6">
-                Wedding Ducks
+                Bröllop
               </Typography>
             </CardContent>
             <Button>Buy</Button>
           </CardActionArea>
         </Card>
-        <Card sx={{ maxWidth: 400, borderRadius: "1rem" }}>
+        <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -60,7 +60,7 @@ function CategoriesCard() {
             ></CardMedia>
             <CardContent>
               <Typography gutterBottom variant="h6">
-                Glowing Ducks
+                Lysande
               </Typography>
             </CardContent>
             <Button>Buy</Button>
