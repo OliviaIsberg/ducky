@@ -1,3 +1,4 @@
+
 import {
   useFormik,
 } from "formik";
@@ -8,14 +9,14 @@ type PaymentDetailsSchemaType = Record<keyof PaymentDetails, Yup.AnySchema>;
 
 const PaymentFormSchema = Yup.object().shape<PaymentDetailsSchemaType>({
   cardNumber: Yup.string().required(),
-  csv: Yup.string().required(),
+  cvc: Yup.string().required(),
   expDate: Yup.string().required(),
   
 });
 
 interface PaymentDetails {
   cardNumber: string;
-  csv: string;
+  cvc: string;
   expDate: string
   
 }
@@ -27,7 +28,7 @@ interface Props {
 
 const emptyForm: PaymentDetails = {
   cardNumber: "",
-  csv: "",
+  cvc: "",
   expDate: "",
 };
 
@@ -47,7 +48,7 @@ function PaymentForm(props: Props) {
     <form onSubmit={handleSubmit}>
       {/* Card number input */}
       <InputField
-        label="cardNumber"
+        label="kortnummer: "
         id="cardNumber"
         name="cardNumber"
         type="text"
@@ -57,24 +58,24 @@ function PaymentForm(props: Props) {
         error={touched.cardNumber && errors.cardNumber}
       />
 
-      {/* CSV input */}
+      {/* CVC input */}
       <InputField
-        label="csv"
-        id="csv"
-        name="csv"
-        type="text"
-        value={values.csv}
+        label="cvc: "
+        id="cvc"
+        name="cvc"
+        type="cvc"
+        value={values.cvc}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.csv && errors.csv}
+        error={touched.cvc && errors.cvc}
       />
 
       {/* expiery date input */}
       <InputField
-        label="expDate"
+        label="utgångsdatum: "
         id="expDate"
         name="expDate"
-        type="expDate"
+        type="date"
         value={values.expDate}
         onChange={handleChange}
         onBlur={handleBlur}

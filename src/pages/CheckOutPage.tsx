@@ -1,6 +1,5 @@
 import { Button, Checkbox, Container, FormControlLabel } from "@mui/material";
 import PaymentBox from "../components/Forms/PaymentBox";
-import PaymentForm from "../components/Forms/PaymentForm";
 import ShipmentBox from "../components/Forms/ShipmentBox";
 import ShippingForm from "../components/Forms/ShippingForm";
 
