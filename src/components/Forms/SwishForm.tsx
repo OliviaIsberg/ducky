@@ -39,9 +39,9 @@ import {
       <form onSubmit={handleSubmit}>
         {/* phone number input */}
         <InputField
-          label="Telefonnummer: "
-          id="Telefonnummer"
-          name="Telefonnummer"
+          label="telefonnummer: "
+          id="phoneNumber"
+          name="phoneNumber"
           type="text"
           value={values.phoneNumber}
           onChange={handleChange}

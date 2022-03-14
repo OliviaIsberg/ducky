@@ -39,9 +39,9 @@ import {
       <form onSubmit={handleSubmit}>
         {/* Personal number input */}
         <InputField
-          label="Personnummer: "
-          id="Personnummer"
-          name="Personnummer"
+          label="personnummer: "
+          id="personalNumber"
+          name="personalNumber"
           type="text"
           value={values.personalNumber}
           onChange={handleChange}
