@@ -59,8 +59,8 @@ import {
         {/* First name input */}
         <InputField
           label="förnamn: "
-          id="förnamn"
-          name="förnamn"
+          id="firstName"
+          name="firstName"
           type="text"
           value={values.firstName}
           onChange={handleChange}
@@ -71,8 +71,8 @@ import {
         {/* Last name input */}
         <InputField
           label="efternamn: "
-          id="efternamn"
-          name="efternamn"
+          id="lastName"
+          name="lastName"
           type="text"
           value={values.lastName}
           onChange={handleChange}
@@ -83,8 +83,8 @@ import {
         {/* Street adress input */}
         <InputField
           label="postadress: "
-          id="postadress"
-          name="postadress"
+          id="streetAdress"
+          name="streetAdress"
           type="text"
           value={values.streetAdress}
           onChange={handleChange}
@@ -95,8 +95,8 @@ import {
         {/* Post code input */}
         <InputField
           label="postnummer: "
-          id="postnummer"
-          name="postnummer"
+          id="postCode"
+          name="postCode"
           type="text"
           value={values.postCode}
           onChange={handleChange}
@@ -108,8 +108,8 @@ import {
         {/* city input */}
         <InputField
           label="stad: "
-          id="stad"
-          name="stad"
+          id="city"
+          name="city"
           type="text"
           value={values.city}
           onChange={handleChange}
@@ -120,8 +120,8 @@ import {
         {/* phone number input */}
         <InputField
           label="telefonnummer: "
-          id="telefonnummer"
-          name="telefonnummer"
+          id="phoneNumber"
+          name="phoneNumber"
           type="text"
           pattern="[0-9 -+]{}"
           value={values.phoneNumber}
@@ -133,8 +133,8 @@ import {
         {/* email adress input */}
         <InputField
           label="e-postadress: "
-          id="e-postadress"
-          name="e-postadress"
+          id="emailAdress"
+          name="emailAdress"
           type="text"
           value={values.emailAdress}
           onChange={handleChange}
