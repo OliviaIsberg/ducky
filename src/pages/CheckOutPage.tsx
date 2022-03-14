@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import { Button, Checkbox, Container, FormControlLabel } from "@mui/material";
 import PaymentBox from "../components/Forms/PaymentBox";
 import PaymentForm from "../components/Forms/PaymentForm";
 import ShipmentBox from "../components/Forms/ShipmentBox";
@@ -10,7 +10,7 @@ function onShippingSubmit(){
 
 function CheckOutPage() {
   return (
-    <div className="checkOutContainer">
+    <Container maxWidth="md">
       <h2>Kassa</h2>
       {/* < CartSummary /> */}
       <h3>Välj dina betal och leveransmetoder</h3>
@@ -26,7 +26,6 @@ function CheckOutPage() {
       <h3>Payment method</h3>
       <PaymentBox />
       <h3>Payment details</h3>
-      <PaymentForm />
       {/* Newsletter checkbox, does nothing for now */}
       <FormControlLabel
         control={<Checkbox defaultChecked />}
@@ -38,7 +37,7 @@ function CheckOutPage() {
         label="Jag godkänner köpvillkor."
       />
 <Button variant="contained">Slutför beställning</Button>
-    </div>
+    </Container>
   );
 }
 
