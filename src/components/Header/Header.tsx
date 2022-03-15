@@ -1,13 +1,15 @@
 import { Box, Tabs, Tab, Container, Badge } from '@mui/material'
 import { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useUser } from '../../contexts/UserContext'
+import { useCart } from '../../contexts/ProductsInCartContext'
 
 interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
+  const { cart } = useCart()
   let navigate = useNavigate()
   const [value, setValue] = useState('/')
 
@@ -17,7 +19,7 @@ const Header: FC<HeaderProps> = () => {
   }
   const userContext = useUser()
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ marginBottom: '2rem' }}>
       <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
       <Box
         sx={{
@@ -30,8 +32,8 @@ const Header: FC<HeaderProps> = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
+          textColor="primary"
+          indicatorColor="primary"
           aria-label="secondary tabs example"
         >
           <Tab value="/" label="Hem" />
@@ -40,12 +42,14 @@ const Header: FC<HeaderProps> = () => {
           {!userContext.user && <Tab value="login" label="Logga in" />}
           {!!userContext.user && <Tab value="logout" label="Logga ut" />}
         </Tabs>
-        <Box>
-          <AccountCircleIcon />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <AccountCircleIcon color="action" />
           <h3>{userContext.user?.username}</h3>
-          <Badge badgeContent={4} color="primary">
-            <ShoppingCartIcon color="action" />
-          </Badge>
+          <Link to="cartPage">
+            <Badge badgeContent={cart?.length} color="primary">
+              <ShoppingCartIcon color="action" />
+            </Badge>
+          </Link>
         </Box>
       </Box>
     </Container>

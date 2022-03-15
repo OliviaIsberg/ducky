@@ -14,12 +14,14 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Product } from '../Api/Data'
+import { useCart } from '../contexts/ProductsInCartContext'
 
 interface Props {
   productList: Product[]
 }
 
 function ProductListPage({ productList }: Props) {
+  const { cart, setCart } = useCart()
   const [products] = useState(productList)
   const [ratingValue] = useState(5)
 
@@ -76,7 +78,12 @@ function ProductListPage({ productList }: Props) {
                   <Button variant="outlined">Visa</Button>
                 </Link>
                 <Button
-                  onClick={() => console.log(product.title)}
+                  onClick={() =>
+                    setCart([
+                      ...cart,
+                      { title: product.title, price: product.price },
+                    ])
+                  }
                   variant="contained"
                   endIcon={<AddShoppingCartIcon />}
                 >

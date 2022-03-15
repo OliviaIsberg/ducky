@@ -11,6 +11,7 @@ import { useState } from "react";
 import { UserContext, UserProvider } from "../contexts/UserContext";
 import { Login } from "@mui/icons-material";
 
+
 function App() {
   const [products] = useState<Product[]>(mockedProducts);
   const [user] = useState<User | undefined>(undefined);
@@ -33,7 +34,8 @@ function App() {
         </Route>
       </Routes>
     </UserProvider>
-  );
-}
+  )
+};
+
 
 export default App;
