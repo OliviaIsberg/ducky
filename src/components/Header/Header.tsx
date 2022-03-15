@@ -1,6 +1,6 @@
 import { Box, Tabs, Tab, Container, Badge } from '@mui/material'
 import { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useCart } from '../../contexts/ProductsInCartContext'
@@ -41,9 +41,11 @@ const Header: FC<HeaderProps> = () => {
         </Tabs>
         <Box>
           <AccountCircleIcon />
-          <Badge badgeContent={cart?.length} color="primary">
-            <ShoppingCartIcon color="action" />
-          </Badge>
+          <Link to="cartPage">
+            <Badge badgeContent={cart?.length} color="primary">
+              <ShoppingCartIcon color="action" />
+            </Badge>
+          </Link>
         </Box>
       </Box>
     </Container>

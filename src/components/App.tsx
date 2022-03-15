@@ -7,6 +7,7 @@ import CheckOutPage from '../pages/CheckOutPage'
 import ProductPage from '../pages/ProductPage'
 import { mockedProducts, Product } from '../Api/Data'
 import { useState } from 'react'
+import CartPage from '../pages/CartPage'
 
 function App() {
   const [products] = useState<Product[]>(mockedProducts)
@@ -19,6 +20,7 @@ function App() {
           <Route index element={<ProductListPage productList={products} />} />
           <Route path=":id" element={<ProductPage productList={products} />} />
         </Route>
+        <Route path="cartPage" element={<CartPage />} />
         <Route path="checkoutPage" element={<CheckOutPage />} />
         <Route path="about" element={<TextPage />} />
       </Route>
