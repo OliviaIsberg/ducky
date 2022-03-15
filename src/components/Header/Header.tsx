@@ -3,10 +3,12 @@ import { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { useCart } from '../../contexts/ProductsInCartContext'
 
 interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
+  const { cart } = useCart()
   let navigate = useNavigate()
   const [value, setValue] = useState('/')
 
@@ -16,7 +18,7 @@ const Header: FC<HeaderProps> = () => {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ marginBottom: '2rem' }}>
       <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
       <Box
         sx={{
@@ -39,7 +41,7 @@ const Header: FC<HeaderProps> = () => {
         </Tabs>
         <Box>
           <AccountCircleIcon />
-          <Badge badgeContent={4} color="primary">
+          <Badge badgeContent={cart?.length} color="primary">
             <ShoppingCartIcon color="action" />
           </Badge>
         </Box>
