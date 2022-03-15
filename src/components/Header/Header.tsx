@@ -1,12 +1,14 @@
 import { Box, Tabs, Tab, Container, Badge } from '@mui/material'
 import { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { useCart } from '../../contexts/ProductsInCartContext'
 
 interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
+  const { cart } = useCart()
   let navigate = useNavigate()
   const [value, setValue] = useState('/')
 
@@ -16,7 +18,7 @@ const Header: FC<HeaderProps> = () => {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ marginBottom: '2rem' }}>
       <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
       <Box
         sx={{
@@ -29,19 +31,21 @@ const Header: FC<HeaderProps> = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
+          textColor="primary"
+          indicatorColor="primary"
           aria-label="secondary tabs example"
         >
           <Tab value="/" label="Hem" />
           <Tab value="products" label="Produkter" />
           <Tab value="about" label="Information" />
         </Tabs>
-        <Box>
-          <AccountCircleIcon />
-          <Badge badgeContent={4} color="primary">
-            <ShoppingCartIcon color="action" />
-          </Badge>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <AccountCircleIcon color="action" />
+          <Link to="cartPage">
+            <Badge badgeContent={cart?.length} color="primary">
+              <ShoppingCartIcon color="action" />
+            </Badge>
+          </Link>
         </Box>
       </Box>
     </Container>
