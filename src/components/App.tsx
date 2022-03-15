@@ -6,13 +6,11 @@ import TextPage from "../pages/TextPage";
 import CheckOutPage from "../pages/CheckOutPage";
 import ProductPage from "../pages/ProductPage";
 import LoginPage from "../pages/LoginPage";
-import { mockedProducts, Product, User } from "../Api/Data";
+import { mockedProducts, Product} from "../Api/Data";
 import { useState } from "react";
-
 
 function App() {
   const [products] = useState<Product[]>(mockedProducts);
-  const [user] = useState<User | undefined>(undefined);
 
   return ( 
       <Routes>
