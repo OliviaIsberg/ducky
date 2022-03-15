@@ -13,6 +13,6 @@ export const ProductsInCart: FC = ({ children }) => {
     </CartContext.Provider>
   )
 }
-
+export default ProductsInCart
 // useCart hook
 export const useCart = () => useContext(CartContext)
