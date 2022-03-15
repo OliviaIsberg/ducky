@@ -31,16 +31,16 @@ const Header: FC<HeaderProps> = () => {
         <Tabs
           value={value}
           onChange={handleChange}
-          textColor="secondary"
-          indicatorColor="secondary"
+          textColor="primary"
+          indicatorColor="primary"
           aria-label="secondary tabs example"
         >
           <Tab value="/" label="Hem" />
           <Tab value="products" label="Produkter" />
           <Tab value="about" label="Information" />
         </Tabs>
-        <Box>
-          <AccountCircleIcon />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <AccountCircleIcon color="action" />
           <Link to="cartPage">
             <Badge badgeContent={cart?.length} color="primary">
               <ShoppingCartIcon color="action" />
