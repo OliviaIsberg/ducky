@@ -6,18 +6,15 @@ import TextPage from "../pages/TextPage";
 import CheckOutPage from "../pages/CheckOutPage";
 import ProductPage from "../pages/ProductPage";
 import LoginPage from "../pages/LoginPage";
-import { mockedProducts, mockedUsers, Product, User } from "../Api/Data";
+import { mockedProducts, Product, User } from "../Api/Data";
 import { useState } from "react";
-import { UserContext, UserProvider } from "../contexts/UserContext";
-import { Login } from "@mui/icons-material";
 
 
 function App() {
   const [products] = useState<Product[]>(mockedProducts);
   const [user] = useState<User | undefined>(undefined);
 
-  return (
-    <UserProvider>
+  return ( 
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<StartPage />} />
@@ -33,7 +30,6 @@ function App() {
           <Route path="login" element={<LoginPage />} />
         </Route>
       </Routes>
-    </UserProvider>
   )
 };
 
