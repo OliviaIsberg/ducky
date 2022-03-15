@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { FC, useContext } from 'react'
 import { useState } from 'react'
+import { Product } from '../Api/Data'
 
-export const CartContext = React.createContext<any>([])
+export const CartContext = React.createContext<any>([]) //typings??
 
-function ProductsInCart({ children }: React.PropsWithChildren<unknown>) {
-  const [cart, setCart] = useState<any>([])
+export const ProductsInCart: FC = ({ children }) => {
+  const [cart, setCart] = useState<Product[]>([])
 
   return (
     <CartContext.Provider value={{ cart, setCart }}>
@@ -13,6 +14,5 @@ function ProductsInCart({ children }: React.PropsWithChildren<unknown>) {
   )
 }
 
-export default ProductsInCart
-
+// useCart hook
 export const useCart = () => useContext(CartContext)
