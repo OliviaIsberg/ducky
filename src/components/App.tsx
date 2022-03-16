@@ -5,19 +5,19 @@ import StartPage from '../pages/StartPage'
 import TextPage from '../pages/TextPage'
 import CheckOutPage from '../pages/CheckOutPage'
 import ProductPage from '../pages/ProductPage'
-import { mockedProducts, Product } from '../Api/Data'
-import { useState } from 'react'
 import CartPage from '../pages/CartPage'
+import { useCart } from '../contexts/ProductsInCartContext'
 
 function App() {
-  const [products] = useState<Product[]>(mockedProducts)
-
+  const {
+    state: { products },
+  } = useCart()
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<StartPage />} />
         <Route path="products">
-          <Route index element={<ProductListPage productList={products} />} />
+          <Route index element={<ProductListPage />} />
           <Route path=":id" element={<ProductPage productList={products} />} />
         </Route>
         <Route path="cartPage" element={<CartPage />} />
