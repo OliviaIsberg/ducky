@@ -19,14 +19,11 @@ const Header: FC<HeaderProps> = () => {
     navigate(newValue);
   };
 
-  // const getUsers = () => Object.values(mockedUsers);
-  // const result = getUsers();
-  // console.log(result);
-
-  const userContext = useUser();
+  const {user, logout} = useUser();
   return (
     <>
-    <AdminBar/>
+    {!!user?.isAdmin && <AdminBar/>}
+    
     <Container maxWidth="md" sx={{ marginBottom: "2rem" }}>
       <Box sx={{ width: "100%" }}>{/* logo här */}</Box>
       <Box
@@ -47,19 +44,19 @@ const Header: FC<HeaderProps> = () => {
           <Tab value="/" label="Hem" />
           <Tab value="products" label="Produkter" />
           <Tab value="about" label="Information" />
-          {!userContext.user && <Tab value="login" label="Logga in" />}
-          {!!userContext.user && (
+          {!user && <Tab value="login" label="Logga in" />}
+          {!!user && (
             <Tab
               value="login"
               label="Logga ut"
-              onClick={() => userContext.logout()}
+              onClick={() => logout()}
             />
           )}
         </Tabs>
         <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <AccountCircleIcon color="action" />
-          {!!userContext.user && (
-            <h3>Välkommen in {userContext.user?.username}</h3>
+          {!!user && (
+            <h3>Välkommen in {user?.username}</h3>
           )}
           <Link to="cartPage">
             <Badge badgeContent={cart?.length} color="primary">
