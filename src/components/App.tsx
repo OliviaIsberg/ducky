@@ -8,6 +8,7 @@ import ProductPage from "../pages/ProductPage";
 import LoginPage from "../pages/LoginPage";
 import { mockedProducts, Product} from "../Api/Data";
 import { useState } from "react";
+import ConfirmedOrderPage from "../pages/ConfirmedPage";
 
 function App() {
   const [products] = useState<Product[]>(mockedProducts);
@@ -24,6 +25,7 @@ function App() {
             />
           </Route>
           <Route path="checkoutPage" element={<CheckOutPage />} />
+          <Route path="confirmed-order" element={<ConfirmedOrderPage />} />
           <Route path="about" element={<TextPage />} />
           <Route path="login" element={<LoginPage />} />
         </Route>

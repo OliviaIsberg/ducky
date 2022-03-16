@@ -1,12 +1,16 @@
-import { Button, Checkbox, Container, FormControlLabel } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  Link,
+} from "@mui/material";
 import PaymentBox from "../components/Forms/PaymentBox";
 import ShipmentBox from "../components/Forms/ShipmentBox";
 import ShippingForm from "../components/Forms/ShippingForm";
+import ConfirmedOrderPage from "./ConfirmedPage";
 
-
-function onShippingSubmit(){
-
-}
+function onShippingSubmit() {}
 
 function CheckOutPage() {
   return (
@@ -19,7 +23,7 @@ function CheckOutPage() {
         nedan för att se tillgängliga leveransval.
       </p>
       <h3>Leveransadress</h3>
-      <ShippingForm onSubmit={onShippingSubmit}/>
+      <ShippingForm onSubmit={onShippingSubmit} />
       <h3>Leveransmetod</h3>
       <ShipmentBox />
 
@@ -32,11 +36,13 @@ function CheckOutPage() {
         label="Ja tack! Jag vill ha nyhetsbrev."
       />
 
-<FormControlLabel
+      <FormControlLabel
         control={<Checkbox />}
         label="Jag godkänner köpvillkoren."
       />
-<Button variant="contained">Slutför beställning</Button>
+      <Link href="confirmed-order">
+        <Button variant="contained">Slutför beställning</Button>
+      </Link>
     </Container>
   );
 }

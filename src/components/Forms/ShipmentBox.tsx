@@ -8,10 +8,12 @@ function ShipmentBox(){
     const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const handleListItemClick = (
+
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
     setSelectedIndex(index);
+    
   };
   return(
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
