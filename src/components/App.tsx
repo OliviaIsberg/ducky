@@ -1,3 +1,4 @@
+
 import { Route, Routes } from 'react-router-dom'
 import ProductListPage from '../pages/ProductListPage'
 import Layout from './Layout'
@@ -6,6 +7,7 @@ import TextPage from '../pages/TextPage'
 import CheckOutPage from '../pages/CheckOutPage'
 import ProductPage from '../pages/ProductPage'
 import CartPage from '../pages/CartPage'
+import LoginPage from "../pages/LoginPage";
 import { useCart } from '../contexts/ProductsInCartContext'
 
 function App() {
@@ -20,12 +22,12 @@ function App() {
           <Route index element={<ProductListPage />} />
           <Route path=":id" element={<ProductPage productList={products} />} />
         </Route>
-        <Route path="cartPage" element={<CartPage />} />
         <Route path="checkoutPage" element={<CheckOutPage />} />
         <Route path="about" element={<TextPage />} />
-      </Route>
-    </Routes>
+        <Route path="login" element={<LoginPage />} />
+      </Routes>
   )
-}
+};
 
-export default App
+
+export default App;

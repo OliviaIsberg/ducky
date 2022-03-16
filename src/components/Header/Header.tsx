@@ -17,10 +17,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-
 import { useCart } from '../../contexts/ProductsInCartContext'
 import React from 'react'
 import { Product } from '../../Api/Data'
+import { useUser } from "../../contexts/UserContext";
+import AdminBar from "./AdminBar";
+
 
 interface HeaderProps {}
 
@@ -33,10 +35,11 @@ const Header: FC<HeaderProps> = () => {
   const [value, setValue] = useState('/')
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
-    navigate(newValue)
-  }
+    setValue(newValue);
+    navigate(newValue);
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -49,15 +52,20 @@ const Header: FC<HeaderProps> = () => {
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
+  const {user, logout} = useUser();
+
   return (
-    <Container maxWidth="md" sx={{ marginBottom: '2rem' }}>
-      <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
+    <>
+    {!!user?.isAdmin && <AdminBar/>}
+    
+    <Container maxWidth="md" sx={{ marginBottom: "2rem" }}>
+      <Box sx={{ width: "100%" }}>{/* logo här */}</Box>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
         }}
       >
         <Tabs
@@ -70,16 +78,28 @@ const Header: FC<HeaderProps> = () => {
           <Tab value="/" label="Hem" />
           <Tab value="products" label="Produkter" />
           <Tab value="about" label="Information" />
+          {!user && <Tab value="login" label="Logga in" />}
+          {!!user && (
+            <Tab
+              value="login"
+              label="Logga ut"
+              onClick={() => logout()}
+            />
+          )}
         </Tabs>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <AccountCircleIcon color="action" />
+          {!!user && (
+            <h3>Välkommen in {user?.username}</h3>
+          )}
+
           <Button
             variant="contained"
             aria-describedby={id}
             onClick={handleClick}
           >
             Din kundkorg
-            <Badge badgeContent={cart?.length} color="info" showZero>
+            <Badge badgeContent={cart?.length} color="info" showZero>         
               <ShoppingCartIcon color="action" />
             </Badge>
           </Button>
@@ -133,7 +153,8 @@ const Header: FC<HeaderProps> = () => {
         </Box>
       </Box>
     </Container>
-  )
-}
+    </>
+  );
+};
 
-export default Header
+export default Header;
