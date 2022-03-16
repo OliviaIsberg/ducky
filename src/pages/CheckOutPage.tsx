@@ -3,6 +3,7 @@ import PaymentBox from "../components/Forms/PaymentBox";
 import ShipmentBox from "../components/Forms/ShipmentBox";
 import ShippingForm from "../components/Forms/ShippingForm";
 
+
 function onShippingSubmit(){
 
 }
@@ -17,14 +18,14 @@ function CheckOutPage() {
         Beställningar som görs innan kl 16.00 skickas samma dag. Ange uppgifter
         nedan för att se tillgängliga leveransval.
       </p>
-      <h3>Delivery adress</h3>
+      <h3>Leveransadress</h3>
       <ShippingForm onSubmit={onShippingSubmit}/>
-      <h3>Delivery method</h3>
+      <h3>Leveransmetod</h3>
       <ShipmentBox />
 
-      <h3>Payment method</h3>
+      <h3>Betalningsmetod</h3>
       <PaymentBox />
-      <h3>Payment details</h3>
+      <h3>Betalningsdetaljer</h3>
       {/* Newsletter checkbox, does nothing for now */}
       <FormControlLabel
         control={<Checkbox defaultChecked />}
@@ -33,7 +34,7 @@ function CheckOutPage() {
 
 <FormControlLabel
         control={<Checkbox />}
-        label="Jag godkänner köpvillkor."
+        label="Jag godkänner köpvillkoren."
       />
 <Button variant="contained">Slutför beställning</Button>
     </Container>
