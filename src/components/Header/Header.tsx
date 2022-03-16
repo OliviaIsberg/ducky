@@ -5,6 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useUser } from "../../contexts/UserContext";
 import { useCart } from "../../contexts/ProductsInCartContext";
+import AdminBar from "./AdminBar";
 
 interface HeaderProps {}
 
@@ -24,6 +25,8 @@ const Header: FC<HeaderProps> = () => {
 
   const userContext = useUser();
   return (
+    <>
+    <AdminBar/>
     <Container maxWidth="md" sx={{ marginBottom: "2rem" }}>
       <Box sx={{ width: "100%" }}>{/* logo här */}</Box>
       <Box
@@ -66,6 +69,7 @@ const Header: FC<HeaderProps> = () => {
         </Box>
       </Box>
     </Container>
+    </>
   );
 };
 
