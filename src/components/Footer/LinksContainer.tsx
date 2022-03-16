@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -27,7 +28,7 @@ function LinksContainer() {
             Hjälp
           </Typography>
           <Typography gutterBottom variant="body1">
-            Vanliga frågor
+            <Link to="faq">Vanliga frågor</Link>
           </Typography>
           <Typography gutterBottom variant="body1">
             Användarvillkor
