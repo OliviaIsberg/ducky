@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import klarna from '../../assets/PaymentLogos/klarna.png';
@@ -9,6 +9,7 @@ import maestro from '../../assets/PaymentLogos/maestro.png';
 import instabox from '../../assets/ShippingLogos/instabox-short.png';
 import postnord from '../../assets/ShippingLogos/postnord-short.svg';
 import schenker from '../../assets/ShippingLogos/schenker.png';
+import SubscribeForm from '../Forms/SubscribeForm';
 
 function LinksContainer() {
   return (
@@ -41,11 +42,7 @@ function LinksContainer() {
         </Box>
 
         <Box>
-          <h4>Anmäl dig till vårt nyhetsbrev</h4>
-          <input type="email"></input>
-          <Button size="small" variant="contained" color="secondary">
-            Följ
-          </Button>
+          <SubscribeForm />
         </Box>
         <Box>
           <Box
