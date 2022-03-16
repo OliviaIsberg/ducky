@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   Container,
   Divider,
   IconButton,
@@ -7,28 +8,34 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Tooltip,
   Typography,
 } from '@mui/material'
-import { Key, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCart } from '../contexts/ProductsInCartContext'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import PaymentIcon from '@mui/icons-material/Payment'
+import RemoveIcon from '@mui/icons-material/Remove'
+import AddIcon from '@mui/icons-material/Add'
 import { Box } from '@mui/system'
 import { Link } from 'react-router-dom'
 
 function CartPage() {
-  const { cart, setCart } = useCart()
+  const {
+    state: { cart },
+    dispatch,
+  } = useCart()
   const [total, setTotal] = useState()
 
   useEffect(() => {
     setTotal(
       cart.reduce(
-        (acc: number, curr: { price: any }) => acc + Number(curr.price),
+        (acc: number, current: { price: number; qty: number }) =>
+          acc + Number(current.price) * current.qty,
         0
       )
     )
   }, [cart])
-  console.log(cart)
 
   return (
     <Container maxWidth="md">
@@ -37,32 +44,63 @@ function CartPage() {
       </Typography>
       <Divider light />
       <List>
-        {cart.length !== 0 ? (
+        {cart.length > 0 ? (
           cart.map(
             (product: {
-              id: Key | null | undefined
+              id: number | null | undefined
               title: string
               price: number
+              qty: number
             }) => (
               <ListItem key={product.id}>
                 <ListItemIcon>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() =>
-                      setCart(
-                        cart.filter(
-                          (c: { id: Key | null | undefined }) =>
-                            c.id !== product.id
-                        )
-                      )
-                    }
-                  >
-                    <RemoveCircleIcon color="error" />
-                  </IconButton>
+                  <Tooltip title="Ta bort">
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => {
+                        dispatch({
+                          type: 'REMOVE_FROM_CART',
+                          payload: product,
+                        })
+                      }}
+                    >
+                      <RemoveCircleIcon color="error" />
+                    </IconButton>
+                  </Tooltip>
                 </ListItemIcon>
                 <ListItemText>{product.title}</ListItemText>
+                <ButtonGroup>
+                  <Button
+                    onClick={() => {
+                      dispatch({
+                        type: 'CHANGE_PROD_QTY',
+                        payload: {
+                          id: product.id,
+                          qty: (product.qty = product.qty - 1),
+                        },
+                      })
+                    }}
+                  >
+                    <RemoveIcon />
+                  </Button>
+                  <Button>{product.qty}</Button>
+                  <Button
+                    onClick={() => {
+                      dispatch({
+                        type: 'CHANGE_PROD_QTY',
+                        payload: {
+                          id: product.id,
+                          qty: (product.qty = product.qty + 1),
+                        },
+                      })
+                    }}
+                  >
+                    <AddIcon />
+                  </Button>
+                </ButtonGroup>
+
                 <ListItemText sx={{ textAlign: 'right' }}>
-                  {product.price} kr
+                  {product.price * product.qty} kr
                 </ListItemText>
               </ListItem>
             )
