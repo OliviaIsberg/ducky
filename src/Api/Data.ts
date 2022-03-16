@@ -38,7 +38,6 @@ export interface User{
     username: string
     password: string
     isAdmin: boolean
-    isLoggedIn: boolean
 }
 
 
@@ -47,11 +46,9 @@ export const mockedUsers: User[] = [
         username: "Regular-User",
         password: "User",
         isAdmin: false,
-        isLoggedIn:false,
     }, {
         username: "Admin-User",
         password: "Admin",
         isAdmin: true,
-        isLoggedIn: false,
     }
 ]
