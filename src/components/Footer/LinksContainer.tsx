@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import klarna from '../../assets/PaymentLogos/klarna.png';
@@ -23,10 +23,16 @@ function LinksContainer() {
         }}
       >
         <Box sx={{ gap: '1rem' }}>
-          <h4>Hjälp</h4>
-          <p>Vanliga frågor</p>
-          <p>Användarvillkor</p>
-          <p>Kundtjänst</p>
+          <Typography gutterBottom variant="h6">
+            Hjälp
+          </Typography>
+          <Typography gutterBottom variant="body1">
+            Vanliga frågor
+          </Typography>
+          <Typography gutterBottom variant="body1">
+            Användarvillkor
+          </Typography>
+          <Typography variant="body1">Kundtjänst</Typography>
         </Box>
         <Box
           sx={{
@@ -36,7 +42,9 @@ function LinksContainer() {
             alignItems: 'center',
           }}
         >
-          <h4>Följ oss</h4>
+          <Typography gutterBottom variant="h6">
+            Följ oss
+          </Typography>
           <FacebookOutlinedIcon color="primary" fontSize="large" />
           <InstagramIcon color="secondary" fontSize="large" />
         </Box>
