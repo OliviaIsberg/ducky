@@ -6,14 +6,16 @@ import { LoginDetails } from "../components/Forms/LoginForm";
 interface UserContextValue {
   isLoading: boolean;
   user?: User;
-  login: (loginDetails: LoginDetails) => void;
+  login: (loginDetails: LoginDetails) => Promise<boolean>;
   logout: () => void;
 }
 
 export const UserContext = React.createContext<UserContextValue>({
   isLoading: false,
-  user: { username: "", password: "", isAdmin: false},
-  login: (loginDetails: LoginDetails) => {},
+  user: { username: "", password: "", isAdmin: false },
+  login: (loginDetails: LoginDetails): Promise<boolean> => {
+    return new Promise(() => {});
+  },
   logout: () => {},
 });
 
@@ -23,9 +25,17 @@ export const UserProvider: React.FC<React.ReactNode> = ({ children }) => {
 
   const login = async (loginDetails: LoginDetails) => {
     setIsLoading(true);
-    const user = await FakeUserFetch("api/login", loginDetails);
-    setUser(user);
-    setIsLoading(false);
+
+    return FakeUserFetch(loginDetails)
+      .then((user) => {
+        setUser(user);
+        setIsLoading(false);
+        return true;
+      })
+      .catch((e) => {
+        setIsLoading(false);
+        throw e;
+      });
   };
 
   const logout = async () => {
