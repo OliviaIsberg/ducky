@@ -139,7 +139,7 @@ function CartPage() {
         <Typography variant="h6" textAlign="right">
           {total} kr
         </Typography>
-        <Link to="/checkoutPage">
+        <Link to={cart.length > 0 ? '/checkoutPage' : ''}>
           <Button
             variant="outlined"
             endIcon={<PaymentIcon />}
