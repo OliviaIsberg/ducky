@@ -9,9 +9,9 @@ import {
   Button,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { useState } from 'react'
 import { useCart } from '../../contexts/ProductsInCartContext'
+import BuyButton from '../BuyButton'
 
 function ProductCard({ product }: any) {
   const {
@@ -68,18 +68,7 @@ function ProductCard({ product }: any) {
         {cart.some((p: any) => p.id === product.id) ? (
           <Button>I kundkorgen</Button>
         ) : (
-          <Button
-            onClick={() => {
-              dispatch({
-                type: 'ADD_TO_CART',
-                payload: product,
-              })
-            }}
-            variant="contained"
-            endIcon={<AddShoppingCartIcon />}
-          >
-            Köp nu {product.price}kr
-          </Button>
+          <BuyButton dispatch={dispatch} product={product} />
         )}
       </CardActions>
     </Card>
