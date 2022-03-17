@@ -7,6 +7,7 @@ import {
   Container,
   Typography,
 } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Link, useParams } from 'react-router-dom'
 import { Product } from '../Api/Data'
 import BuyButton from '../components/BuyButton'
@@ -28,7 +29,11 @@ function ProductPage({ productList }: Props) {
 
   return (
     <Container maxWidth="md">
-      <Link to="/products">Tillbaka till produktsidan</Link>
+      <Link to="/products">
+        <Button startIcon={<ArrowBackIcon />}>
+          Tillbaka till produktsidan
+        </Button>
+      </Link>
       {product && (
         <Card>
           <CardContent>
