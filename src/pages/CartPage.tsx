@@ -140,7 +140,11 @@ function CartPage() {
           {total} kr
         </Typography>
         <Link to="/checkoutPage">
-          <Button variant="outlined" endIcon={<PaymentIcon />}>
+          <Button
+            variant="outlined"
+            endIcon={<PaymentIcon />}
+            disabled={cart.length > 0 ? false : true}
+          >
             Till betalning
           </Button>
         </Link>
