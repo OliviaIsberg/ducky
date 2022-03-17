@@ -5,6 +5,8 @@ import {
   FormControlLabel,
   Link,
 } from "@mui/material";
+import { Navigate, useNavigate } from "react-router-dom";
+import { placeOrderFetch } from "../Api/Api";
 import PaymentBox from "../components/Forms/PaymentBox";
 import ShipmentBox from "../components/Forms/ShipmentBox";
 import ShippingForm from "../components/Forms/ShippingForm";
@@ -40,11 +42,21 @@ function CheckOutPage() {
         control={<Checkbox />}
         label="Jag godkänner köpvillkoren."
       />
-      <Link href="confirmed-order">
-        <Button variant="contained">Slutför beställning</Button>
-      </Link>
+      <Button variant="contained" onClick={() => confirmOrder()}>
+        Slutför beställning
+      </Button>
     </Container>
   );
+}
+
+async function confirmOrder() {
+  // const success = await placeOrderFetch()
+  // let navigate = useNavigate();
+  // function handleClick() {
+  //   navigate('/confirmed-order')}
+  // if (success) {
+  //   return <Navigate replace = {true} to ='/confirmed-order' />
+  // }
 }
 
 export default CheckOutPage;
