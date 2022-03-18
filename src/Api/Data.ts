@@ -5,8 +5,6 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import klarna from "../assets/PaymentLogos/klarna-square.jpg";
 import swish from "../assets/PaymentLogos/swish.svg";
 import { SvgIcon } from '@mui/material';
-import KlarnaForm from '../components/Forms/KlarnaForm';
-import { Component } from 'react';
 
 export interface Product {
     title: string
@@ -81,14 +79,14 @@ export const deliveryOptions: Delivery[] = [
         price: 19,
         logo: postnord,
         id: 1
-    },{
+    }, {
         name: "Schenker",
         altText: "Spårbar leverans, 1-2 arbetsdagar",
         shippingTime: 2,
         price: 29,
         logo: schenker,
         id: 2
-    },{
+    }, {
         name: "Instabox",
         altText: "Leverans till box, 1-2 arbetsdagar",
         shippingTime: 2,
@@ -113,12 +111,12 @@ export const paymentOptions: Payment[] = [
         altText: "Välj att delbetala, betala senare, eller i slutet av månaden",
         logo: klarna,
         id: 1
-    },{
+    }, {
         name: "Swish",
         altText: "Betala enkelt med mobilen",
         logo: swish,
         id: 2
-    },{
+    }, {
         name: "Kortbetalning",
         altText: "Betala med Visa / Mastercard / Maestro",
         icon: CreditCardIcon,

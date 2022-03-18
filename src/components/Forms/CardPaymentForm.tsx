@@ -9,9 +9,9 @@ import DatePicker from "@mui/lab/DatePicker";
 type PaymentDetailsSchemaType = Record<keyof PaymentDetails, Yup.AnySchema>;
 
 export const PaymentFormSchema = Yup.object().shape<PaymentDetailsSchemaType>({
-  cardNumber: Yup.string().required('Vänligen fyll i ditt kortnummer.'),
-  cvc: Yup.string().required('Vänligen fyll i din CVC-kod.'),
-  expDate: Yup.string().required('Vänligen fyll i utgångsdatum.'),
+  cardNumber: Yup.string().required("Vänligen fyll i ditt kortnummer."),
+  cvc: Yup.string().required("Vänligen fyll i din CVC-kod."),
+  expDate: Yup.string().required("Vänligen fyll i utgångsdatum."),
 });
 
 export interface PaymentDetails {
@@ -57,8 +57,8 @@ function CardPaymentForm(props: Props) {
       {/* CVC input */}
       <InputField
         label="cvc: "
-        id="cardDetails.cvc"
-        name="cardDetails.cvc"
+        id="paymentDetails.cvc"
+        name="paymentDetails.cvc"
         type="cvc"
         value={values.paymentDetails.cvc}
         onChange={handleChange}
@@ -77,8 +77,8 @@ function CardPaymentForm(props: Props) {
           renderInput={(params) => (
             <InputField
               label={params.label}
-              id="cardDetails.expDate"
-              name="cardDetails.expDate"
+              id="paymentDetails.expDate"
+              name="paymentDetails.expDate"
               type="date"
               placeholder=""
               onBlur={handleBlur}

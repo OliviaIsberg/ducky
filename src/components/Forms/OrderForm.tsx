@@ -3,7 +3,7 @@ import ShippingForm, {
   emptyShippingForm,
   ShippingAdress,
 } from "./ShippingForm";
-import { Form, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import PaymentBox from "./PaymentBox";
 import { FormControlLabel, Checkbox, Button } from "@mui/material";
@@ -15,6 +15,8 @@ import {
 } from "./CardPaymentForm";
 import { KlarnaDetails, emptyKlarnaForm, KlarnaFormSchema } from "./KlarnaForm";
 import { SwishDetails, emptySwishForm, SwishFormSchema } from "./SwishForm";
+import { Navigate, useNavigate } from "react-router-dom";
+import { placeOrderFetch } from "../../Api/Api";
 
 export interface OrderData {
   shippingAdress: ShippingAdress;
@@ -39,9 +41,7 @@ const OrderFormSchema = Yup.object().shape<OrderSchemaType>({
   swishDetails: SwishFormSchema,
 });
 
-function onSubmit(orderData: OrderData){
-
-}
+function onSubmit(orderData: OrderData) {}
 
 interface Props {
   defaultOrderData?: OrderData;
@@ -69,7 +69,7 @@ function OrderForm(props: Props) {
 
       {/* Payment methods (and payment details) */}
       <h3>Betalningsmetod</h3>
-      <PaymentBox formikProps={formikProps}/>
+      <PaymentBox formikProps={formikProps} />
 
       {/* Newsletter checkbox, does nothing for now */}
       <FormControlLabel
@@ -92,12 +92,13 @@ function OrderForm(props: Props) {
 }
 
 async function confirmOrder() {
-  // const success = await placeOrderFetch()
+  // const success = await placeOrderFetch();
   // let navigate = useNavigate();
   // function handleClick() {
-  //   navigate('/confirmed-order')}
+  //   navigate("/confirmed-order");
+  // }
   // if (success) {
-  //   return <Navigate replace = {true} to ='/confirmed-order' />
+  //   return <Navigate replace={true} to="/confirmed-order" />;
   // }
 }
 

@@ -7,8 +7,8 @@ import InputField from "./InputField";
 type LoginDetailsSchemaType = Record<keyof LoginDetails, Yup.AnySchema>;
 
 const LoginFormSchema = Yup.object().shape<LoginDetailsSchemaType>({
-  username: Yup.string().required('Vänligen fyll i ditt användarnamn.'),
-  password: Yup.string().required('Vänligen fyll i ditt lösenord.'),
+  username: Yup.string().required("Vänligen fyll i ditt användarnamn."),
+  password: Yup.string().required("Vänligen fyll i ditt lösenord."),
 });
 
 export interface LoginDetails {
