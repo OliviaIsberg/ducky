@@ -1,14 +1,17 @@
-import React, { FC, useContext } from 'react'
-import { useState } from 'react'
-import { Product } from '../Api/Data'
+import React, { FC, useContext, useReducer } from 'react'
+import { mockedProducts } from '../Api/Data'
+import { cartReducer } from './Reducers'
 
-export const CartContext = React.createContext<any>([]) //typings??
+export const CartContext = React.createContext<any>(null) //typings??
 
 export const ProductsInCart: FC = ({ children }) => {
-  const [cart, setCart] = useState<Product[]>([])
+  const [state, dispatch] = useReducer(cartReducer, {
+    products: mockedProducts,
+    cart: [],
+  })
 
   return (
-    <CartContext.Provider value={{ cart, setCart }}>
+    <CartContext.Provider value={{ state, dispatch }}>
       {children}
     </CartContext.Provider>
   )

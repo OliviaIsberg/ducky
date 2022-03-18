@@ -1,4 +1,6 @@
-import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import klarna from '../../assets/PaymentLogos/klarna.png';
@@ -6,77 +8,98 @@ import swish from '../../assets/PaymentLogos/swish.svg';
 import visa from '../../assets/PaymentLogos/visa.png';
 import mastercard from '../../assets/PaymentLogos/mastercard.png';
 import maestro from '../../assets/PaymentLogos/maestro.png';
-import instabox from '../../assets/ShippingLogos/instabox-short.png';
-import postnord from '../../assets/ShippingLogos/postnord-short.svg';
-import schenker from '../../assets/ShippingLogos/schenker.png';
+import instabox from '../../assets/ShippingLogos/instabox-full.jpg';
+import postnord from '../../assets/ShippingLogos/postnord-full.png';
+import schenker from '../../assets/ShippingLogos/schenker-full.png';
 import SubscribeForm from '../Forms/SubscribeForm';
 
 function LinksContainer() {
   return (
-    <Box>
-      <Box
+    <Grid
+      container
+      spacing={3}
+      sx={{ margin: 'auto', width: '70%', padding: '3rem 0' }}
+    >
+      <Grid
+        item
+        xs={12}
+        md={4}
+        lg={2}
+        sx={{ display: 'flex', justifyContent: 'center' }}
+      >
+        <Box>
+          <Typography gutterBottom variant="h6">
+            Hjälp
+          </Typography>
+          <Typography gutterBottom variant="body1">
+            <Link to="faq">Vanliga frågor</Link>
+          </Typography>
+          <Typography gutterBottom variant="body1">
+            <Link to="termsOfUse">Användarvillkor</Link>
+          </Typography>
+          <Typography variant="body1">
+            <Link to="support">Kundtjänst</Link>
+          </Typography>
+        </Box>
+      </Grid>
+      <Grid
+        item
+        xs={11}
+        md={4}
+        lg={2}
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          padding: '2rem 3rem',
-          gap: '8rem',
         }}
       >
-        <Box sx={{ gap: '1rem' }}>
-          <h4>Hjälp</h4>
-          <p>Vanliga frågor</p>
-          <p>Användarvillkor</p>
-          <p>Kundtjänst</p>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
-            alignItems: 'center',
-          }}
-        >
-          <h4>Följ oss</h4>
+        <Box>
+          <Typography gutterBottom variant="h6">
+            Följ oss
+          </Typography>
           <FacebookOutlinedIcon color="primary" fontSize="large" />
           <InstagramIcon color="secondary" fontSize="large" />
         </Box>
-
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={4}
+        lg={4}
+        sx={{ display: 'flex', justifyContent: 'center' }}
+      >
         <Box>
           <SubscribeForm />
         </Box>
-        <Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              gap: '1rem',
-              alignItems: 'center',
-            }}
-          >
-            <img width="75" height="40" src={klarna} alt=""></img>
-            <img width="60" height="60" src={swish} alt=""></img>
-            <img width="50" height="30" src={visa} alt=""></img>
-            <img width="50" height="30" src={maestro} alt=""></img>
-            <img width="50" height="30" src={mastercard} alt=""></img>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              gap: '4rem',
-              marginTop: '2rem',
-              alignItems: 'center',
-            }}
-          >
-            <img width="50" height="50" src={instabox} alt=""></img>
-            <img width="50" height="50" src={postnord} alt=""></img>
-            <img width="90" height="20" src={schenker} alt=""></img>
-          </Box>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        lg={2}
+        sx={{ display: 'flex', justifyContent: 'center' }}
+      >
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <img width="75" height="40" src={klarna} alt=""></img>
+          <img width="75" height="70" src={swish} alt=""></img>
+          <img width="75" height="40" src={visa} alt=""></img>
+          <img width="75" height="40" src={maestro} alt=""></img>
+          <img width="75" height="40" src={mastercard} alt=""></img>
         </Box>
-      </Box>
-    </Box>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        lg={2}
+        sx={{ display: 'flex', justifyContent: 'center' }}
+      >
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <img width="100" height="40" src={instabox} alt=""></img>
+          <img width="100" height="40" src={postnord} alt=""></img>
+          <img width="90" height="20" src={schenker} alt=""></img>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
 

@@ -7,9 +7,11 @@ import {
   Container,
   Typography,
 } from '@mui/material'
-// import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { Link, useParams } from 'react-router-dom'
 import { Product } from '../Api/Data'
+import BuyButton from '../components/BuyButton'
+import { useCart } from '../contexts/ProductsInCartContext'
 
 interface Props {
   productList: Product[]
@@ -17,15 +19,21 @@ interface Props {
 
 function ProductPage({ productList }: Props) {
   let { id } = useParams()
-  // const [product] = useState<Product | undefined>(
-  //   productList.find((item) => item.id.toString() === id)
-  // )
+  const {
+    state: { cart },
+    dispatch,
+  } = useCart()
   const product: Product | undefined = productList.find(
     (item) => item.id.toString() === id
   )
 
   return (
     <Container maxWidth="md">
+      <Link to="/products">
+        <Button startIcon={<ArrowBackIcon />}>
+          Tillbaka till produktsidan
+        </Button>
+      </Link>
       {product && (
         <Card>
           <CardContent>
@@ -45,7 +53,11 @@ function ProductPage({ productList }: Props) {
             {/* <Rating name="read-only" value={ratingValue} readOnly /> */}
           </CardContent>
           <CardActions>
-            <Button variant="contained">Köp nu {product.price}kr</Button>
+            {cart.some((p: any) => p.id === product.id) ? (
+              <Button>I kundkorgen</Button>
+            ) : (
+              <BuyButton dispatch={dispatch} product={product} />
+            )}
           </CardActions>
         </Card>
       )}
