@@ -35,7 +35,7 @@ function LinksContainer() {
             <Link to="faq">Vanliga frågor</Link>
           </Typography>
           <Typography gutterBottom variant="body1">
-            Användarvillkor
+            <Link to="termsOfUse">Användarvillkor</Link>
           </Typography>
           <Typography variant="body1">Kundtjänst</Typography>
         </Box>
