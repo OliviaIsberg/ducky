@@ -1,13 +1,14 @@
 
 import {
-    useFormik,
+  FormikConfig
   } from "formik";
   import * as Yup from "yup";
   import InputField from "./InputField";
+  import { OrderData } from "./OrderForm";
   
   type ShippingAdressSchemaType = Record<keyof ShippingAdress, Yup.AnySchema>;
   
-  const AdressFormSchema = Yup.object().shape<ShippingAdressSchemaType>({
+  export const AdressFormSchema = Yup.object().shape<ShippingAdressSchemaType>({
     firstName: Yup.string().required(),
     lastName: Yup.string().required(),
     streetAdress: Yup.string().required(),
@@ -17,7 +18,7 @@ import {
     emailAdress: Yup.string().required(),
   });
   
-  interface ShippingAdress {
+  export interface ShippingAdress {
     firstName: string;
     lastName: string;
     streetAdress: string;
@@ -28,44 +29,33 @@ import {
   }
   
   interface Props {
-    onSubmit: (ShippingAdress: ShippingAdress) => void;
-    defaultShippingAdress?: ShippingAdress;
+    formikConfig: FormikConfig<OrderData>
   }
   
-  const emptyForm: ShippingAdress = {
+  export const emptyShippingForm =  {
     firstName: "",
     lastName: "",
     streetAdress: "",
     postCode: "",
     city: "",
     phoneNumber: "",
-    emailAdress: "",
-  };
-  /// FIXA SÅ INPUTS FUNKAR, Konstiga labels osv!!!!
-  function ShippingForm(props: Props) {
+    emailAdress: ""}
   
-    const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
-      useFormik<ShippingAdress>({
-        initialValues: emptyForm,
-        validationSchema: AdressFormSchema,
-        onSubmit: (ShippingAdress, { resetForm }) => {
-          props.onSubmit(ShippingAdress);
-          resetForm()
-        },
-      });
+  function ShippingForm({values}: Props) {
+
   
     return (
-      <form onSubmit={handleSubmit}>
+      <>
         {/* First name input */}
         <InputField
           label="förnamn: "
           id="firstName"
           name="firstName"
           type="text"
-          value={values.firstName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.firstName && errors.firstName}
+          value={values.shippingAdress.firstName}
+          onChange={handleChange.shippingAdress}
+          onBlur={handleBlur.shippingAdress}
+          error={touched.shippingAdress.firstName && errors.shippingAdress.firstName}
         />
   
         {/* Last name input */}
@@ -74,10 +64,10 @@ import {
           id="lastName"
           name="lastName"
           type="text"
-          value={values.lastName}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.lastName && errors.lastName}
+          value={values.shippingAdress.lastName}
+          onChange={handleChange.shippingAdress}
+          onBlur={handleBlur.shippingAdress}
+          error={touched.shippingAdress.lastName && errors.shippingAdress.lastName}
         />
   
         {/* Street adress input */}
@@ -86,10 +76,10 @@ import {
           id="streetAdress"
           name="streetAdress"
           type="text"
-          value={values.streetAdress}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.streetAdress && errors.streetAdress}
+          value={values.shippingAdress.streetAdress}
+          onChange={handleChange.shippingAdress}
+          onBlur={handleBlur.shippingAdress}
+          error={touched.shippingAdress.streetAdress && errors.shippingAdress.streetAdress}
         />
   
         {/* Post code input */}
@@ -98,11 +88,11 @@ import {
           id="postCode"
           name="postCode"
           type="text"
-          value={values.postCode}
-          onChange={handleChange}
-          onBlur={handleBlur}
+          value={values.shippingAdress.postCode}
+          onChange={handleChange.shippingAdress}
+          onBlur={handleBlur.shippingAdress}
           pattern="[0-9]{3}[ ]?[0-9]{2}"
-          error={touched.postCode && errors.postCode}
+          error={touched.shippingAdress.postCode && errors.shippingAdress.postCode}
         />
   
         {/* city input */}
@@ -111,10 +101,10 @@ import {
           id="city"
           name="city"
           type="text"
-          value={values.city}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.city && errors.city}
+          value={values.shippingAdress.city}
+          onChange={handleChange.shippingAdress}
+          onBlur={handleBlur.shippingAdress}
+          error={touched.shippingAdress.city && errors.shippingAdress.city}
         />
   
         {/* phone number input */}
@@ -124,10 +114,10 @@ import {
           name="phoneNumber"
           type="text"
           pattern="[0-9 -+]{}"
-          value={values.phoneNumber}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.phoneNumber && errors.phoneNumber}
+          value={values.shippingAdress.phoneNumber}
+          onChange={handleChange.shippingAdress}
+          onBlur={handleBlur.shippingAdress}
+          error={touched.shippingAdress.phoneNumber && errors.shippingAdress.phoneNumber}
         />
   
         {/* email adress input */}
@@ -136,14 +126,12 @@ import {
           id="emailAdress"
           name="emailAdress"
           type="text"
-          value={values.emailAdress}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.emailAdress && errors.emailAdress}
+          value={values.shippingAdress.emailAdress}
+          onChange={handleChange.shippingAdress}
+          onBlur={handleBlur.shippingAdress}
+          error={touched.shippingAdress.emailAdress && errors.shippingAdress.emailAdress}
         />
-  
-        <button type="submit">Lägg till adress</button>
-      </form>
+      </>
     );
   }
   
