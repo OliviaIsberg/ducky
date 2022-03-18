@@ -29,7 +29,7 @@ function SupportPage() {
         Vardagar 08:00-17:00
       </Typography>
       <Typography variant="subtitle1">
-        Mailsupport duckys@hotmail.com
+        Mailsupport duckys@duckmail.com
       </Typography>
       <img
         style={{ borderRadius: '20rem', marginTop: '5rem' }}
