@@ -10,13 +10,13 @@ export async function FakeUserFetch(loginDetails: LoginDetails) {
       })
 
       if (!foundUsers.length) {
-        throw new Error ('Tyvärr så finns inte denna användare.')
+        throw new Error('Tyvärr så finns inte denna användare.')
       }
 
       const foundUser = foundUsers[0]
 
       if (foundUser.password !== loginDetails.password) {
-        throw new Error ('Tyvärr så stämmer ej lösenordet.')
+        throw new Error('Tyvärr så stämmer ej lösenordet.')
       }
 
       resolve(foundUser);
@@ -25,10 +25,10 @@ export async function FakeUserFetch(loginDetails: LoginDetails) {
 }
 
 
-    // export async function FakeUserFetch(_: string){
-    //     return new Promise<User>((resolve) => {
-    //         setTimeout(() =>{
-    //             resolve({ username: "User", password: "", isAdmin: false });
-    //         }, 2000);
-    //       });
-    //     }
+export async function placeOrderFetch() {
+  return new Promise<boolean>((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 2000);
+  });
+}

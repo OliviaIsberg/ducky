@@ -11,6 +11,7 @@ import { useCart } from '../contexts/ProductsInCartContext';
 import FaqPage from '../pages/FaqPage';
 import TermsOfUsePage from '../pages/TermsOfUsePage';
 import SupportPage from '../pages/SupportPage';
+import ConfirmedOrderPage from "../pages/ConfirmedPage";
 
 function App() {
   const {
@@ -26,6 +27,7 @@ function App() {
         </Route>
         <Route path="cartPage" element={<CartPage />} />
         <Route path="checkoutPage" element={<CheckOutPage />} />
+        <Route path="confirmed-order" element={<ConfirmedOrderPage />} />
         <Route path="about" element={<TextPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="termsOfUse" element={<TermsOfUsePage />} />

@@ -1,57 +1,53 @@
-import {
-    useFormik,
-  } from "formik";
-  import * as Yup from "yup";
-  import InputField from "./InputField";
-  
-  type SwishDetailsSchemaType = Record<keyof SwishDetails, Yup.AnySchema>;
-  
-  const SwishFormSchema = Yup.object().shape<SwishDetailsSchemaType>({
-    phoneNumber: Yup.string().required()
-  });
-  
-  interface SwishDetails {
-    phoneNumber: string;
-  }
-  
-  interface Props {
-    onSubmit: (SwishDetails: SwishDetails) => void;
-    defaultSwishDetails?: SwishDetails;
-  }
-  
-  const emptyForm: SwishDetails = {
-    phoneNumber: "",
-  };
-  
-  function SwishForm(props: Props) {
-  
-    const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
-      useFormik<SwishDetails>({
-        initialValues: emptyForm,
-        validationSchema: SwishFormSchema,
-        onSubmit: (SwishDetails, { resetForm }) => {
-          props.onSubmit(SwishDetails);
-          resetForm()
-        },
-      });
-  
-    return (
-      <form onSubmit={handleSubmit}>
-        {/* phone number input */}
-        <InputField
-          label="telefonnummer: "
-          id="phoneNumber"
-          name="phoneNumber"
-          type="text"
-          value={values.phoneNumber}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={touched.phoneNumber && errors.phoneNumber}
-        />
-  
-        <button type="submit">Skicka till Swish</button>
-      </form>
-    );
-  }
-  
-  export default SwishForm;
+import { FormikProps } from "formik";
+import * as Yup from "yup";
+import InputField from "./InputField";
+import { OrderData } from "./OrderForm";
+
+type SwishDetailsSchemaType = Record<keyof SwishDetails, Yup.AnySchema>;
+
+export const SwishFormSchema = Yup.object().shape<SwishDetailsSchemaType>({
+  phoneNumber: Yup.string().required("Vänligen fyll i ditt telefonnummer."),
+});
+
+export interface SwishDetails {
+  phoneNumber: string;
+}
+
+interface Props {
+  formikProps: FormikProps<OrderData>;
+}
+
+export const emptySwishForm: SwishDetails = {
+  phoneNumber: "",
+};
+
+function SwishForm(props: Props) {
+  const { values, handleChange, handleBlur, touched, errors } =
+    props.formikProps;
+
+  return (
+    <>
+      {/* phone number input */}
+      <InputField
+        label="telefonnummer: "
+        id="swishDetails.phoneNumber"
+        name="swishDetails.phoneNumber"
+        type="text"
+        value={values.swishDetails.phoneNumber}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={
+          touched.swishDetails?.phoneNumber &&
+          !!errors.swishDetails?.phoneNumber
+        }
+        helperText={
+          touched.swishDetails?.phoneNumber && errors.swishDetails?.phoneNumber
+        }
+      />
+
+      <button type="submit">Skicka till Swish</button>
+    </>
+  );
+}
+
+export default SwishForm;
