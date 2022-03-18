@@ -111,7 +111,6 @@ function ShippingForm(props: Props) {
         value={values.shippingAdress.postCode}
         onChange={handleChange}
         onBlur={handleBlur}
-        pattern="[0-9]{3}[ ]?[0-9]{2}"
         error={
           touched.shippingAdress?.postCode && !!errors.shippingAdress?.postCode
         }
@@ -139,7 +138,6 @@ function ShippingForm(props: Props) {
         id="shippingAdress.phoneNumber"
         name="shippingAdress.phoneNumber"
         type="text"
-        pattern="[0-9 -+]{}"
         value={values.shippingAdress.phoneNumber}
         onChange={handleChange}
         onBlur={handleBlur}
