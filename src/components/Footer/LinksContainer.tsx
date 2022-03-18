@@ -8,9 +8,9 @@ import swish from '../../assets/PaymentLogos/swish.svg';
 import visa from '../../assets/PaymentLogos/visa.png';
 import mastercard from '../../assets/PaymentLogos/mastercard.png';
 import maestro from '../../assets/PaymentLogos/maestro.png';
-import instabox from '../../assets/ShippingLogos/instabox-short.png';
-import postnord from '../../assets/ShippingLogos/postnord-short.svg';
-import schenker from '../../assets/ShippingLogos/schenker.png';
+import instabox from '../../assets/ShippingLogos/instabox-full.jpg';
+import postnord from '../../assets/ShippingLogos/postnord-full.png';
+import schenker from '../../assets/ShippingLogos/schenker-full.png';
 import SubscribeForm from '../Forms/SubscribeForm';
 
 function LinksContainer() {
@@ -18,7 +18,7 @@ function LinksContainer() {
     <Grid
       container
       spacing={3}
-      sx={{ margin: 'auto', width: '100%', padding: '3rem 0' }}
+      sx={{ margin: 'auto', width: '70%', padding: '3rem 0' }}
     >
       <Grid
         item
@@ -42,10 +42,13 @@ function LinksContainer() {
       </Grid>
       <Grid
         item
-        xs={12}
+        xs={11}
         md={4}
         lg={2}
-        sx={{ display: 'flex', justifyContent: 'center' }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
       >
         <Box>
           <Typography gutterBottom variant="h6">
@@ -73,12 +76,12 @@ function LinksContainer() {
         lg={2}
         sx={{ display: 'flex', justifyContent: 'center' }}
       >
-        <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <img width="75" height="40" src={klarna} alt=""></img>
-          <img width="60" height="60" src={swish} alt=""></img>
-          <img width="50" height="30" src={visa} alt=""></img>
-          <img width="50" height="30" src={maestro} alt=""></img>
-          <img width="50" height="30" src={mastercard} alt=""></img>
+          <img width="75" height="70" src={swish} alt=""></img>
+          <img width="75" height="40" src={visa} alt=""></img>
+          <img width="75" height="40" src={maestro} alt=""></img>
+          <img width="75" height="40" src={mastercard} alt=""></img>
         </Box>
       </Grid>
       <Grid
@@ -88,9 +91,9 @@ function LinksContainer() {
         lg={2}
         sx={{ display: 'flex', justifyContent: 'center' }}
       >
-        <Box>
-          <img width="50" height="50" src={instabox} alt=""></img>
-          <img width="50" height="50" src={postnord} alt=""></img>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <img width="100" height="40" src={instabox} alt=""></img>
+          <img width="100" height="40" src={postnord} alt=""></img>
           <img width="90" height="20" src={schenker} alt=""></img>
         </Box>
       </Grid>
