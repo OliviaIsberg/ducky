@@ -37,7 +37,9 @@ function LinksContainer() {
           <Typography gutterBottom variant="body1">
             <Link to="termsOfUse">Användarvillkor</Link>
           </Typography>
-          <Typography variant="body1">Kundtjänst</Typography>
+          <Typography variant="body1">
+            <Link to="support">Kundtjänst</Link>
+          </Typography>
         </Box>
       </Grid>
       <Grid
