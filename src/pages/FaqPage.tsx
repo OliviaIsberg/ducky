@@ -4,14 +4,14 @@ import {
   AccordionSummary,
   Box,
   Typography,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function FaqPage() {
   return (
-    <Box sx={{ padding: '1rem' }}>
+    <Box sx={{ padding: "1rem" }}>
       <Typography
-        sx={{ textAlign: 'center', marginBottom: '1rem' }}
+        sx={{ textAlign: "center", marginBottom: "1rem" }}
         variant="h4"
       >
         Vanliga frågor och svar
@@ -24,7 +24,7 @@ function FaqPage() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography variant="subtitle1">
-            Leverans med Postnord kostar 19 kr, Scenker kostar 29 kr, Indstabox
+            Leverans med Postnord kostar 19 kr, Schenker kostar 29 kr, Instabox
             kostar 29 kr.
           </Typography>
         </AccordionDetails>
@@ -37,8 +37,9 @@ function FaqPage() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography variant="subtitle1">
-            Leverans med Postnord tar 1-3 dagar, Scenker tar 1-2 dagar, Instabox
-            tar 1-2 dagar
+            Leverans med Postnord hem till brevlådan tar 1-3 arbetsdagar,
+            spårbar leverans med Schenker tar 1-2 arbetsdagar, leverans till box
+            med Instabox tar 1-2 arbetsdagar.
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -50,7 +51,7 @@ function FaqPage() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography variant="subtitle1">
-            Våra betalmedel är Klarna, Swish, Visa, Maestro och MasterCard
+            Våra betalmedel är Klarna (delbetalning, betala senare eller 30 dagars faktura.), Swish samt kortbetalning med Visa, Maestro eller MasterCard.
           </Typography>
         </AccordionDetails>
       </Accordion>
