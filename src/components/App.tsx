@@ -9,6 +9,7 @@ import CartPage from '../pages/CartPage';
 import LoginPage from '../pages/LoginPage';
 import { useCart } from '../contexts/ProductsInCartContext';
 import FaqPage from '../pages/FaqPage';
+import TermsOfUsePage from '../pages/TermsOfUsePage';
 
 function App() {
   const {
@@ -26,6 +27,7 @@ function App() {
         <Route path="checkoutPage" element={<CheckOutPage />} />
         <Route path="about" element={<TextPage />} />
         <Route path="faq" element={<FaqPage />} />
+        <Route path="termsOfUse" element={<TermsOfUsePage />} />
         <Route path="login" element={<LoginPage />} />
       </Route>
     </Routes>

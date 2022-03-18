@@ -2,13 +2,20 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function FaqPage() {
   return (
-    <div>
+    <Box sx={{ padding: '1rem' }}>
+      <Typography
+        sx={{ textAlign: 'center', marginBottom: '1rem' }}
+        variant="h4"
+      >
+        Vanliga frågor och svar
+      </Typography>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h5" component="h1">
@@ -47,7 +54,7 @@ function FaqPage() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </Box>
   );
 }
 
