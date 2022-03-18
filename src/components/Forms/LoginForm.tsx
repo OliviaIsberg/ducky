@@ -7,8 +7,8 @@ import InputField from "./InputField";
 type LoginDetailsSchemaType = Record<keyof LoginDetails, Yup.AnySchema>;
 
 const LoginFormSchema = Yup.object().shape<LoginDetailsSchemaType>({
-  username: Yup.string().required(),
-  password: Yup.string().required(),
+  username: Yup.string().required('Vänligen fyll i ditt användarnamn.'),
+  password: Yup.string().required('Vänligen fyll i ditt lösenord.'),
 });
 
 export interface LoginDetails {
@@ -59,7 +59,7 @@ function LoginForm(props: Props) {
         value={values.username}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.username && errors.username}
+        helperText={touched.username && errors.username}
       />
       <InputField
         label="Lösenord: "
@@ -69,7 +69,7 @@ function LoginForm(props: Props) {
         value={values.password}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.password && errors.password}
+        helperText={touched.password && errors.password}
       />
 
       <button type="submit">Logga in</button>

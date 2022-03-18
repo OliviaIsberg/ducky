@@ -1,56 +1,49 @@
 import {
+  FormikProps,
     useFormik,
   } from "formik";
   import * as Yup from "yup";
   import InputField from "./InputField";
+import { OrderData } from "./OrderForm";
   
   type KlarnaDetailsSchemaType = Record<keyof KlarnaDetails, Yup.AnySchema>;
   
-  const KlarnaFormSchema = Yup.object().shape<KlarnaDetailsSchemaType>({
-    personalNumber: Yup.string().required()
+  export const KlarnaFormSchema = Yup.object().shape<KlarnaDetailsSchemaType>({
+    personalNumber: Yup.string().required('Vänligen fyll i ditt personnummer.')
   });
   
-  interface KlarnaDetails {
+  export interface KlarnaDetails {
     personalNumber: string;
   }
   
   interface Props {
-    onSubmit: (KlarnaDetails: KlarnaDetails) => void;
-    defaultKlarnaDetails?: KlarnaDetails;
+    formikProps: FormikProps<OrderData>;
   }
   
-  const emptyForm: KlarnaDetails = {
+  export const emptyKlarnaForm: KlarnaDetails = {
     personalNumber: "",
   };
   
   function KlarnaForm(props: Props) {
   
-    const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
-      useFormik<KlarnaDetails>({
-        initialValues: emptyForm,
-        validationSchema: KlarnaFormSchema,
-        onSubmit: (KlarnaDetails, { resetForm }) => {
-          props.onSubmit(KlarnaDetails);
-          resetForm()
-        },
-      });
+    const { values, handleChange, handleBlur, touched, errors } =
+    props.formikProps;
   
     return (
-      <form onSubmit={handleSubmit}>
+      <>
         {/* Personal number input */}
         <InputField
           label="personnummer: "
-          id="personalNumber"
-          name="personalNumber"
+          id="klarnaDetails.personalNumber"
+          name="klarnaDetails.personalNumber"
           type="text"
-          value={values.personalNumber}
+          value={values.klarnaDetails.personalNumber}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.personalNumber && errors.personalNumber}
+          error={touched.klarnaDetails?.personalNumber && !!errors.klarnaDetails?.personalNumber}
+          helperText={touched.klarnaDetails?.personalNumber && errors.klarnaDetails?.personalNumber}
         />
-  
-        <button type="submit">Lägg till personnummer</button>
-      </form>
+      </>
     );
   }
   

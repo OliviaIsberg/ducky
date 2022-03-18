@@ -1,56 +1,50 @@
 import {
+  FormikProps,
     useFormik,
   } from "formik";
   import * as Yup from "yup";
   import InputField from "./InputField";
+import { OrderData } from "./OrderForm";
   
   type SwishDetailsSchemaType = Record<keyof SwishDetails, Yup.AnySchema>;
   
-  const SwishFormSchema = Yup.object().shape<SwishDetailsSchemaType>({
-    phoneNumber: Yup.string().required()
+  export const SwishFormSchema = Yup.object().shape<SwishDetailsSchemaType>({
+    phoneNumber: Yup.string().required('Vänligen fyll i ditt telefonnummer.')
   });
   
-  interface SwishDetails {
+  export interface SwishDetails {
     phoneNumber: string;
   }
   
   interface Props {
-    onSubmit: (SwishDetails: SwishDetails) => void;
-    defaultSwishDetails?: SwishDetails;
+    formikProps: FormikProps<OrderData>;
   }
   
-  const emptyForm: SwishDetails = {
+  export const emptySwishForm: SwishDetails = {
     phoneNumber: "",
   };
   
   function SwishForm(props: Props) {
-  
-    const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
-      useFormik<SwishDetails>({
-        initialValues: emptyForm,
-        validationSchema: SwishFormSchema,
-        onSubmit: (SwishDetails, { resetForm }) => {
-          props.onSubmit(SwishDetails);
-          resetForm()
-        },
-      });
+    const { values, handleChange, handleBlur, touched, errors } =
+    props.formikProps;
   
     return (
-      <form onSubmit={handleSubmit}>
+      <>
         {/* phone number input */}
         <InputField
           label="telefonnummer: "
-          id="phoneNumber"
-          name="phoneNumber"
+          id="swishDetails.phoneNumber"
+          name="swishDetails.phoneNumber"
           type="text"
-          value={values.phoneNumber}
+          value={values.swishDetails.phoneNumber}
           onChange={handleChange}
           onBlur={handleBlur}
-          error={touched.phoneNumber && errors.phoneNumber}
+          error={touched.swishDetails?.phoneNumber && !!errors.swishDetails?.phoneNumber}
+          helperText={touched.swishDetails?.phoneNumber && errors.swishDetails?.phoneNumber}
         />
   
         <button type="submit">Skicka till Swish</button>
-      </form>
+      </>
     );
   }
   

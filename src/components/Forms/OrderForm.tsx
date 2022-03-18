@@ -1,86 +1,104 @@
-import ShippingForm, { AdressFormSchema, emptyShippingForm, ShippingAdress } from "./ShippingForm"
-import {
-    useFormik,
-  } from "formik";
-  import * as Yup from "yup";
+import ShippingForm, {
+  AdressFormSchema,
+  emptyShippingForm,
+  ShippingAdress,
+} from "./ShippingForm";
+import { Form, useFormik } from "formik";
+import * as Yup from "yup";
 import PaymentBox from "./PaymentBox";
 import { FormControlLabel, Checkbox, Button } from "@mui/material";
 import ShipmentBox from "./ShipmentBox";
+import {
+  emptyPaymentForm,
+  PaymentDetails,
+  PaymentFormSchema,
+} from "./CardPaymentForm";
+import { KlarnaDetails, emptyKlarnaForm, KlarnaFormSchema } from "./KlarnaForm";
+import { SwishDetails, emptySwishForm, SwishFormSchema } from "./SwishForm";
 
-export interface OrderData{
-    shippingAdress: ShippingAdress
+export interface OrderData {
+  shippingAdress: ShippingAdress;
+  paymentDetails: PaymentDetails;
+  klarnaDetails: KlarnaDetails;
+  swishDetails: SwishDetails;
 }
 
 const emptyForm: OrderData = {
-    shippingAdress: emptyShippingForm
-  };
+  shippingAdress: emptyShippingForm,
+  paymentDetails: emptyPaymentForm,
+  klarnaDetails: emptyKlarnaForm,
+  swishDetails: emptySwishForm,
+};
 
 type OrderSchemaType = Record<keyof OrderData, Yup.AnySchema>;
 
 const OrderFormSchema = Yup.object().shape<OrderSchemaType>({
-    shippingAdress: AdressFormSchema
-})
+  shippingAdress: AdressFormSchema,
+  paymentDetails: PaymentFormSchema,
+  klarnaDetails: KlarnaFormSchema,
+  swishDetails: SwishFormSchema,
+});
+
+function onSubmit(orderData: OrderData){
+
+}
 
 interface Props {
-    onSubmit: (orderData: OrderData) => void;
-    defaultOrderData?: OrderData;
-  }
+  defaultOrderData?: OrderData;
+}
 
-function OrderForm(props: Props){
-    const{formState: {formikConfig}
-} = 
-      useFormik<OrderData>({
-        initialValues: emptyForm,
-        validationSchema: OrderFormSchema,
-        onSubmit: (OrderData, { resetForm }) => {
-          props.onSubmit(OrderData);
-          resetForm()
-        },
-      });
+function OrderForm(props: Props) {
+  const formikProps = useFormik<OrderData>({
+    initialValues: emptyForm,
+    validationSchema: OrderFormSchema,
+    onSubmit: (orderData, { resetForm }) => {
+      onSubmit(orderData);
+      resetForm();
+    },
+  });
 
-    return(
-        <form onSubmit={formikConfig.handleSubmit}>
+  return (
+    <form onSubmit={formikProps.handleSubmit}>
+      {/* Shipping adress */}
+      <h3>Leveransadress</h3>
+      <ShippingForm formikProps={formikProps} />
 
-            {/* Shipping adress */}
-            <h3>Leveransadress</h3>
-            <ShippingForm formikConfig={formikConfig}/>
+      {/* Shipping methods */}
+      <h3>Leveransmetod</h3>
+      <ShipmentBox />
 
-            {/* Shipping methods */}
-            <h3>Leveransmetod</h3>
-            <ShipmentBox />
+      {/* Payment methods (and payment details) */}
+      <h3>Betalningsmetod</h3>
+      <PaymentBox formikProps={formikProps}/>
 
-            {/* Payment methods (and payment details) */}
-            <h3>Betalningsmetod</h3>
-            <PaymentBox />
+      {/* Newsletter checkbox, does nothing for now */}
+      <FormControlLabel
+        control={<Checkbox defaultChecked />}
+        label="Ja tack! Jag vill ha nyhetsbrev."
+      />
 
-            {/* Newsletter checkbox, does nothing for now */}
-            <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Ja tack! Jag vill ha nyhetsbrev."
-            />
+      {/* conditions checkbox, does nothing for now */}
+      <FormControlLabel
+        control={<Checkbox />}
+        label="Jag godkänner köpvillkoren."
+      />
 
-            {/* conditions checkbox, does nothing for now */}
-            <FormControlLabel
-                control={<Checkbox />}
-                label="Jag godkänner köpvillkoren."
-            />
-            
-            {/* Post form */}
-            <Button variant="contained" onClick={() => confirmOrder()}>
-                Slutför beställning
-            </Button>
-        </form>
-    )
+      {/* Post form */}
+      <Button variant="contained" onClick={() => confirmOrder()}>
+        Slutför beställning
+      </Button>
+    </form>
+  );
 }
 
 async function confirmOrder() {
-    // const success = await placeOrderFetch()
-    // let navigate = useNavigate();
-    // function handleClick() {
-    //   navigate('/confirmed-order')}
-    // if (success) {
-    //   return <Navigate replace = {true} to ='/confirmed-order' />
-    // }
-  }
+  // const success = await placeOrderFetch()
+  // let navigate = useNavigate();
+  // function handleClick() {
+  //   navigate('/confirmed-order')}
+  // if (success) {
+  //   return <Navigate replace = {true} to ='/confirmed-order' />
+  // }
+}
 
-export default OrderForm
+export default OrderForm;

@@ -1,77 +1,99 @@
-
-import {
-  useFormik,
-  FormikConfig
-} from "formik";
+import { FormikProps } from "formik";
 import * as Yup from "yup";
 import InputField from "./InputField";
 import { OrderData } from "./OrderForm";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 
 type PaymentDetailsSchemaType = Record<keyof PaymentDetails, Yup.AnySchema>;
 
 export const PaymentFormSchema = Yup.object().shape<PaymentDetailsSchemaType>({
-  cardNumber: Yup.string().required(),
-  cvc: Yup.string().required(),
-  expDate: Yup.string().required(),
-  
+  cardNumber: Yup.string().required('Vänligen fyll i ditt kortnummer.'),
+  cvc: Yup.string().required('Vänligen fyll i din CVC-kod.'),
+  expDate: Yup.string().required('Vänligen fyll i utgångsdatum.'),
 });
 
 export interface PaymentDetails {
   cardNumber: string;
   cvc: string;
-  expDate: string
-  
+  expDate: string;
 }
 
 interface Props {
-  formikConfig: FormikConfig<OrderData>
+  formikProps: FormikProps<OrderData>;
 }
 
 export const emptyPaymentForm = {
   cardNumber: "",
   cvc: "",
   expDate: "",
-}
+};
 
-function CardPaymentForm ({values, handleChange, handleBlur,touched,errors}: Props)  {
-
+function CardPaymentForm(props: Props) {
+  const { values, handleChange, handleBlur, touched, errors } =
+    props.formikProps;
   return (
     <>
       {/* Card number input */}
       <InputField
         label="kortnummer: "
-        id="cardNumber"
-        name="cardNumber"
+        id="paymentDetails.cardNumber"
+        name="paymentDetails.cardNumber"
         type="text"
         value={values.paymentDetails.cardNumber}
-        onChange={handleChange.paymentDetails}
-        onBlur={handleBlur.paymentDetails}
-        error={touched.paymentDetails.cardNumber && errors.paymentDetails.cardNumber}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={
+          touched.paymentDetails?.cardNumber &&
+          !!errors.paymentDetails?.cardNumber
+        }
+        helperText={
+          touched.paymentDetails?.cardNumber &&
+          errors.paymentDetails?.cardNumber
+        }
       />
 
       {/* CVC input */}
       <InputField
         label="cvc: "
-        id="cvc"
-        name="cvc"
+        id="cardDetails.cvc"
+        name="cardDetails.cvc"
         type="cvc"
         value={values.paymentDetails.cvc}
-        onChange={handleChange.paymentDetails}
-        onBlur={handleBlur.paymentDetails}
-        error={touched.paymentDetails.cvc && errors.paymentDetails.cvc}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={touched.paymentDetails?.cvc && !!errors.paymentDetails?.cvc}
+        helperText={touched.paymentDetails?.cvc && errors.paymentDetails?.cvc}
       />
 
       {/* expiery date input */}
-      <InputField
-        label="utgångsdatum: "
-        id="expDate"
-        name="expDate"
-        type="date"
-        value={values.paymentDetails.expDate}
-        onChange={handleChange.paymentDetails}
-        onBlur={handleBlur.paymentDetails}
-        error={touched.paymentDetails.expDate && errors.paymentDetails.expDate}
-      />
+
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <DatePicker
+          value={values.paymentDetails.expDate}
+          onChange={handleChange}
+          label="Utgångsdatum:"
+          renderInput={(params) => (
+            <InputField
+              label={params.label}
+              id="cardDetails.expDate"
+              name="cardDetails.expDate"
+              type="date"
+              placeholder=""
+              onBlur={handleBlur}
+              error={
+                touched.paymentDetails?.expDate &&
+                !!errors.paymentDetails?.expDate
+              }
+              helperText={
+                touched.paymentDetails?.expDate &&
+                errors.paymentDetails?.expDate
+              }
+            />
+          )}
+        />
+      </LocalizationProvider>
     </>
   );
 }

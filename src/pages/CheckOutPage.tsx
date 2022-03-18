@@ -1,8 +1,6 @@
 import { Container } from "@mui/material";
 import OrderForm from "../components/Forms/OrderForm";
 
-function onShippingSubmit() {}
-
 function CheckOutPage() {
   return (
     <Container maxWidth="md">
@@ -16,7 +14,7 @@ function CheckOutPage() {
         nedan för att se tillgängliga leveransval.
       </p>
 
-      <OrderForm onSubmit={OrderData} />
+      <OrderForm />
     </Container>
   );
 }

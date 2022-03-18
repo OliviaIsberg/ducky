@@ -1,21 +1,23 @@
-import { InputHTMLAttributes } from "react";
+import { Box, TextField, TextFieldProps } from "@mui/material";
+import { FormikProps } from "formik";
+import { InputHTMLAttributes, ReactNode } from "react";
+import { OrderData } from "./OrderForm";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    label: string;
     error?: string | false;
   }
 
-  function InputField({ label, error,id , ...props }: Props) {
+  function InputField(props: TextFieldProps) {
     return (
-      <div>
-        <label htmlFor={id}>
-          {label}
-        </label>
-        <input id={id} {...props} />
-  
-        {/* error message if required input is not fullfilled */}
-        {error && <p>{error}</p>}
-      </div>
+      <>
+        <Box sx={{'& > :not(style)': { m: 1, width: '25ch' },
+        }}
+        noValidate
+        autoComplete="on"
+          >
+          <TextField {...props} variant="outlined" />
+        </Box>
+      </>
     );
   }
 
