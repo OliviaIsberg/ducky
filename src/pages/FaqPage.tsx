@@ -4,14 +4,14 @@ import {
   AccordionSummary,
   Box,
   Typography,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function FaqPage() {
   return (
-    <Box sx={{ padding: '1rem' }}>
+    <Box sx={{ padding: "1rem" }}>
       <Typography
-        sx={{ textAlign: 'center', marginBottom: '1rem' }}
+        sx={{ textAlign: "center", marginBottom: "1rem" }}
         variant="h4"
       >
         Vanliga frågor och svar
