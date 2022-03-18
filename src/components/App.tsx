@@ -1,20 +1,21 @@
-import { Route, Routes } from 'react-router-dom';
-import ProductListPage from '../pages/ProductListPage';
-import Layout from './Layout';
-import StartPage from '../pages/StartPage';
-import TextPage from '../pages/TextPage';
-import CheckOutPage from '../pages/CheckOutPage';
-import ProductPage from '../pages/ProductPage';
-import CartPage from '../pages/CartPage';
-import LoginPage from '../pages/LoginPage';
-import { useCart } from '../contexts/ProductsInCartContext';
-import FaqPage from '../pages/FaqPage';
-import TermsOfUsePage from '../pages/TermsOfUsePage';
+import { Route, Routes } from 'react-router-dom'
+import ProductListPage from '../pages/ProductListPage'
+import Layout from './Layout'
+import StartPage from '../pages/StartPage'
+import TextPage from '../pages/TextPage'
+import CheckOutPage from '../pages/CheckOutPage'
+import ProductPage from '../pages/ProductPage'
+import CartPage from '../pages/CartPage'
+import LoginPage from '../pages/LoginPage'
+import { useCart } from '../contexts/ProductsInCartContext'
+import FaqPage from '../pages/FaqPage'
+import TermsOfUsePage from '../pages/TermsOfUsePage'
+import AdminPage from '../pages/AdminPage'
 
 function App() {
   const {
     state: { products },
-  } = useCart();
+  } = useCart()
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -30,8 +31,9 @@ function App() {
         <Route path="termsOfUse" element={<TermsOfUsePage />} />
         <Route path="login" element={<LoginPage />} />
       </Route>
+      <Route path="admin" element={<AdminPage />} />
     </Routes>
-  );
+  )
 }
 
-export default App;
+export default App
