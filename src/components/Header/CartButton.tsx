@@ -23,10 +23,6 @@ function CartButton() {
     dispatch,
   } = useCart()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-  // @ts-ignore
-  const savedCart = JSON.parse(localStorage.getItem('stateLS'))
-
-  console.log(savedCart.cart)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
