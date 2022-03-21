@@ -1,3 +1,4 @@
+
 import { Route, Routes } from 'react-router-dom'
 import ProductListPage from '../pages/ProductListPage'
 import Layout from './Layout'
@@ -12,6 +13,9 @@ import FaqPage from '../pages/FaqPage'
 import TermsOfUsePage from '../pages/TermsOfUsePage'
 import AdminPage from '../pages/AdminPage'
 // import { useUser } from '../contexts/UserContext'
+import SupportPage from '../pages/SupportPage';
+import ConfirmedOrderPage from "../pages/ConfirmedPage";
+
 
 function App() {
   // const {
@@ -29,9 +33,11 @@ function App() {
         </Route>
         <Route path="cartPage" element={<CartPage />} />
         <Route path="checkoutPage" element={<CheckOutPage />} />
+        <Route path="confirmed-order" element={<ConfirmedOrderPage />} />
         <Route path="about" element={<TextPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="termsOfUse" element={<TermsOfUsePage />} />
+        <Route path="support" element={<SupportPage />} />
         <Route path="login" element={<LoginPage />} />
       </Route>
       <Route path="admin" element={<AdminPage />} />
