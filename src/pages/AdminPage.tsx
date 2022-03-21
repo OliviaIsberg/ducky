@@ -32,8 +32,8 @@ function AdminPage() {
         }}
       >
         <List>
-          {products.map((p) => (
-            <Accordion>
+          {products.map((p, i) => (
+            <Accordion key={i}>
               <AccordionSummary onClick={(e) => handleOpen}>
                 <Typography>{p.title}</Typography>
                 {!open ? <Button>Spara</Button> : <Button>Redigera</Button>}
