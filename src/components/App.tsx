@@ -7,22 +7,25 @@ import CheckOutPage from '../pages/CheckOutPage'
 import ProductPage from '../pages/ProductPage'
 import CartPage from '../pages/CartPage'
 import LoginPage from '../pages/LoginPage'
-import { useCart } from '../contexts/ProductsInCartContext'
+// import { useCart } from '../contexts/ProductsInCartContext'
 import FaqPage from '../pages/FaqPage'
 import TermsOfUsePage from '../pages/TermsOfUsePage'
 import AdminPage from '../pages/AdminPage'
+// import { useUser } from '../contexts/UserContext'
 
 function App() {
-  const {
-    state: { products },
-  } = useCart()
+  // const {
+  //   state: {products},
+  // } = useCart()
+  // const { user } = useUser()
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<StartPage />} />
         <Route path="products">
           <Route index element={<ProductListPage />} />
-          <Route path=":id" element={<ProductPage productList={products} />} />
+          <Route path=":id" element={<ProductPage />} />
         </Route>
         <Route path="cartPage" element={<CartPage />} />
         <Route path="checkoutPage" element={<CheckOutPage />} />
