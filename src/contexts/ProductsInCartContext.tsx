@@ -6,6 +6,7 @@ import React, {
   useEffect,
 } from 'react'
 import { mockedProducts } from '../Api/Data'
+import useLocalStorage from '../Hooks/useLocalStorage'
 import { cartReducer, CartActions, CartType } from './Reducers'
 
 export type ProductType = {
@@ -44,6 +45,8 @@ export const CartContext = createContext<{
 export const ProductsInCart: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState)
   console.log(state)
+
+  useLocalStorage('stateLS', '')
 
   useEffect(() => {
     localStorage.setItem('stateLS', JSON.stringify(state))
