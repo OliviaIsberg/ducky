@@ -1,5 +1,6 @@
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import { Button } from '@mui/material'
+import { Types } from '../contexts/Reducers'
 
 function BuyButton({ dispatch, product }: any) {
   return (
@@ -7,7 +8,7 @@ function BuyButton({ dispatch, product }: any) {
       <Button
         onClick={() => {
           dispatch({
-            type: 'ADD_TO_CART',
+            type: Types.AddToCart,
             payload: product,
           })
         }}
