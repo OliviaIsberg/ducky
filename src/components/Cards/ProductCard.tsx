@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useCart } from '../../contexts/ProductsInCartContext'
 import BuyButton from '../BuyButton'
+import { CartType } from '../../contexts/Reducers'
 
 function ProductCard({ product }: any) {
   const {
@@ -65,7 +66,7 @@ function ProductCard({ product }: any) {
         <Link to={`/products/${product.id}`}>
           <Button variant="outlined">Visa</Button>
         </Link>
-        {cart.some((p: any) => p.id === product.id) ? (
+        {cart.some((p: CartType) => p.id === product.id) ? (
           <Button>I kundkorgen</Button>
         ) : (
           <BuyButton dispatch={dispatch} product={product} />
