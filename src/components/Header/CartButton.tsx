@@ -14,8 +14,8 @@ import React from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { Link } from 'react-router-dom'
-import { Product } from '../../Api/Data'
 import { useCart } from '../../contexts/ProductsInCartContext'
+import { CartType, Types } from '../../contexts/Reducers'
 
 function CartButton() {
   const {
@@ -23,6 +23,10 @@ function CartButton() {
     dispatch,
   } = useCart()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+  // @ts-ignore
+  const savedCart = JSON.parse(localStorage.getItem('stateLS'))
+
+  console.log(savedCart.cart)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -62,7 +66,7 @@ function CartButton() {
       >
         <List dense>
           {cart.length !== 0 ? (
-            cart.map((product: Product) => (
+            cart.map((product: CartType) => (
               <ListItem key={product.id}>
                 <ListItemAvatar>
                   <img
@@ -85,7 +89,7 @@ function CartButton() {
                     edge="end"
                     onClick={() => {
                       dispatch({
-                        type: 'REMOVE_FROM_CART',
+                        type: Types.DeleteFromCart,
                         payload: product,
                       })
                     }}

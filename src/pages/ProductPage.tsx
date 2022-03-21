@@ -9,22 +9,17 @@ import {
 } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Link, useParams } from 'react-router-dom'
-import { Product } from '../Api/Data'
 import BuyButton from '../components/BuyButton'
-import { useCart } from '../contexts/ProductsInCartContext'
+import { ProductType, useCart } from '../contexts/ProductsInCartContext'
 
-interface Props {
-  productList: Product[]
-}
-
-function ProductPage({ productList }: Props) {
+function ProductPage() {
   let { id } = useParams()
   const {
-    state: { cart },
+    state: { cart, products },
     dispatch,
   } = useCart()
-  const product: Product | undefined = productList.find(
-    (item) => item.id.toString() === id
+  const product = products.find(
+    (item: ProductType) => item.id.toString() === id
   )
 
   return (

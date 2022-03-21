@@ -1,14 +1,53 @@
-import React, { FC, useContext, useReducer } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  Dispatch,
+  useEffect,
+} from 'react'
 import { mockedProducts } from '../Api/Data'
-import { cartReducer } from './Reducers'
+import { cartReducer, CartActions, CartType } from './Reducers'
 
-export const CartContext = React.createContext<any>(null) //typings??
+export type ProductType = {
+  id: number
+  title: string
+  information: string
+  price: number
+}
 
-export const ProductsInCart: FC = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, {
-    products: mockedProducts,
-    cart: [],
-  })
+type InitialStateType = {
+  products: ProductType[]
+  cart: CartType[] | any
+}
+
+const initialState = {
+  products: mockedProducts,
+  cart: [],
+}
+
+export const CartContext = createContext<{
+  state: InitialStateType
+  dispatch: Dispatch<CartActions>
+}>({
+  state: initialState,
+  dispatch: () => null,
+})
+
+// const mainReducer = (
+//   { products, cart }: InitialStateType,
+//   action: CartActions
+// ) => ({
+//   products: cartReducer(cart, action),
+//   cart: cartReducer(cart, action),
+// })
+
+export const ProductsInCart: React.FC = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, initialState)
+  console.log(state)
+
+  useEffect(() => {
+    localStorage.setItem('stateLS', JSON.stringify(state))
+  }, [state])
 
   return (
     <CartContext.Provider value={{ state, dispatch }}>
