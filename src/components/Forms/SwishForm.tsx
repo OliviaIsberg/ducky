@@ -33,7 +33,7 @@ function SwishForm(props: Props) {
         id="swishDetails.phoneNumber"
         name="swishDetails.phoneNumber"
         type="text"
-        value={values.swishDetails.phoneNumber}
+        value={values.swishDetails.phoneNumber || values.shippingAdress.phoneNumber}
         onChange={handleChange}
         onBlur={handleBlur}
         error={
