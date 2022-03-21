@@ -20,13 +20,14 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
 import { Box } from '@mui/system'
 import { Link } from 'react-router-dom'
+import { CartType, Types } from '../contexts/Reducers'
 
 function CartPage() {
   const {
     state: { cart },
     dispatch,
   } = useCart()
-  const [total, setTotal] = useState()
+  const [total, setTotal] = useState(0)
 
   let imgURL =
     'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
@@ -34,12 +35,12 @@ function CartPage() {
   useEffect(() => {
     setTotal(
       cart.reduce(
-        (acc: number, current: { price: number; qty: number }) =>
-          acc + Number(current.price) * current.qty,
+        (acc: number, current: CartType) => acc + current.price * current.qty,
         0
       )
     )
   }, [cart])
+  console.log(cart)
 
   return (
     <Container maxWidth="md">
@@ -49,85 +50,78 @@ function CartPage() {
       <Divider light />
       <List>
         {cart.length > 0 ? (
-          cart.map(
-            (product: {
-              id: number | null | undefined
-              title: string
-              price: number
-              qty: number
-            }) => (
-              <ListItem key={product.id}>
-                <ListItemAvatar>
-                  <img
-                    src={imgURL}
-                    alt={product.title}
-                    style={{
-                      width: '70px',
-                      height: '70px',
-                      borderRadius: '50%',
-                    }}
-                  />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={product.title}
-                  secondary={`${product.price} kr/st`}
-                  sx={{ marginLeft: '.5rem' }}
+          cart.map((product: CartType) => (
+            <ListItem key={product.id}>
+              <ListItemAvatar>
+                <img
+                  src={imgURL}
+                  alt={product.title}
+                  style={{
+                    width: '70px',
+                    height: '70px',
+                    borderRadius: '50%',
+                  }}
                 />
-                <ButtonGroup
-                  size="small"
-                  sx={{ flexGrow: '1', justifyContent: 'flex-end' }}
+              </ListItemAvatar>
+              <ListItemText
+                primary={product.title}
+                secondary={`${product.price} kr/st`}
+                sx={{ marginLeft: '.5rem' }}
+              />
+              <ButtonGroup
+                size="small"
+                sx={{ flexGrow: '1', justifyContent: 'flex-end' }}
+              >
+                <Button
+                  onClick={() => {
+                    dispatch({
+                      type: Types.UpdateQty,
+                      payload: {
+                        id: product.id,
+                        qty: (product.qty = product.qty - 1),
+                      },
+                    })
+                  }}
                 >
-                  <Button
-                    onClick={() => {
-                      dispatch({
-                        type: 'CHANGE_PROD_QTY',
-                        payload: {
-                          id: product.id,
-                          qty: (product.qty = product.qty - 1),
-                        },
-                      })
-                    }}
-                  >
-                    <RemoveIcon />
-                  </Button>
-                  <Button disableRipple>{product.qty}</Button>
-                  <Button
-                    onClick={() => {
-                      dispatch({
-                        type: 'CHANGE_PROD_QTY',
-                        payload: {
-                          id: product.id,
-                          qty: (product.qty = product.qty + 1),
-                        },
-                      })
-                    }}
-                  >
-                    <AddIcon />
-                  </Button>
-                </ButtonGroup>
+                  <RemoveIcon />
+                </Button>
+                <Button disableRipple>{product.qty}</Button>
+                <Button
+                  onClick={() => {
+                    dispatch({
+                      type: Types.UpdateQty,
+                      payload: {
+                        id: product.id,
+                        qty: (product.qty += 1),
+                      },
+                    })
+                  }}
+                >
+                  <AddIcon />
+                </Button>
+              </ButtonGroup>
 
-                <ListItemText sx={{ textAlign: 'right' }}>
-                  {product.price * product.qty} kr
-                </ListItemText>
-                <ListItemIcon>
-                  <Tooltip title="Ta bort">
-                    <IconButton
-                      aria-label="delete"
-                      edge="end"
-                      onClick={() => {
-                        dispatch({
-                          type: 'REMOVE_FROM_CART',
-                          payload: product,
-                        })
-                      }}
-                    >
-                      <RemoveCircleIcon color="error" />
-                    </IconButton>
-                  </Tooltip>
-                </ListItemIcon>
-              </ListItem>
-            )
-          )
+              <ListItemText sx={{ textAlign: 'right' }}>
+                {product.price * product.qty} kr
+              </ListItemText>
+              <ListItemIcon>
+                <Tooltip title="Ta bort">
+                  <IconButton
+                    aria-label="delete"
+                    edge="end"
+                    onClick={() => {
+                      dispatch({
+                        type: Types.DeleteFromCart,
+                        payload: product,
+                      })
+                    }}
+                  >
+                    <RemoveCircleIcon color="error" />
+                  </IconButton>
+                </Tooltip>
+              </ListItemIcon>
+            </ListItem>
+          ))
         ) : (
           <Typography variant="body1">Här var det tomt!</Typography>
         )}
