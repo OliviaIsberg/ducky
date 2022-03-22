@@ -24,13 +24,18 @@ interface Props {
 
 function PaymentBox(props: Props) {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-
+  const [expanded, setExpanded] = React.useState<string | false>(false);
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
   ) => {
     setSelectedIndex(index);
   };
+
+  const handleChange =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+    };
 
   return (
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
@@ -52,6 +57,7 @@ function PaymentBox(props: Props) {
                   padding: 0,
                   border: "none",
                 }}
+                expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}
               >
                 <AccordionSummary sx={{ padding: 0 }}>
                   <ListItemAvatar>
