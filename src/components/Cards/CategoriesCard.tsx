@@ -19,7 +19,7 @@ function CategoriesCard() {
         justifyContent="center"
         alignItems="center"
         container
-        sx={{ gap: '4rem' }}
+        sx={{ gap: '5rem' }}
       >
         <Link to="products">
           <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
