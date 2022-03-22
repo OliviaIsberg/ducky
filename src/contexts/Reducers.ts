@@ -22,6 +22,7 @@ export type CartType = {
   description: string
   price: number
   qty: number
+  imgURL: string
 }
 
 type CartPayload = {

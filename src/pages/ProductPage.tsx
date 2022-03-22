@@ -32,13 +32,7 @@ function ProductPage() {
       {product && (
         <Card>
           <CardContent>
-            <CardMedia
-              component="img"
-              height="240"
-              image={
-                'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
-              }
-            />
+            <CardMedia component="img" height="240" image={product.imgURL} />
             <Typography variant="h5" component="div">
               {product.title}
             </Typography>
