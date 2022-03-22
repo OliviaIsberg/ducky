@@ -33,7 +33,6 @@ function CategoriesCard() {
                 Spiderman
               </Typography>
             </CardContent>
-            <Button>Köp</Button>
           </CardActionArea>
         </Card>
         <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
@@ -48,7 +47,6 @@ function CategoriesCard() {
                 Bröllop
               </Typography>
             </CardContent>
-            <Button>Köp</Button>
           </CardActionArea>
         </Card>
         <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
@@ -63,7 +61,6 @@ function CategoriesCard() {
                 Lysande
               </Typography>
             </CardContent>
-            <Button>Köp</Button>
           </CardActionArea>
         </Card>
       </Grid>
