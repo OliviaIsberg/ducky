@@ -34,14 +34,12 @@ function CartPage() {
     'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
 
   useEffect(() => {
-    const newTotal = () =>
-      setTotal(
-        cart.reduce(
-          (acc: number, current: CartType) => acc + current.price * current.qty,
-          0
-        )
+    setTotal(
+      cart.reduce(
+        (acc: number, current: CartType) => acc + current.price * current.qty,
+        0
       )
-    return newTotal
+    )
   }, [cart, setTotal])
   console.log(cart)
 
