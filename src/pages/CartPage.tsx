@@ -12,7 +12,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useCart } from '../contexts/ProductsInCartContext'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import PaymentIcon from '@mui/icons-material/Payment'
@@ -21,25 +21,28 @@ import AddIcon from '@mui/icons-material/Add'
 import { Box } from '@mui/system'
 import { Link } from 'react-router-dom'
 import { CartType, Types } from '../contexts/Reducers'
+import useLocalStorage from '../Hooks/useLocalStorage'
 
 function CartPage() {
   const {
     state: { cart },
     dispatch,
   } = useCart()
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useLocalStorage('cartSum', 0)
 
   let imgURL =
     'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
 
   useEffect(() => {
-    setTotal(
-      cart.reduce(
-        (acc: number, current: CartType) => acc + current.price * current.qty,
-        0
+    const newTotal = () =>
+      setTotal(
+        cart.reduce(
+          (acc: number, current: CartType) => acc + current.price * current.qty,
+          0
+        )
       )
-    )
-  }, [cart])
+    return newTotal
+  }, [cart, setTotal])
   console.log(cart)
 
   return (
@@ -130,10 +133,15 @@ function CartPage() {
         Summa
       </Divider>
       <Box maxWidth="md" sx={{ paddingInline: '1rem', textAlign: 'right' }}>
-        <Typography variant="h6" textAlign="right">
+        <Typography variant="h6" textAlign="right" sx={{ mb: 10 }}>
           {total} kr
         </Typography>
-        <Link to="/checkoutPage">
+        <Link to="/products">
+          <Button variant="contained" sx={{ mr: 2 }}>
+            Fortsätt handla
+          </Button>
+        </Link>
+        <Link to={cart.length ? '/checkoutPage' : ''}>
           <Button
             variant="outlined"
             endIcon={<PaymentIcon />}
