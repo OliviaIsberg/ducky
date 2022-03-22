@@ -1,6 +1,6 @@
-import { Box, Tabs, Tab, Container } from '@mui/material'
+import { Box, Tabs, Tab, Container, Button } from '@mui/material'
 import { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import React from 'react'
 import { useUser } from '../../contexts/UserContext'
@@ -25,6 +25,7 @@ const Header: FC<HeaderProps> = () => {
       {!!user?.isAdmin && <AdminBar />}
 
       <Container maxWidth="md" sx={{ marginBottom: '2rem' }}>
+        {!!user && <h3>Välkommen in {user?.username}</h3>}
         <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
         <Box
           sx={{
@@ -44,14 +45,27 @@ const Header: FC<HeaderProps> = () => {
             <Tab value="/" label="Hem" />
             <Tab value="products" label="Produkter" />
             <Tab value="about" label="Information" />
-            {!user && <Tab value="login" label="Logga in" />}
-            {!!user && (
-              <Tab value="login" label="Logga ut" onClick={() => logout()} />
-            )}
           </Tabs>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <AccountCircleIcon color="action" />
-            {!!user && <h3>Välkommen in {user?.username}</h3>}
+            {!user ? (
+              <Link to="/login">
+                <Button
+                  variant="outlined"
+                  endIcon={<AccountCircleIcon color="warning" />}
+                >
+                  Logga in
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                variant="outlined"
+                endIcon={<AccountCircleIcon color="success" />}
+                onClick={() => logout()}
+              >
+                Logga ut
+              </Button>
+            )}
+
             <CartButton />
           </Box>
         </Box>
