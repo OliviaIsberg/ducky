@@ -59,6 +59,9 @@ function LoginForm(props: Props) {
         value={values.username}
         onChange={handleChange}
         onBlur={handleBlur}
+        error={
+          touched.username && !!errors.username
+        }
         helperText={touched.username && errors.username}
       />
       <InputField
@@ -69,6 +72,9 @@ function LoginForm(props: Props) {
         value={values.password}
         onChange={handleChange}
         onBlur={handleBlur}
+        error={
+          touched.password && !!errors.password
+        }
         helperText={touched.password && errors.password}
       />
 
