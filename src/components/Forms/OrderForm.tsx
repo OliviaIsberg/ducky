@@ -15,8 +15,10 @@ import {
 } from "./CardPaymentForm";
 import { KlarnaDetails, emptyKlarnaForm, KlarnaFormSchema } from "./KlarnaForm";
 import { SwishDetails, emptySwishForm, SwishFormSchema } from "./SwishForm";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { placeOrderFetch } from "../../Api/Api";
+import useLocalStorage from "../../Hooks/useLocalStorage";
+import { useState } from "react";
 
 export interface OrderData {
   shippingAdress: ShippingAdress;
@@ -41,18 +43,30 @@ const OrderFormSchema = Yup.object().shape<OrderSchemaType>({
   swishDetails: SwishFormSchema,
 });
 
-function onSubmit(orderData: OrderData) {}
 
 interface Props {
   defaultOrderData?: OrderData;
 }
 
 function OrderForm(props: Props) {
+  let navigate = useNavigate();
+  let [isDisabled, setIsDisabled] = useState(false)
+  const [orderDetails, setOrderDetails] = useLocalStorage('orderDetails', '')
+
+  function handleSubmit(orderData: OrderData) {
+    // useLocalStorage('orderDetails', orderData)
+    console.log('hej från handleSubmit')
+    console.log(orderData)
+    setOrderDetails(orderData)
+    setIsDisabled(true)
+  }
+
   const formikProps = useFormik<OrderData>({
     initialValues: emptyForm,
     validationSchema: OrderFormSchema,
     onSubmit: (orderData, { resetForm }) => {
-      onSubmit(orderData);
+      console.log('hej från onSubmit')
+      handleSubmit(orderData);
       resetForm();
     },
   });
@@ -84,22 +98,19 @@ function OrderForm(props: Props) {
       />
 
       {/* Post form */}
-      <Button variant="contained" onClick={() => confirmOrder()}>
+      <Button variant="contained" type='submit' onClick={() => confirmOrder()}>
         Slutför beställning
       </Button>
     </form>
   );
+  
+  async function confirmOrder() {
+    const success = await placeOrderFetch();
+    if (success) {  
+      navigate("/confirmed-order");
+    }
+  }
 }
 
-async function confirmOrder() {
-  // const success = await placeOrderFetch();
-  // let navigate = useNavigate();
-  // function handleClick() {
-  //   navigate("/confirmed-order");
-  // }
-  // if (success) {
-  //   return <Navigate replace={true} to="/confirmed-order" />;
-  // }
-}
 
 export default OrderForm;
