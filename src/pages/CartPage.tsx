@@ -30,8 +30,8 @@ function CartPage() {
   } = useCart()
   const [total, setTotal] = useLocalStorage('cartSum', 0)
 
-  let imgURL =
-    'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
+  // let imgURL =
+  //   'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
 
   useEffect(() => {
     setTotal(
@@ -55,7 +55,7 @@ function CartPage() {
             <ListItem key={product.id}>
               <ListItemAvatar>
                 <img
-                  src={imgURL}
+                  src={product.imgURL}
                   alt={product.title}
                   style={{
                     width: '70px',

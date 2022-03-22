@@ -14,6 +14,7 @@ export type ProductType = {
   title: string
   information: string
   price: number
+  imgURL: string
 }
 
 type InitialStateType = {

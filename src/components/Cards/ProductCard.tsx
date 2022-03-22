@@ -24,13 +24,7 @@ function ProductCard({ product }: any) {
   return (
     <Card key={product.id} sx={{ borderRadius: '1rem', padding: '1rem' }}>
       <CardContent sx={{ padding: '0' }}>
-        <CardMedia
-          component="img"
-          height="240"
-          image={
-            'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
-          }
-        />
+        <CardMedia component="img" height="240" image={product.imgURL} />
         <Box
           component="div"
           sx={{
@@ -52,9 +46,9 @@ function ProductCard({ product }: any) {
             <Rating name="read-only" value={ratingValue} readOnly />
           </Box>
         </Box>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
+        {/* <Typography variant="body2" color="text.secondary" gutterBottom>
           {product.information}
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions
         sx={{
