@@ -15,7 +15,7 @@ import {
 } from "./CardPaymentForm";
 import { KlarnaDetails, emptyKlarnaForm, KlarnaFormSchema } from "./KlarnaForm";
 import { SwishDetails, emptySwishForm, SwishFormSchema } from "./SwishForm";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { placeOrderFetch } from "../../Api/Api";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 import { useState } from "react";
@@ -92,10 +92,12 @@ function OrderForm(props: Props) {
       />
 
       {/* conditions checkbox, does nothing for now */}
-      <FormControlLabel
+      <div><FormControlLabel
         control={<Checkbox />}
-        label="Jag godkänner köpvillkoren."
+        label="Jag godkänner"
       />
+        <Link to="/termsOfUse">Köpvillkoren.</Link>
+        </div>
 
       {/* Post form */}
       <Button variant="contained" type='submit' onClick={() => confirmOrder()}>
