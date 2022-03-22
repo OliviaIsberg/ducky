@@ -76,6 +76,7 @@ function CardPaymentForm(props: Props) {
           label="Utgångsdatum:"
           renderInput={(params) => (
             <InputField
+            InputLabelProps={{ shrink: true }}
               label={params.label}
               id="paymentDetails.expDate"
               name="paymentDetails.expDate"
