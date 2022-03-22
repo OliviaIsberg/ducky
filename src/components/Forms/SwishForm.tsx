@@ -44,8 +44,6 @@ function SwishForm(props: Props) {
           touched.swishDetails?.phoneNumber && errors.swishDetails?.phoneNumber
         }
       />
-
-      <button type="submit">Skicka till Swish</button>
     </>
   );
 }
