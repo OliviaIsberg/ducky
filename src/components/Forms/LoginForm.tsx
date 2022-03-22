@@ -77,7 +77,6 @@ function LoginForm(props: Props) {
         }
         helperText={touched.password && errors.password}
       />
-
       <button type="submit">Logga in</button>
     </form>
   );
