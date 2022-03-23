@@ -1,13 +1,7 @@
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  Dispatch,
-  useEffect,
-} from 'react'
+import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import { mockedProducts } from '../Api/Data'
 import useLocalStorage from '../Hooks/useLocalStorage'
-import { cartReducer, CartActions, CartType } from './Reducers'
+import { cartReducer, CartActions, CartType, Store } from './Reducers'
 
 export type ProductType = {
   id: number
@@ -17,34 +11,29 @@ export type ProductType = {
   imgURL: string
 }
 
-type InitialStateType = {
+export type InitialStateType = {
   products: ProductType[]
-  cart: CartType[] | any
+  cart: CartType[]
 }
 
-const initialState = {
+export const initialState = {
   products: mockedProducts,
-  cart: [],
+  cart: [] as CartType[],
 }
 
-export const CartContext = createContext<{
-  state: InitialStateType
-  dispatch: Dispatch<CartActions>
-}>({
-  state: initialState,
-  dispatch: () => null,
-})
+type Context = {
+  state: Store
+  dispatch: React.Dispatch<CartActions>
+}
 
-// const mainReducer = (
-//   { products, cart }: InitialStateType,
-//   action: CartActions
-// ) => ({
-//   products: cartReducer(cart, action),
-//   cart: cartReducer(cart, action),
-// })
+export const CartContext = createContext<Context>({} as Context)
 
 export const ProductsInCart: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialState)
+  const [state, dispatch] = useReducer<React.Reducer<Store, CartActions>>(
+    cartReducer,
+    initialState
+  )
+
   console.log(state)
 
   useLocalStorage('stateLS', '')
