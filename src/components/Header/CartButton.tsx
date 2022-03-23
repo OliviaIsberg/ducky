@@ -18,10 +18,7 @@ import { useCart } from '../../contexts/ProductsInCartContext'
 import { CartType, Types } from '../../contexts/Reducers'
 
 function CartButton() {
-  const {
-    state: { cart },
-    dispatch,
-  } = useCart()
+  const { cart, dispatch } = useCart()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,7 +55,7 @@ function CartButton() {
         }}
       >
         <List dense>
-          {cart.length !== 0 ? (
+          {cart && cart.length !== 0 ? (
             cart.map((product: CartType) => (
               <ListItem key={product.id}>
                 <ListItemAvatar>

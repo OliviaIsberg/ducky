@@ -24,14 +24,8 @@ import { CartType, Types } from '../contexts/Reducers'
 import useLocalStorage from '../Hooks/useLocalStorage'
 
 function CartPage() {
-  const {
-    state: { cart },
-    dispatch,
-  } = useCart()
+  const { cart, dispatch } = useCart()
   const [total, setTotal] = useLocalStorage('cartSum', 0)
-
-  // let imgURL =
-  //   'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
 
   useEffect(() => {
     setTotal(

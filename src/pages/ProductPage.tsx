@@ -11,13 +11,12 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Link, useParams } from 'react-router-dom'
 import BuyButton from '../components/BuyButton'
 import { ProductType, useCart } from '../contexts/ProductsInCartContext'
+import { useProduct } from '../contexts/ProductsContext'
 
 function ProductPage() {
   let { id } = useParams()
-  const {
-    state: { cart, products },
-    dispatch,
-  } = useCart()
+  const { cart, dispatch } = useCart()
+  const { products } = useProduct()
   const product = products.find(
     (item: ProductType) => item.id.toString() === id
   )

@@ -15,10 +15,7 @@ import BuyButton from '../BuyButton'
 import { CartType } from '../../contexts/Reducers'
 
 function ProductCard({ product }: any) {
-  const {
-    state: { cart },
-    dispatch,
-  } = useCart()
+  const { cart, dispatch } = useCart()
   const [ratingValue] = useState(5)
 
   return (

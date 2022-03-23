@@ -1,12 +1,11 @@
-import { Container, Grid } from '@mui/material';
-import { ProductType, useCart } from '../contexts/ProductsInCartContext';
-import ProductCard from '../components/Cards/ProductCard';
-import FilterBar from '../components/FilterBar';
+import { Container, Grid } from '@mui/material'
+import { ProductType } from '../contexts/ProductsInCartContext'
+import ProductCard from '../components/Cards/ProductCard'
+import FilterBar from '../components/FilterBar'
+import { useProduct } from '../contexts/ProductsContext'
 
 function ProductListPage() {
-  const {
-    state: { products },
-  } = useCart();
+  const { products } = useProduct()
 
   return (
     <Container maxWidth="md">
@@ -18,7 +17,7 @@ function ProductListPage() {
           ))}
       </Grid>
     </Container>
-  );
+  )
 }
 
-export default ProductListPage;
+export default ProductListPage

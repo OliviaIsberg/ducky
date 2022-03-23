@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
-import { mockedProducts } from '../Api/Data'
-import useLocalStorage from '../Hooks/useLocalStorage'
-import { cartReducer, CartActions, CartType, Store } from './Reducers'
+// import { mockedProducts } from '../Api/Data'
+// import useLocalStorage from '../Hooks/useLocalStorage'
+import { cartReducer, CartActions, CartType } from './Reducers'
 
 export type ProductType = {
   id: number
@@ -11,43 +11,33 @@ export type ProductType = {
   imgURL: string
 }
 
-export type InitialStateType = {
-  products: ProductType[]
-  cart: CartType[]
-}
-
-export const initialState = {
-  products: mockedProducts,
-  cart: [] as CartType[],
-}
-
 type Context = {
-  state: Store
+  cart: CartType[]
   dispatch: React.Dispatch<CartActions>
 }
 
 export const CartContext = createContext<Context>({} as Context)
 
-export const ProductsInCart: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer<React.Reducer<Store, CartActions>>(
+export const CartProvider: React.FC = ({ children }) => {
+  const [cart, dispatch] = useReducer<React.Reducer<CartType[], CartActions>>(
     cartReducer,
-    initialState
+    []
   )
 
-  console.log(state)
+  console.log(cart)
 
-  useLocalStorage('stateLS', '')
+  // useLocalStorage('stateLS', '')
 
   useEffect(() => {
-    localStorage.setItem('stateLS', JSON.stringify(state))
-  }, [state])
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
 
   return (
-    <CartContext.Provider value={{ state, dispatch }}>
+    <CartContext.Provider value={{ cart, dispatch }}>
       {children}
     </CartContext.Provider>
   )
 }
-export default ProductsInCart
+export default CartProvider
 // useCart hook
 export const useCart = () => useContext(CartContext)
