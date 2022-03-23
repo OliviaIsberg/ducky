@@ -33,14 +33,17 @@ function StartPageDesription() {
       >
         <Typography sx={{ fontSize: 'clamp(1rem, 2.5vw, 1.1rem)' }}>
           Håll humöret flytande med hjälp av våra osänkbara badankor! Badankor
-          är levnadsglada filurer med truten formad som ett naturligt leenden.
-          Vi på Ducky har också lagt näbben i blöt och våra efterforskningar ger
+          är levnadsglada filurer med truten formad som ett naturligt leende. Vi
+          på Ducky har också lagt näbben i blöt och våra efterforskningar ger
           starka belägg för att det är svårt att sura när du ser en badanka i
           ögonen. Badankor bör därför inte saknas i badrummet och alla våra
           badankor har riktigt starka personligheter
         </Typography>
       </Box>
-      <Box sx={{ margin: 'auto' }}>
+      <Box sx={{ textAlign: 'center' }}>
+        <Typography sx={{ marginBottom: '2rem' }} variant="h4">
+          Våra mest sålda produkter
+        </Typography>
         <PopularDucks />
       </Box>
     </Box>

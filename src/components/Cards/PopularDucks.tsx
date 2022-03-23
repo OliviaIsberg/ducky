@@ -1,6 +1,5 @@
-import { Box, Grid } from '@mui/material';
-import { Key, ReactChild, ReactFragment, ReactPortal } from 'react';
-import { useCart } from '../../contexts/ProductsInCartContext';
+import { Grid } from '@mui/material';
+import { ProductType, useCart } from '../../contexts/ProductsInCartContext';
 import ProductCard from './ProductCard';
 
 function PopularDucks() {
@@ -18,32 +17,9 @@ function PopularDucks() {
       sx={{ gap: '1rem', alignItems: 'center', justifyContent: 'center' }}
     >
       {popularProducts &&
-        popularProducts.map(
-          (product: {
-            id: Key | null | undefined;
-            title:
-              | boolean
-              | ReactChild
-              | ReactFragment
-              | ReactPortal
-              | null
-              | undefined;
-            information:
-              | boolean
-              | ReactChild
-              | ReactFragment
-              | ReactPortal
-              | null
-              | undefined;
-            price:
-              | boolean
-              | ReactChild
-              | ReactFragment
-              | ReactPortal
-              | null
-              | undefined;
-          }) => <ProductCard key={product.id} product={product} />
-        )}
+        popularProducts.map((product: ProductType) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
     </Grid>
   );
 }
