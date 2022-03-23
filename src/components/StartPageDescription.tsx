@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import ducky from '../assets/ProductPictures/ducky2 1.png';
+import PopularDucks from './Cards/PopularDucks';
 
 function StartPageDesription() {
   return (
@@ -39,6 +40,7 @@ function StartPageDesription() {
           badankor har riktigt starka personligheter
         </Typography>
       </Box>
+      <PopularDucks />
     </Box>
   );
 }
