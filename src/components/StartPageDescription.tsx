@@ -6,21 +6,37 @@ function StartPageDesription() {
     <Box
       sx={{
         width: '100%',
-        height: '15rem',
+        height: 'fitContent',
         background: 'lightpink',
-        display: 'flex',
-        justifyContent: 'center',
       }}
     >
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <img style={{ width: '200px' }} src={ducky} alt=""></img>
         <Typography sx={{ fontSize: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
           Välkommen till Ducky - affären där du köper dina badankor
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: '70%',
+          textAlign: 'center',
+          margin: 'auto',
+          padding: '2rem',
+        }}
+      >
+        <Typography sx={{ fontSize: 'clamp(1rem, 2.5vw, 1.1rem)' }}>
+          Håll humöret flytande med hjälp av våra osänkbara badankor! Badankor
+          är levnadsglada filurer med truten formad som ett naturligt leenden.
+          Vi på Ducky har också lagt näbben i blöt och våra efterforskningar ger
+          starka belägg för att det är svårt att sura när du ser en badanka i
+          ögonen. Badankor bör därför inte saknas i badrummet och alla våra
+          badankor har riktigt starka personligheter
         </Typography>
       </Box>
     </Box>
