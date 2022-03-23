@@ -160,7 +160,7 @@ export interface Delivery {
   shippingTime: number
   price: number
   logo: string
-  id: number
+  id: string
 }
 
 export const deliveryOptions: Delivery[] = [
@@ -170,7 +170,7 @@ export const deliveryOptions: Delivery[] = [
     shippingTime: 3,
     price: 19,
     logo: postnord,
-    id: 1,
+    id: 'postnord',
   },
   {
     name: 'Schenker',
@@ -178,7 +178,7 @@ export const deliveryOptions: Delivery[] = [
     shippingTime: 2,
     price: 29,
     logo: schenker,
-    id: 2,
+    id: 'schenker',
   },
   {
     name: 'Instabox',
@@ -186,14 +186,14 @@ export const deliveryOptions: Delivery[] = [
     shippingTime: 2,
     price: 29,
     logo: instabox,
-    id: 3,
+    id: 'instabox',
   },
 ]
 
 export interface Payment {
   name: string
   altText: string
-  id: number
+  id: string
   logo?: string
   icon?: typeof SvgIcon
 }
@@ -203,18 +203,18 @@ export const paymentOptions: Payment[] = [
     name: 'Klarna',
     altText: 'Välj att delbetala, betala senare, eller i slutet av månaden',
     logo: klarna,
-    id: 1,
+    id: 'klarna',
   },
   {
     name: 'Swish',
     altText: 'Betala enkelt med mobilen',
     logo: swish,
-    id: 2,
+    id: 'swish',
   },
   {
     name: 'Kortbetalning',
     altText: 'Betala med Visa / Mastercard / Maestro',
     icon: CreditCardIcon,
-    id: 3,
+    id: 'card',
   },
 ]
