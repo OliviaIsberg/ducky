@@ -8,14 +8,14 @@ function PopularDucks() {
     state: { products },
   } = useCart();
 
-  const favoriteProducts = products.filter((product) =>
+  const popularProducts = products.filter((product) =>
     [1, 5, 8].includes(product.id)
   );
 
   return (
     <Grid container sx={{ gap: '1rem' }}>
-      {favoriteProducts &&
-        favoriteProducts.map(
+      {popularProducts &&
+        popularProducts.map(
           (product: {
             id: Key | null | undefined;
             title:
