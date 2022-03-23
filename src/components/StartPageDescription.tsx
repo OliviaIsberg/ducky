@@ -20,7 +20,7 @@ function StartPageDesription() {
         }}
       >
         <img style={{ width: '200px' }} src={ducky} alt=""></img>
-        <Typography sx={{ fontSize: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
+        <Typography sx={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}>
           Välkommen till Ducky - affären där du köper dina badankor
         </Typography>
       </Box>
@@ -42,7 +42,10 @@ function StartPageDesription() {
         </Typography>
       </Box>
       <Box sx={{ textAlign: 'center' }}>
-        <Typography sx={{ marginBottom: '2rem' }} variant="h4">
+        <Typography
+          sx={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}
+          variant="h4"
+        >
           Våra mest sålda produkter
         </Typography>
         <PopularDucks />
