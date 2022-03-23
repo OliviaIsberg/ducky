@@ -40,7 +40,9 @@ function StartPageDesription() {
           badankor har riktigt starka personligheter
         </Typography>
       </Box>
-      <PopularDucks />
+      <Box sx={{ margin: 'auto' }}>
+        <PopularDucks />
+      </Box>
     </Box>
   );
 }

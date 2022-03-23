@@ -13,7 +13,10 @@ function PopularDucks() {
   );
 
   return (
-    <Grid container sx={{ gap: '1rem' }}>
+    <Grid
+      container
+      sx={{ gap: '1rem', alignItems: 'center', justifyContent: 'center' }}
+    >
       {popularProducts &&
         popularProducts.map(
           (product: {
