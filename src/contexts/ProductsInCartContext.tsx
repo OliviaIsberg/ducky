@@ -10,7 +10,7 @@ export type ProductType = {
   price: number
   imgURL: string
 }
-
+//testar testar  /sabina
 export type InitialStateType = {
   products: ProductType[]
   cart: CartType[]
