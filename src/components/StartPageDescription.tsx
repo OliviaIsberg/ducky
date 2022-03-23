@@ -1,4 +1,5 @@
-import { Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
 import ducky from '../assets/ProductPictures/ducky2 1.png';
 import PopularDucks from './Cards/PopularDucks';
 
@@ -45,6 +46,11 @@ function StartPageDesription() {
           Våra mest sålda produkter
         </Typography>
         <PopularDucks />
+        <Link to="products">
+          <Button sx={{ margin: '2rem 0' }} variant="contained">
+            Visa alla produkter
+          </Button>
+        </Link>
       </Box>
     </Box>
   );
