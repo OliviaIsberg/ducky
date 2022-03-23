@@ -23,13 +23,14 @@ interface Props {
 }
 
 function PaymentBox(props: Props) {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState("");
   const [expanded, setExpanded] = React.useState<string | false>(false);
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
+    index: string
   ) => {
     setSelectedIndex(index);
+    props.formikProps.setFieldValue("paymentMethod", index);
   };
 
   const handleChange =
@@ -43,10 +44,10 @@ function PaymentBox(props: Props) {
         {paymentOptions.length !== 0 &&
           paymentOptions.map((payment: Payment, index) => (
             <ListItemButton
-              key={index}
-              selected={selectedIndex === index}
+              key={payment.id}
+              selected={selectedIndex === payment.id}
               onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                handleListItemClick(event, index)
+                handleListItemClick(event, payment.id)
               }
             >
               <Accordion
@@ -57,7 +58,8 @@ function PaymentBox(props: Props) {
                   padding: 0,
                   border: "none",
                 }}
-                expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
               >
                 <AccordionSummary sx={{ padding: 0 }}>
                   <ListItemAvatar>
@@ -70,13 +72,13 @@ function PaymentBox(props: Props) {
                   ></ListItemText>
                 </AccordionSummary>
                 <AccordionDetails>
-                  {selectedIndex === 0 && (
+                  {selectedIndex === "klarna" && (
                     <KlarnaForm formikProps={props.formikProps} />
                   )}
-                  {selectedIndex === 1 && (
+                  {selectedIndex === "swish" && (
                     <SwishForm formikProps={props.formikProps} />
                   )}
-                  {selectedIndex === 2 && (
+                  {selectedIndex === "card" && (
                     <CardPaymentForm formikProps={props.formikProps} />
                   )}
                 </AccordionDetails>

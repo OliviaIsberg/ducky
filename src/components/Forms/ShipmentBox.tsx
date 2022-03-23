@@ -6,17 +6,24 @@ import {
   ListItemAvatar,
   Avatar,
 } from "@mui/material";
+import { FormikProps } from "formik";
 import React from "react";
 import { Delivery, deliveryOptions } from "../../Api/Data";
+import { OrderData } from "./OrderForm";
 
-function ShipmentBox() {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+interface Props {
+  formikProps: FormikProps<OrderData>;
+}
+
+function ShipmentBox(props: Props) {
+  const [selectedIndex, setSelectedIndex] = React.useState("");
   // const {deliveryOptions, deliveryDate, setDeliveryDate} = React.useState()
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
+    index: string
   ) => {
     setSelectedIndex(index);
+    props.formikProps.setFieldValue("shippingMethod", index);
   };
 
   // const date = new Date()

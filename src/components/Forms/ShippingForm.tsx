@@ -139,7 +139,14 @@ function ShippingForm(props: Props) {
         name="shippingAdress.phoneNumber"
         type="text"
         value={values.shippingAdress.phoneNumber}
-        onChange={handleChange}
+        onChange={(e) => {
+          handleChange(e);
+          // checks if other number is filled in under swish, won't overwrite.
+          if (!props.formikProps.values.phoneNumber) {
+            // adds phonenumber to swish if swishnumber is empty
+            props.formikProps.setFieldValue("phoneNumber", e.target.value);
+          }
+        }}
         onBlur={handleBlur}
         error={
           touched.shippingAdress?.phoneNumber &&
