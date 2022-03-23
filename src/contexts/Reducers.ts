@@ -1,3 +1,5 @@
+import { initialState } from './ProductsInCartContext'
+
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {
@@ -29,9 +31,10 @@ type CartPayload = {
   [Types.AddToCart]: {
     id: number
     title: string
-    description?: string
+    description: string
     price: number
-    qty?: number
+    qty: number
+    imgURL: string
   }
 
   [Types.DeleteFromCart]: {
@@ -43,9 +46,11 @@ type CartPayload = {
   }
 }
 
+export type Store = typeof initialState
+
 export type CartActions = ActionMap<CartPayload>[keyof ActionMap<CartPayload>]
 
-export const cartReducer = (state: CartType[] | any, action: CartActions) => {
+export const cartReducer = (state: Store, action: CartActions) => {
   switch (action.type) {
     case Types.AddToCart:
       return { ...state, cart: [...state.cart, { ...action.payload, qty: 1 }] }
