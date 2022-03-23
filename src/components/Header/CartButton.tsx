@@ -35,9 +35,6 @@ function CartButton() {
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
 
-  let imgURL =
-    'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
-
   return (
     <>
       <Button variant="contained" aria-describedby={id} onClick={handleClick}>
@@ -66,7 +63,7 @@ function CartButton() {
               <ListItem key={product.id}>
                 <ListItemAvatar>
                   <img
-                    src={imgURL}
+                    src={product.imgURL}
                     alt={product.title}
                     style={{
                       width: '40px',
