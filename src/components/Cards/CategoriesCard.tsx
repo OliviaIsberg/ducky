@@ -14,15 +14,24 @@ import glowingDuck from '../../assets/CategoriesPictures/glowingDuck.jpg';
 
 function CategoriesCard() {
   return (
-    <Container maxWidth="xl">
+    <Container sx={{ marginTop: '2rem' }} maxWidth="xl">
+      <Typography
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+        }}
+      >
+        Kategorier
+      </Typography>
       <Grid
         justifyContent="center"
         alignItems="center"
         container
-        sx={{ gap: '5rem' }}
+        sx={{ gap: '5rem', margin: '2rem 0' }}
       >
         <Link to="products">
-          <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
+          <Card sx={{ maxWidth: 300, borderRadius: '1rem' }}>
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -38,7 +47,7 @@ function CategoriesCard() {
           </Card>
         </Link>
         <Link to="products">
-          <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
+          <Card sx={{ maxWidth: 300, borderRadius: '1rem' }}>
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -54,7 +63,7 @@ function CategoriesCard() {
           </Card>
         </Link>
         <Link to="products">
-          <Card sx={{ maxWidth: 400, borderRadius: '1rem' }}>
+          <Card sx={{ maxWidth: 300, borderRadius: '1rem' }}>
             <CardActionArea>
               <CardMedia
                 component="img"

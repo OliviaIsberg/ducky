@@ -1,6 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
 import ducky from '../assets/ProductPictures/ducky2 1.png';
 import PopularDucks from './Cards/PopularDucks';
+import ShowCarousel from './Carousel';
 
 function StartPageDesription() {
   return (
@@ -8,7 +10,8 @@ function StartPageDesription() {
       sx={{
         width: '100%',
         height: 'fitContent',
-        background: 'lightpink',
+        background: '#f7f7dc',
+        paddingTop: '2rem',
       }}
     >
       <Box
@@ -19,7 +22,7 @@ function StartPageDesription() {
         }}
       >
         <img style={{ width: '200px' }} src={ducky} alt=""></img>
-        <Typography sx={{ fontSize: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
+        <Typography sx={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}>
           Välkommen till Ducky - affären där du köper dina badankor
         </Typography>
       </Box>
@@ -40,11 +43,19 @@ function StartPageDesription() {
           badankor har riktigt starka personligheter
         </Typography>
       </Box>
+      <ShowCarousel />
       <Box sx={{ textAlign: 'center' }}>
-        <Typography sx={{ marginBottom: '2rem' }} variant="h4">
+        <Typography
+          sx={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}
+        >
           Våra mest sålda produkter
         </Typography>
         <PopularDucks />
+        <Link to="products">
+          <Button sx={{ margin: '2rem 0' }} variant="contained">
+            Visa alla produkter
+          </Button>
+        </Link>
       </Box>
     </Box>
   );

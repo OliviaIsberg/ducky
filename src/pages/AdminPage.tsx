@@ -11,13 +11,11 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import { Link } from 'react-router-dom'
-import { useCart } from '../contexts/ProductsInCartContext'
 import { useState } from 'react'
+import { useProduct } from '../contexts/ProductsContext'
 
 function AdminPage() {
-  const {
-    state: { products },
-  } = useCart()
+  const { products } = useProduct()
   const [open, setOpen] = useState(false)
   const handleOpen = (e: EventTarget) => setOpen(!open)
 

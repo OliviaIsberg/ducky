@@ -1,4 +1,6 @@
-import { initialState } from './ProductsInCartContext'
+// import { initialState } from './ProductsInCartContext'
+
+import { ProductType } from './ProductsContext'
 
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
@@ -46,33 +48,71 @@ type CartPayload = {
   }
 }
 
-export type Store = typeof initialState
+export const initialState = [] as CartType[]
+export type State = typeof initialState
 
 export type CartActions = ActionMap<CartPayload>[keyof ActionMap<CartPayload>]
 
-export const cartReducer = (state: Store, action: CartActions) => {
+export const cartReducer = (state: State, action: CartActions) => {
   switch (action.type) {
     case Types.AddToCart:
-      return { ...state, cart: [...state.cart, { ...action.payload, qty: 1 }] }
+      return [...state, { ...action.payload, qty: 1 }]
     case Types.DeleteFromCart:
-      return {
-        ...state,
-        cart: state.cart.filter(
-          (c: { id: number }) => c.id !== action.payload.id
-        ),
-      }
+      return state.filter((c: { id: number }) => c.id !== action.payload.id)
     case Types.UpdateQty:
-      return {
-        ...state,
-        cart: state.cart.filter((cartItem: CartType) =>
-          cartItem.id === action.payload.id
+      return [
+        ...state.filter((cartItem: CartType) => {
+          return cartItem.id === action.payload.id
             ? (cartItem.qty = action.payload.qty)
             : cartItem.qty
-        ),
-      }
+        }),
+      ]
     default:
-      return state
+      throw new Error('error')
   }
 }
 
 // Products
+
+export enum ProductTypes {
+  Create = 'CREATE_PRODUCT',
+  Read = 'READ_PRODUCT',
+  Update = 'UPDATE_PRODUCT',
+  Delete = 'DELETE_PRODUCT',
+}
+
+type ProductPayload = {
+  [ProductTypes.Create]: {
+    id: number
+  }
+  [ProductTypes.Read]: {
+    id: number
+  }
+  [ProductTypes.Update]: {
+    id: number
+  }
+  [ProductTypes.Delete]: {
+    id: number
+  }
+}
+
+const initialStateProd = [] as ProductType[]
+export type Data = typeof initialStateProd
+
+export type ProductActions =
+  ActionMap<ProductPayload>[keyof ActionMap<ProductPayload>]
+
+export const productReducer = (state: Data, action: ProductActions) => {
+  switch (action.type) {
+    case ProductTypes.Create:
+      return state
+    case ProductTypes.Read:
+      return state
+    case ProductTypes.Update:
+      return state
+    case ProductTypes.Delete:
+      return state
+    default:
+      return state
+  }
+}

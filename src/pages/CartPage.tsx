@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useEffect } from 'react'
-import { useCart } from '../contexts/ProductsInCartContext'
+import { useCart } from '../contexts/CartContext'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import PaymentIcon from '@mui/icons-material/Payment'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -24,14 +24,8 @@ import { CartType, Types } from '../contexts/Reducers'
 import useLocalStorage from '../Hooks/useLocalStorage'
 
 function CartPage() {
-  const {
-    state: { cart },
-    dispatch,
-  } = useCart()
+  const { cart, dispatch } = useCart()
   const [total, setTotal] = useLocalStorage('cartSum', 0)
-
-  // let imgURL =
-  //   'https://cdn.pixabay.com/photo/2017/10/05/22/34/rubber-duck-2821371_1280.jpg'
 
   useEffect(() => {
     setTotal(
@@ -41,7 +35,6 @@ function CartPage() {
       )
     )
   }, [cart, setTotal])
-  console.log(cart)
 
   return (
     <Container maxWidth="md">
@@ -50,7 +43,7 @@ function CartPage() {
       </Typography>
       <Divider light />
       <List>
-        {cart.length > 0 ? (
+        {cart && cart.length > 0 ? (
           cart.map((product: CartType) => (
             <ListItem key={product.id}>
               <ListItemAvatar>
