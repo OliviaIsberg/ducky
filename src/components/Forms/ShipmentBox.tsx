@@ -20,22 +20,29 @@ interface Props {
 }
 
 function ShipmentBox(props: Props) {
+  // the state to  handle clicks
   const [selectedIndex, setSelectedIndex] = React.useState("");
 
+  // Checks which button is clicked
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: string
-  ) => {
-    setSelectedIndex(index);
-    props.formikProps.setFieldValue("shippingMethod", index);
-  };
+  ) =>
+    // if clicked, sets value (seen in orderDetails) to chosen method
+    {
+      setSelectedIndex(index);
+      props.formikProps.setFieldValue("shippingMethod", index);
+    };
 
   return (
+    // The full "form" for delivery
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <List component="nav" aria-label="Shipping options list">
+        {/* loops through array of delivery options */}
         {deliveryOptions.length !== 0 &&
           deliveryOptions.map((delivery: Delivery) => (
             <>
+              {/* displays all objects in array based on index */}
               <ListItemButton
                 key={delivery.id}
                 selected={selectedIndex === delivery.id}
@@ -43,28 +50,37 @@ function ShipmentBox(props: Props) {
                   event: React.MouseEvent<HTMLDivElement, MouseEvent>
                 ) => handleListItemClick(event, delivery.id)}
               >
+                {/* logo for delivery-option */}
                 <ListItemAvatar>
                   <Avatar src={delivery.logo} alt={`${delivery.name} logo`} />
                 </ListItemAvatar>
 
+                {/* name of delivery-option */}
                 <ListItemText
                   primary={delivery.name}
                   secondary={
                     <>
+                      {/* altText for delivery-option */}
                       <Typography
                         sx={{ display: "block" }}
                         component="span"
                         variant="body2"
                       >{`${delivery.altText}`}</Typography>
+
+                      {/* Price for delivery-option  */}
                       <Typography
                         sx={{ display: "block" }}
                         component="span"
                         variant="body2"
                       >{`Leveranskostnad: ${delivery.price} kr`}</Typography>
+
+                      {/* delivery time */}
                       <Typography
                         sx={{ display: "block" }}
                         component="span"
                         variant="body2"
+
+                        // calculates the expected delivery date based on today's date + shippingTime
                       >{`Senaste datum för leverans: ${format(
                         addDays(new Date(), delivery.shippingTime),
                         "d MMMM",
