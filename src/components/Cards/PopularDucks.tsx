@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material'
-import { useProduct } from '../../contexts/ProductsContext'
-import { ProductType } from '../../contexts/ProductsInCartContext'
+import { useProduct, ProductType } from '../../contexts/ProductsContext'
 import ProductCard from './ProductCard'
 
 function PopularDucks() {

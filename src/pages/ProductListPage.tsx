@@ -1,8 +1,7 @@
 import { Container, Grid } from '@mui/material'
-import { ProductType } from '../contexts/ProductsInCartContext'
 import ProductCard from '../components/Cards/ProductCard'
 import FilterBar from '../components/FilterBar'
-import { useProduct } from '../contexts/ProductsContext'
+import { useProduct, ProductType } from '../contexts/ProductsContext'
 
 function ProductListPage() {
   const { products } = useProduct()

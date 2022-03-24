@@ -10,8 +10,8 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { Link, useParams } from 'react-router-dom'
 import BuyButton from '../components/BuyButton'
-import { ProductType, useCart } from '../contexts/ProductsInCartContext'
-import { useProduct } from '../contexts/ProductsContext'
+import { ProductType, useProduct } from '../contexts/ProductsContext'
+import { useCart } from '../contexts/CartContext'
 
 function ProductPage() {
   let { id } = useParams()

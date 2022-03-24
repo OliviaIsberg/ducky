@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { useCart } from '../../contexts/ProductsInCartContext'
+import { useCart } from '../../contexts/CartContext'
 import BuyButton from '../BuyButton'
 import { CartType } from '../../contexts/Reducers'
 
@@ -57,7 +57,7 @@ function ProductCard({ product }: any) {
         <Link to={`/products/${product.id}`}>
           <Button variant="outlined">Visa</Button>
         </Link>
-        {cart.some((p: CartType) => p.id === product.id) ? (
+        {cart && cart.some((p: CartType) => p.id === product.id) ? (
           <Button>I kundkorgen</Button>
         ) : (
           <BuyButton dispatch={dispatch} product={product} />

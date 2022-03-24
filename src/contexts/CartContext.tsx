@@ -1,19 +1,14 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
-// import { mockedProducts } from '../Api/Data'
-// import useLocalStorage from '../Hooks/useLocalStorage'
-import { cartReducer, CartActions, CartType } from './Reducers'
-
-export type ProductType = {
-  id: number
-  title: string
-  information: string
-  price: number
-  imgURL: string
-}
+import { cartReducer, CartActions, CartType, initialState } from './Reducers'
 
 type Context = {
   cart: CartType[]
   dispatch: React.Dispatch<CartActions>
+}
+
+function init(initialState: any) {
+  initialState = localStorage.getItem('cart')
+  return initialState ? JSON.parse(initialState) : ([] as unknown)
 }
 
 export const CartContext = createContext<Context>({} as Context)
@@ -21,12 +16,11 @@ export const CartContext = createContext<Context>({} as Context)
 export const CartProvider: React.FC = ({ children }) => {
   const [cart, dispatch] = useReducer<React.Reducer<CartType[], CartActions>>(
     cartReducer,
-    []
+    initialState,
+    init as any
   )
 
   console.log(cart)
-
-  // useLocalStorage('stateLS', '')
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))

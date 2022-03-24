@@ -1,6 +1,6 @@
 // import { initialState } from './ProductsInCartContext'
 
-import { ProductType } from './ProductsInCartContext'
+import { ProductType } from './ProductsContext'
 
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
@@ -49,27 +49,26 @@ type CartPayload = {
 }
 
 export const initialState = [] as CartType[]
-export type Store = typeof initialState
+export type State = typeof initialState
 
 export type CartActions = ActionMap<CartPayload>[keyof ActionMap<CartPayload>]
 
-export const cartReducer = (state: Store, action: CartActions) => {
+export const cartReducer = (state: State, action: CartActions) => {
   switch (action.type) {
     case Types.AddToCart:
       return [...state, { ...action.payload, qty: 1 }]
     case Types.DeleteFromCart:
       return state.filter((c: { id: number }) => c.id !== action.payload.id)
     case Types.UpdateQty:
-      return {
-        ...state,
+      return [
         ...state.filter((cartItem: CartType) => {
           return cartItem.id === action.payload.id
             ? (cartItem.qty = action.payload.qty)
             : cartItem.qty
         }),
-      }
+      ]
     default:
-      return state
+      throw new Error('error')
   }
 }
 

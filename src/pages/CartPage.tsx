@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useEffect } from 'react'
-import { useCart } from '../contexts/ProductsInCartContext'
+import { useCart } from '../contexts/CartContext'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import PaymentIcon from '@mui/icons-material/Payment'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -35,7 +35,6 @@ function CartPage() {
       )
     )
   }, [cart, setTotal])
-  console.log(cart)
 
   return (
     <Container maxWidth="md">
@@ -44,7 +43,7 @@ function CartPage() {
       </Typography>
       <Divider light />
       <List>
-        {cart.length > 0 ? (
+        {cart && cart.length > 0 ? (
           cart.map((product: CartType) => (
             <ListItem key={product.id}>
               <ListItemAvatar>
