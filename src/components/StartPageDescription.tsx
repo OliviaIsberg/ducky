@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import ducky from '../assets/ProductPictures/ducky2 1.png';
 import PopularDucks from './Cards/PopularDucks';
+import ShowCarousel from './Carousel';
 
 function StartPageDesription() {
   return (
@@ -41,6 +42,7 @@ function StartPageDesription() {
           badankor har riktigt starka personligheter
         </Typography>
       </Box>
+      <ShowCarousel />
       <Box sx={{ textAlign: 'center' }}>
         <Typography
           sx={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}
