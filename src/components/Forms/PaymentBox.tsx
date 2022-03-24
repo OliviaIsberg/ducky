@@ -23,26 +23,36 @@ interface Props {
 }
 
 function PaymentBox(props: Props) {
+  // to handle the state of the accordion
   const [selectedIndex, setSelectedIndex] = React.useState("");
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  
+  // Checks which button is clicked
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: string
   ) => {
     setSelectedIndex(index);
+    // if clicked, sets value (seen in orderDetails) to chosen method
     props.formikProps.setFieldValue("paymentMethod", index);
   };
 
+  // Expands the button (accordion)
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
 
   return (
+    // Payment options box
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      <List component="nav" aria-label="Shipping options list">
+      <List component="nav" aria-label="Payment options list">
+        
+        {/* Loops through the full array of payment options */}
         {paymentOptions.length !== 0 &&
           paymentOptions.map((payment: Payment, index) => (
+
+            // sets value of the object in the array
             <ListItemButton
               key={payment.id}
               selected={selectedIndex === payment.id}
@@ -61,16 +71,20 @@ function PaymentBox(props: Props) {
                 expanded={expanded === `panel${index}`}
                 onChange={handleChange(`panel${index}`)}
               >
+                {/* Displays logo selected index in array */}
                 <AccordionSummary sx={{ padding: 0 }}>
                   <ListItemAvatar>
                     <Avatar src={payment.logo} alt={`${payment.name} logo`} />
                   </ListItemAvatar>
 
+                  {/* Displays name selected index in array */}
                   <ListItemText
                     primary={payment.name}
                     secondary={`${payment.altText}`}
                   ></ListItemText>
                 </AccordionSummary>
+                
+                {/* Inserts forms */}
                 <AccordionDetails>
                   {selectedIndex === "klarna" && (
                     <KlarnaForm formikProps={props.formikProps} />
