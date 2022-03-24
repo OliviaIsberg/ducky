@@ -68,10 +68,13 @@ interface Props {
 
 function OrderForm(props: Props) {
   let navigate = useNavigate();
-  const [orderDetails, setOrderDetails] = useLocalStorage("orderDetails", "");
+  const [setOrderDetails] = useLocalStorage("orderDetails", "");
 
+  // successful submit
   function handleSubmit(orderData: OrderData) {
     setOrderDetails(orderData);
+    
+    // fetch api and navigate to confirmed-order page if successful
     confirmOrder();
   }
 
@@ -84,7 +87,9 @@ function OrderForm(props: Props) {
   });
 
   return (
+    // The full order form
     <form onSubmit={formikProps.handleSubmit}>
+      
       {/* Shipping adress */}
       <h3>Leveransadress</h3>
       <ShippingForm formikProps={formikProps} />
@@ -116,6 +121,7 @@ function OrderForm(props: Props) {
         <FormControlLabel control={<Checkbox />} label="Jag godkänner" />
         <Link to="/termsOfUse">Köpvillkoren.</Link>
       </div>
+
       {/* Post form */}
       <Button variant="contained" type="submit">
         Slutför beställning
@@ -123,6 +129,7 @@ function OrderForm(props: Props) {
     </form>
   );
 
+  // fetches api to check if order went through, navigates to confirmed-order if successful
   async function confirmOrder() {
     const success = await placeOrderFetch();
     if (success) {
