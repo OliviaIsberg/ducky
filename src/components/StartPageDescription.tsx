@@ -10,7 +10,8 @@ function StartPageDesription() {
       sx={{
         width: '100%',
         height: 'fitContent',
-        background: 'lightpink',
+        background: '#f7f7dc',
+        paddingTop: '2rem',
       }}
     >
       <Box
@@ -46,7 +47,6 @@ function StartPageDesription() {
       <Box sx={{ textAlign: 'center' }}>
         <Typography
           sx={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}
-          variant="h4"
         >
           Våra mest sålda produkter
         </Typography>
