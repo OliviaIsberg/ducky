@@ -10,6 +10,7 @@ import { FormControlLabel, Checkbox, Button } from "@mui/material";
 import ShipmentBox from "./ShipmentBox";
 import { Link, useNavigate } from "react-router-dom";
 import { placeOrderFetch } from "../../Api/Api";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 export interface OrderData {
   shippingAdress: ShippingAdress;
@@ -67,16 +68,11 @@ interface Props {
 
 function OrderForm(props: Props) {
   let navigate = useNavigate();
-  // const [orderDetails, setOrderDetails] = useLocalStorage("orderDetails", "");
+  const [setOrderDetails] = useLocalStorage("orderDetails", "");
 
-  // function handleSubmit(orderData: OrderData) {
-  //   setOrderDetails(orderData);
-  //   confirmOrder();
-  // }
-  // const [orderDetails, setOrderDetails] = useState("")
   function handleSubmit(orderData: OrderData) {
-    localStorage.setItem("orderDetails", JSON.stringify(orderData));
-    confirmOrder()
+    setOrderDetails(orderData);
+    confirmOrder();
   }
 
   const formikProps = useFormik<OrderData>({
@@ -120,6 +116,7 @@ function OrderForm(props: Props) {
         <FormControlLabel control={<Checkbox />} label="Jag godkänner" />
         <Link to="/termsOfUse">Köpvillkoren.</Link>
       </div>
+
       {/* Post form */}
       <Button variant="contained" type="submit">
         Slutför beställning
