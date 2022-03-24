@@ -1,15 +1,13 @@
-import { Grid } from '@mui/material';
-import { ProductType, useCart } from '../../contexts/ProductsInCartContext';
-import ProductCard from './ProductCard';
+import { Grid } from '@mui/material'
+import { useProduct, ProductType } from '../../contexts/ProductsContext'
+import ProductCard from './ProductCard'
 
 function PopularDucks() {
-  const {
-    state: { products },
-  } = useCart();
+  const { products } = useProduct()
 
   const popularProducts = products.filter((product) =>
     [1, 5, 8].includes(product.id)
-  );
+  )
 
   return (
     <Grid
@@ -21,7 +19,7 @@ function PopularDucks() {
           <ProductCard key={product.id} product={product} />
         ))}
     </Grid>
-  );
+  )
 }
 
-export default PopularDucks;
+export default PopularDucks
