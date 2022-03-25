@@ -1,4 +1,6 @@
 import { Container, Divider } from "@mui/material";
+import { deliveryOptions } from "../Api/Data";
+import { OrderData } from "../components/Forms/OrderForm";
 import { CartType } from "../contexts/Reducers";
 import useLocalStorage from "../Hooks/useLocalStorage";
 
@@ -9,13 +11,9 @@ function RandomOrderNumber() {
 
 function ConfirmedOrderPage() {
   // get cart, total cartsum, all orderdetails and shippingdetails from local storage
-  const [cart] = useLocalStorage("cart", "");
-  const [total] = useLocalStorage("cartSum", 0);
-  const [orderDetails] = useLocalStorage("orderDetails", "");
-  const [adressDataDetails] = useLocalStorage("orderDetails", "");
-
-  const orderData = Object.entries(orderDetails);
-  const adressData = Object.entries(adressDataDetails.shippingAdress);
+  const [cart] = useLocalStorage<CartType[]>("cart", "");
+  const [total] = useLocalStorage<number>("cartSum", 0);
+  const [orderDetails] = useLocalStorage<OrderData>("orderDetails", "");
 
   return (
     <Container maxWidth="md">
@@ -24,12 +22,10 @@ function ConfirmedOrderPage() {
         Din betalning och beställning har genomförts, och snart kommer dina nya
         ankor till sitt nya hem! <br />
         Nedan är en sammanfattning på din beställning;
-        <Divider />
       </p>
-
+      <Divider />
       {/* get the randomized order number */}
       <h3>Ordernummer: #{RandomOrderNumber()}</h3>
-
       <h3>Produkter:</h3>
       {/* get the summary of bought products, loops thought cart array */}
       {cart?.length &&
@@ -38,51 +34,50 @@ function ConfirmedOrderPage() {
             Produkt: {c.title} Antal: {c.qty} Pris: {c.price}/st
           </p>
         ))}
-
       {/* get and print total price of products */}
       {/* the second "total" should be shipping cost */}
       Totalpris (inkl moms & frakt) : {`${total}`} kr
       <Divider />
-
       {/* Get shipping adress from local storage  */}
       <h3>Leveransadress:</h3>
-      
       {/* first and last name */}
       <>
-        {adressData && adressData[0][1]} {adressData && adressData[1][1]}
+        {orderDetails.shippingAdress.firstName}{" "}
+        {orderDetails.shippingAdress.lastName}
       </>
       <br />
       {/* shipping adress */}
-      <>{adressData && adressData[2][1]}</>
+      <>{orderDetails.shippingAdress.streetAdress}</>
       <br />
       {/* post code and city */}
       <>
-        {adressData && adressData[3][1]} {adressData && adressData[4][1]}
+        {orderDetails.shippingAdress.postCode}{" "}
+        {orderDetails.shippingAdress.city}
       </>
       <br />
       {/* phone number */}
-      <>Telefonnummer: {adressData && adressData[5][1]}</>
+      <>Telefonnummer: {orderDetails.shippingAdress.phoneNumber}</>
       <br />
       {/* e-mailadress */}
-      <>e-postadress: {adressData && adressData[6][1]}</>
+      <>e-postadress: {orderDetails.shippingAdress.emailAdress}</>
       <br />
       <Divider />
-
       {/* Get shipping method from local storage  */}
       <h3>Leveransmetod:</h3>
-      <>{orderData && orderData[1][1]}</>
+      <>
+        {typeof orderDetails.shippingMethod === "number"
+          ? deliveryOptions[orderDetails.shippingMethod].name
+          : ""}
+      </>
       <Divider />
-
       {/* Get payment method from local storage  */}
       <h3>Betalningsmetod:</h3>
-      <>{orderData && orderData[2][1]}</>
+      <>{orderDetails.paymentMethod}</>
       <Divider />
-
       <p>
         Skulle någonting inte stämma, eller om du har övriga frågor är du varmt
         välkommen att kontakta oss på: support@ducky.se
       </p>
-
     </Container>
   );
 }

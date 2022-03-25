@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
-const getLocalValue = (key, initValue) => {
+const getLocalValue = (key: string, initValue: any) => {
   //SSR Next.js
   if (typeof window === 'undefined') return initValue
 
   // if a value is already stored
-  const localValue = JSON.parse(localStorage.getItem(key))
-  if (localValue) return localValue
-
+  const localValue = localStorage.getItem(key)
+  if (localValue){
+    return JSON.parse(localValue)
+  }
   // return result of a function
   if (initValue instanceof Function) return initValue()
 
   return initValue
 }
 
-const useLocalStorage = (key, initValue) => {
+function useLocalStorage<T>(key: string, initValue: any): [T,React.Dispatch<any>] {
   const [value, setValue] = useState(() => {
     return getLocalValue(key, initValue)
   })
