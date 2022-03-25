@@ -15,7 +15,7 @@ function ConfirmedOrderPage() {
   const [total] = useLocalStorage<number>("cartSum", 0);
   const [orderDetails] = useLocalStorage<OrderData>("orderDetails", "");
 
-  console.log(orderDetails)
+  console.log(orderDetails);
   return (
     <Container maxWidth="md">
       <h2>Tack för din beställning!</h2>
@@ -23,12 +23,10 @@ function ConfirmedOrderPage() {
         Din betalning och beställning har genomförts, och snart kommer dina nya
         ankor till sitt nya hem! <br />
         Nedan är en sammanfattning på din beställning;
-        <Divider />
       </p>
-
+      <Divider />
       {/* get the randomized order number */}
       <h3>Ordernummer: #{RandomOrderNumber()}</h3>
-
       <h3>Produkter:</h3>
       {/* get the summary of bought products, loops thought cart array */}
       {cart?.length &&
@@ -37,18 +35,16 @@ function ConfirmedOrderPage() {
             Produkt: {c.title} Antal: {c.qty} Pris: {c.price}/st
           </p>
         ))}
-
       {/* get and print total price of products */}
       {/* the second "total" should be shipping cost */}
       Totalpris (inkl moms & frakt) : {`${total}`} kr
       <Divider />
-
       {/* Get shipping adress from local storage  */}
       <h3>Leveransadress:</h3>
-      
       {/* first and last name */}
       <>
-        {orderDetails.shippingAdress.firstName} {orderDetails.shippingAdress.lastName}
+        {orderDetails.shippingAdress.firstName}{" "}
+        {orderDetails.shippingAdress.lastName}
       </>
       <br />
       {/* shipping adress */}
@@ -56,7 +52,8 @@ function ConfirmedOrderPage() {
       <br />
       {/* post code and city */}
       <>
-      {orderDetails.shippingAdress.postCode} {orderDetails.shippingAdress.city}
+        {orderDetails.shippingAdress.postCode}{" "}
+        {orderDetails.shippingAdress.city}
       </>
       <br />
       {/* phone number */}
@@ -66,22 +63,22 @@ function ConfirmedOrderPage() {
       <>e-postadress: {orderDetails.shippingAdress.emailAdress}</>
       <br />
       <Divider />
-
       {/* Get shipping method from local storage  */}
       <h3>Leveransmetod:</h3>
-      <>{typeof orderDetails.shippingMethod === 'number'? deliveryOptions[orderDetails.shippingMethod].name : ''}</>
+      <>
+        {typeof orderDetails.shippingMethod === "number"
+          ? deliveryOptions[orderDetails.shippingMethod].name
+          : ""}
+      </>
       <Divider />
-
       {/* Get payment method from local storage  */}
       <h3>Betalningsmetod:</h3>
       <>{orderDetails.paymentMethod}</>
       <Divider />
-
       <p>
         Skulle någonting inte stämma, eller om du har övriga frågor är du varmt
         välkommen att kontakta oss på: support@ducky.se
       </p>
-
     </Container>
   );
 }
