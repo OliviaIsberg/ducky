@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   Divider,
   List,
@@ -7,21 +8,24 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-} from '@mui/material'
-import OrderForm from '../components/Forms/OrderForm'
-import useLocalStorage from '../Hooks/useLocalStorage'
-import { CartType } from '../contexts/Reducers'
-import { useState } from 'react'
-import { deliveryOptions } from '../Api/Data'
+} from "@mui/material";
+import OrderForm from "../components/Forms/OrderForm";
+import useLocalStorage from "../Hooks/useLocalStorage";
+import { CartType } from "../contexts/Reducers";
+import { useState } from "react";
+import { deliveryOptions } from "../Api/Data";
+import { useNavigate } from "react-router-dom";
 
 function CheckOutPage() {
   // get cart and total price from cart
-  const [cart] = useLocalStorage<CartType[]>('cart', '')
-  const [total] = useLocalStorage<number>('cartSum', 0)
+  const [cart] = useLocalStorage<CartType[]>("cart", "");
+  const [total] = useLocalStorage<number>("cartSum", 0);
   const [shippingMethod, setShippingMethod] = useState<number | undefined>(
     undefined
-  )
+  );
 
+  let navigate = useNavigate()
+  
   return (
     <Container maxWidth="md">
       <h2>Kassa</h2>
@@ -36,9 +40,9 @@ function CheckOutPage() {
                   src={c.imgURL}
                   alt={c.title}
                   style={{
-                    width: '70px',
-                    height: '70px',
-                    borderRadius: '50%',
+                    width: "70px",
+                    height: "70px",
+                    borderRadius: "50%",
                   }}
                 />
               </ListItemAvatar>
@@ -48,36 +52,41 @@ function CheckOutPage() {
               />
               <ListItemText
                 primary={`${c.qty * c.price} kr`}
-                sx={{ textAlign: 'right' }}
+                sx={{ textAlign: "right" }}
               />
             </ListItem>
           ))}
       </List>
       <Divider />
       {/* get and print total price of products */}
-      <Box sx={{ textAlign: 'right' }}>
+      <Box sx={{ textAlign: "right" }}>
         <Typography variant="h6">Pris för produkter (inkl 25% moms)</Typography>
         <Typography variant="body1">{`${total} kr`}</Typography>
       </Box>
 
       {/* the second "total" should be shipping cost */}
-      <Box sx={{ textAlign: 'right' }}>
+      <Box sx={{ textAlign: "right" }}>
         <Typography variant="h6">Totalpris (inkl moms & frakt)</Typography>
         <Typography variant="body1">
           {`${
             total +
-            (typeof shippingMethod === 'number'
+            (typeof shippingMethod === "number"
               ? deliveryOptions[shippingMethod].price
               : 0)
-          }`}{' '}
+          }`}{" "}
           kr
         </Typography>
+        <Button variant="contained" onClick={toCart}>Tillbaka till kundvagnen</Button>
       </Box>
 
       {/* the full form with adress, payment and shipping */}
       <OrderForm setShippingMethod={setShippingMethod} />
     </Container>
-  )
+  );
+
+  function toCart(){
+    navigate("/cartPage")
+  }
 }
 
-export default CheckOutPage
+export default CheckOutPage;
