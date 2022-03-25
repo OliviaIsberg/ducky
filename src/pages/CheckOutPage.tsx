@@ -1,10 +1,12 @@
 import {
+  Box,
   Container,
   Divider,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Typography,
 } from '@mui/material'
 import OrderForm from '../components/Forms/OrderForm'
 import useLocalStorage from '../Hooks/useLocalStorage'
@@ -25,7 +27,7 @@ function CheckOutPage() {
       <h2>Kassa</h2>
       {/* cart summary, loops throught cart array */}
       <h3>Din kundkorg:</h3>
-      <List>
+      <List dense>
         {cart?.length &&
           cart.map((c: CartType) => (
             <ListItem key={c.id}>
@@ -42,10 +44,10 @@ function CheckOutPage() {
               </ListItemAvatar>
               <ListItemText
                 primary={c.title}
-                secondary={`Antal: ${c.qty} Pris: ${c.price}/st`}
+                secondary={`Antal: ${c.qty} Pris: ${c.price} kr/st`}
               />
               <ListItemText
-                primary={`${c.qty * c.price}kr`}
+                primary={`${c.qty * c.price} kr`}
                 sx={{ textAlign: 'right' }}
               />
             </ListItem>
@@ -53,20 +55,21 @@ function CheckOutPage() {
       </List>
       <Divider />
       {/* get and print total price of products */}
-      <p>Pris för produkter (inkl 25% moms) : {`${total}`} kr</p>
+      <Box sx={{ textAlign: 'right' }}>
+        <Typography>Pris för produkter (inkl 25% moms)</Typography>
+        <Typography>{`${total} kr`}</Typography>
+      </Box>
 
       {/* the second "total" should be shipping cost */}
-      <p>
-        Totalpris (inkl moms & frakt) :{' '}
-        {`${
+      <Box sx={{ textAlign: 'right' }}>
+        <Typography>Totalpris (inkl moms & frakt)</Typography>
+        <Typography>{`${
           total +
           (typeof shippingMethod === 'number'
             ? deliveryOptions[shippingMethod].price
             : 0)
-        }`}
-      </p>
-
-      <Divider />
+        }`}</Typography>
+      </Box>
 
       {/* the full form with adress, payment and shipping */}
       <OrderForm setShippingMethod={setShippingMethod} />
