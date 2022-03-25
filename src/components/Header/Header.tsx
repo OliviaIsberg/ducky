@@ -24,7 +24,6 @@ const Header: FC<HeaderProps> = () => {
     setValue(currentLocation);
   }
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    //console.log(newValue);
     setValue(newValue);
     navigate(newValue);
   };
