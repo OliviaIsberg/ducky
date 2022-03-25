@@ -1,24 +1,35 @@
-import { Box, Tabs, Tab, Container, Button } from '@mui/material'
-import { FC, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import React from 'react'
-import { useUser } from '../../contexts/UserContext'
-import AdminBar from './AdminBar'
-import CartButton from './CartButton'
+import { Box, Tabs, Tab, Container, Button } from '@mui/material';
+import { FC, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React from 'react';
+import { useUser } from '../../contexts/UserContext';
+import AdminBar from './AdminBar';
+import CartButton from './CartButton';
 
 interface HeaderProps {}
 
+const TabValues: string[] = ['/', '/products', '/about'];
+
+const filteredValue = (value: string) =>
+  TabValues.includes(value) ? value : false;
+
 const Header: FC<HeaderProps> = () => {
-  let navigate = useNavigate()
-  const [value, setValue] = useState('/')
+  const navigate = useNavigate();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
-    navigate(newValue)
+  const [value, setValue] = useState(filteredValue(useLocation().pathname));
+
+  const currentLocation = filteredValue(useLocation().pathname);
+  if (currentLocation !== value) {
+    setValue(currentLocation);
   }
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    //console.log(newValue);
+    setValue(newValue);
+    navigate(newValue);
+  };
 
-  const { user, logout } = useUser()
+  const { user, logout } = useUser();
 
   return (
     <>
@@ -43,8 +54,8 @@ const Header: FC<HeaderProps> = () => {
             aria-label="secondary tabs example"
           >
             <Tab value="/" label="Hem" />
-            <Tab value="products" label="Produkter" />
-            <Tab value="about" label="Information" />
+            <Tab value="/products" label="Produkter" />
+            <Tab value="/about" label="Information" />
           </Tabs>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             {!user ? (
@@ -71,7 +82,7 @@ const Header: FC<HeaderProps> = () => {
         </Box>
       </Container>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
