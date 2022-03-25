@@ -15,7 +15,6 @@ function ConfirmedOrderPage() {
   const [total] = useLocalStorage<number>("cartSum", 0);
   const [orderDetails] = useLocalStorage<OrderData>("orderDetails", "");
 
-  console.log(orderDetails);
   return (
     <Container maxWidth="md">
       <h2>Tack för din beställning!</h2>

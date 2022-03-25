@@ -20,8 +20,6 @@ export const CartProvider: React.FC = ({ children }) => {
     init as any
   )
 
-  console.log(cart)
-
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])

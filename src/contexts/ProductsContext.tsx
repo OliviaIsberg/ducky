@@ -23,8 +23,6 @@ export const ProductsProvider: React.FC = ({ children }) => {
     React.Reducer<ProductType[], ProductActions>
   >(productReducer, mockedProducts)
 
-  console.log(products)
-
   // useLocalStorage('stateLS', '')
 
   useEffect(() => {
