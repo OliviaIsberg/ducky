@@ -30,14 +30,6 @@ function CheckOutPage() {
       <p>Totalpris (inkl moms & frakt) : {`${total + (typeof shippingMethod === 'number' ? deliveryOptions[shippingMethod].price : 0)}`}</p>
 
       <Divider />
-
-      <h3>Välj dina betal och leveransmetoder</h3>
-
-      {/* RANDOM INFO TEXT, DOESN'T ACTUALLY DO/MEAN ANYTHING */}
-      <p>
-        Beställningar som görs innan kl 16.00 skickas samma dag. Ange uppgifter
-        nedan för att se tillgängliga leveransval.
-      </p>
       
       {/* the full form with adress, payment and shipping */}
       <OrderForm setShippingMethod={setShippingMethod}/>

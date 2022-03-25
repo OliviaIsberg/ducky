@@ -6,11 +6,17 @@ import ShippingForm, {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import PaymentBox from "./PaymentBox";
-import { FormControlLabel, Checkbox, Button } from "@mui/material";
+import {
+  FormControlLabel,
+  Checkbox,
+  Button,
+  LinearProgress,
+} from "@mui/material";
 import ShipmentBox from "./ShipmentBox";
 import { Link, useNavigate } from "react-router-dom";
 import { placeOrderFetch } from "../../Api/Api";
 import useLocalStorage from "../../Hooks/useLocalStorage";
+import React from "react";
 
 export interface OrderData {
   shippingAdress: ShippingAdress;
@@ -64,17 +70,18 @@ const OrderFormSchema = Yup.object().shape<OrderSchemaType>({
 
 interface Props {
   defaultOrderData?: OrderData;
-  setShippingMethod: React.Dispatch<React.SetStateAction<number | undefined>> 
+  setShippingMethod: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 function OrderForm(props: Props) {
   let navigate = useNavigate();
-  const [,setOrderDetails] = useLocalStorage<OrderData>("orderDetails", "");
-
+  const [, setOrderDetails] = useLocalStorage<OrderData>("orderDetails", "");
+  const [isLoading, setLoading] = React.useState<boolean>(false);
   // successful submit
   function handleSubmit(orderData: OrderData) {
     setOrderDetails(orderData);
-    
+    setLoading(true);
+
     // fetch api and navigate to confirmed-order page if successful
     confirmOrder();
   }
@@ -88,52 +95,77 @@ function OrderForm(props: Props) {
   });
 
   return (
-    // The full order form
-    <form onSubmit={formikProps.handleSubmit}>
+    <>
+      {!isLoading ? (
+        <>
+          <h3>Välj dina betal och leveransmetoder</h3>
+          {/* RANDOM INFO TEXT, DOESN'T ACTUALLY DO/MEAN ANYTHING */}
+          <p>
+            Beställningar som görs innan kl 16.00 skickas samma dag. Ange
+            uppgifter nedan för att se tillgängliga leveransval.
+          </p>
 
-      {/* Shipping adress */}
-      <h3>Leveransadress</h3>
-      <ShippingForm formikProps={formikProps} />
+          {/* The full order form */}
+          <form onSubmit={formikProps.handleSubmit}>
+            {/* Shipping adress */}
+            <h3>Leveransadress</h3>
+            <ShippingForm formikProps={formikProps} />
 
-      {/* Shipping methods */}
-      <h3>Leveransmetod</h3>
+            {/* Shipping methods */}
+            <h3>Leveransmetod</h3>
 
-      {/* Show error if no shipping method is selected */}
-      {formikProps.touched.shippingMethod && formikProps.errors.shippingMethod}
+            {/* Show error if no shipping method is selected */}
+            {formikProps.touched.shippingMethod &&
+              formikProps.errors.shippingMethod}
 
-      <ShipmentBox formikProps={formikProps} setShippingMethod={props.setShippingMethod}/>
+            <ShipmentBox
+              formikProps={formikProps}
+              setShippingMethod={props.setShippingMethod}
+            />
 
-      {/* Payment methods (and payment details) */}
-      <h3>Betalningsmetod</h3>
+            {/* Payment methods (and payment details) */}
+            <h3>Betalningsmetod</h3>
 
-      {/* Show error if no payment method is selected */}
-      {formikProps.touched.paymentMethod && formikProps.errors.paymentMethod}
+            {/* Show error if no payment method is selected */}
+            {formikProps.touched.paymentMethod &&
+              formikProps.errors.paymentMethod}
 
-      <PaymentBox formikProps={formikProps} />
+            <PaymentBox formikProps={formikProps} />
 
-      {/* Newsletter checkbox, does nothing for now */}
-      <FormControlLabel
-        control={<Checkbox defaultChecked />}
-        label="Ja tack! Jag vill ha nyhetsbrev."
-      />
+            {/* Newsletter checkbox, does nothing for now */}
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label="Ja tack! Jag vill ha nyhetsbrev."
+            />
 
-      {/* conditions checkbox, does nothing for now */}
-      <div>
-        <FormControlLabel control={<Checkbox />} label="Jag godkänner" />
-        <Link to="/termsOfUse">Köpvillkoren.</Link>
-      </div>
+            {/* conditions checkbox, does nothing for now */}
+            <div>
+              <FormControlLabel control={<Checkbox />} label="Jag godkänner" />
+              <Link to="/termsOfUse">Köpvillkoren.</Link>
+            </div>
 
-      {/* Post form */}
-      <Button variant="contained" type="submit">
-        Slutför beställning
-      </Button>
-    </form>
+            {/* Post form */}
+
+            <Button variant="contained" type="submit">
+              Slutför beställning
+            </Button>
+          </form>
+        </>
+      ) : ( 
+        <>
+          {" "}
+          <LinearProgress /> <br />
+          Kontrollerar beställning...
+        </>
+      )}
+    </>
   );
 
   // fetches api to check if order went through, navigates to confirmed-order if successful
   async function confirmOrder() {
     const success = await placeOrderFetch();
     if (success) {
+      setLoading(false);
       navigate("/confirmed-order");
     }
   }
