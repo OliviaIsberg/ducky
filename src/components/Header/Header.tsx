@@ -54,7 +54,6 @@ const Header: FC<HeaderProps> = () => {
           >
             <Tab value="/" label="Hem" />
             <Tab value="/products" label="Produkter" />
-            <Tab value="/about" label="Information" />
           </Tabs>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             {!user ? (
