@@ -15,7 +15,7 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
 export interface OrderData {
   shippingAdress: ShippingAdress;
   paymentMethod: string | number | readonly string[] | undefined;
-  shippingMethod: String;
+  shippingMethod: number | undefined;
   cardNumber: string;
   cvc: string;
   expDate: string;
@@ -26,7 +26,7 @@ export interface OrderData {
 const emptyForm: OrderData = {
   shippingAdress: emptyShippingForm,
   paymentMethod: "",
-  shippingMethod: "",
+  shippingMethod: undefined,
   cardNumber: "",
   cvc: "",
   expDate: "",
@@ -64,11 +64,12 @@ const OrderFormSchema = Yup.object().shape<OrderSchemaType>({
 
 interface Props {
   defaultOrderData?: OrderData;
+  setShippingMethod: React.Dispatch<React.SetStateAction<number | undefined>> 
 }
 
 function OrderForm(props: Props) {
   let navigate = useNavigate();
-  const [setOrderDetails] = useLocalStorage("orderDetails", "");
+  const [,setOrderDetails] = useLocalStorage<OrderData>("orderDetails", "");
 
   // successful submit
   function handleSubmit(orderData: OrderData) {
@@ -89,7 +90,7 @@ function OrderForm(props: Props) {
   return (
     // The full order form
     <form onSubmit={formikProps.handleSubmit}>
-      
+
       {/* Shipping adress */}
       <h3>Leveransadress</h3>
       <ShippingForm formikProps={formikProps} />
@@ -100,7 +101,7 @@ function OrderForm(props: Props) {
       {/* Show error if no shipping method is selected */}
       {formikProps.touched.shippingMethod && formikProps.errors.shippingMethod}
 
-      <ShipmentBox formikProps={formikProps} />
+      <ShipmentBox formikProps={formikProps} setShippingMethod={props.setShippingMethod}/>
 
       {/* Payment methods (and payment details) */}
       <h3>Betalningsmetod</h3>

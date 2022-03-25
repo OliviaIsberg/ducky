@@ -1,4 +1,6 @@
 import { Container, Divider } from "@mui/material";
+import { deliveryOptions } from "../Api/Data";
+import { OrderData } from "../components/Forms/OrderForm";
 import { CartType } from "../contexts/Reducers";
 import useLocalStorage from "../Hooks/useLocalStorage";
 
@@ -9,14 +11,11 @@ function RandomOrderNumber() {
 
 function ConfirmedOrderPage() {
   // get cart, total cartsum, all orderdetails and shippingdetails from local storage
-  const [cart] = useLocalStorage("cart", "");
-  const [total] = useLocalStorage("cartSum", 0);
-  const [orderDetails] = useLocalStorage("orderDetails", "");
-  const [adressDataDetails] = useLocalStorage("orderDetails", "");
+  const [cart] = useLocalStorage<CartType[]>("cart", "");
+  const [total] = useLocalStorage<number>("cartSum", 0);
+  const [orderDetails] = useLocalStorage<OrderData>("orderDetails", "");
 
-  const orderData = Object.entries(orderDetails);
-  const adressData = Object.entries(adressDataDetails.shippingAdress);
-
+  console.log(orderDetails)
   return (
     <Container maxWidth="md">
       <h2>Tack för din beställning!</h2>
@@ -49,33 +48,33 @@ function ConfirmedOrderPage() {
       
       {/* first and last name */}
       <>
-        {adressData && adressData[0][1]} {adressData && adressData[1][1]}
+        {orderDetails.shippingAdress.firstName} {orderDetails.shippingAdress.lastName}
       </>
       <br />
       {/* shipping adress */}
-      <>{adressData && adressData[2][1]}</>
+      <>{orderDetails.shippingAdress.streetAdress}</>
       <br />
       {/* post code and city */}
       <>
-        {adressData && adressData[3][1]} {adressData && adressData[4][1]}
+      {orderDetails.shippingAdress.postCode} {orderDetails.shippingAdress.city}
       </>
       <br />
       {/* phone number */}
-      <>Telefonnummer: {adressData && adressData[5][1]}</>
+      <>Telefonnummer: {orderDetails.shippingAdress.phoneNumber}</>
       <br />
       {/* e-mailadress */}
-      <>e-postadress: {adressData && adressData[6][1]}</>
+      <>e-postadress: {orderDetails.shippingAdress.emailAdress}</>
       <br />
       <Divider />
 
       {/* Get shipping method from local storage  */}
       <h3>Leveransmetod:</h3>
-      <>{orderData && orderData[1][1]}</>
+      <>{typeof orderDetails.shippingMethod === 'number'? deliveryOptions[orderDetails.shippingMethod].name : ''}</>
       <Divider />
 
       {/* Get payment method from local storage  */}
       <h3>Betalningsmetod:</h3>
-      <>{orderData && orderData[2][1]}</>
+      <>{orderDetails.paymentMethod}</>
       <Divider />
 
       <p>

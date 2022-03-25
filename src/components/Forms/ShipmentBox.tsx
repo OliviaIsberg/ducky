@@ -17,20 +17,22 @@ import { OrderData } from "./OrderForm";
 
 interface Props {
   formikProps: FormikProps<OrderData>;
+  setShippingMethod: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
 function ShipmentBox(props: Props) {
   // the state to  handle clicks
-  const [selectedIndex, setSelectedIndex] = React.useState("");
-
+  const [selectedIndex, setSelectedIndex] = React.useState<number | undefined>(undefined);
+  // const [,setShipping] = useLocalStorage<number>("orderDetails", "")
   // Checks which button is clicked
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: string
+    index: number
   ) =>
     // if clicked, sets value (seen in orderDetails) to chosen method
     {
       setSelectedIndex(index);
+      props.setShippingMethod(index)
       props.formikProps.setFieldValue("shippingMethod", index);
     };
 
@@ -40,15 +42,15 @@ function ShipmentBox(props: Props) {
       <List component="nav" aria-label="Shipping options list">
         {/* loops through array of delivery options */}
         {deliveryOptions.length !== 0 &&
-          deliveryOptions.map((delivery: Delivery) => (
+          deliveryOptions.map((delivery: Delivery, index) => (
             <>
               {/* displays all objects in array based on index */}
               <ListItemButton
                 key={delivery.id}
-                selected={selectedIndex === delivery.id}
+                selected={selectedIndex === index}
                 onClick={(
                   event: React.MouseEvent<HTMLDivElement, MouseEvent>
-                ) => handleListItemClick(event, delivery.id)}
+                ) => handleListItemClick(event, index)}
               >
                 {/* logo for delivery-option */}
                 <ListItemAvatar>
