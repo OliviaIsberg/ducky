@@ -23,7 +23,7 @@ interface Props {
 function ShipmentBox(props: Props) {
   // the state to  handle clicks
   const [selectedIndex, setSelectedIndex] = React.useState<number | undefined>(undefined);
-  // const [,setShipping] = useLocalStorage<number>("orderDetails", "")
+
   // Checks which button is clicked
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

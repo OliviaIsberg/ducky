@@ -1,5 +1,5 @@
 import { Container, Divider } from "@mui/material";
-import { deliveryOptions } from "../Api/Data";
+import { deliveryOptions, paymentOptions } from "../Api/Data";
 import { OrderData } from "../components/Forms/OrderForm";
 import { CartType } from "../contexts/Reducers";
 import useLocalStorage from "../Hooks/useLocalStorage";
@@ -72,7 +72,9 @@ function ConfirmedOrderPage() {
       <Divider />
       {/* Get payment method from local storage  */}
       <h3>Betalningsmetod:</h3>
-      <>{orderDetails.paymentMethod}</>
+      <>{typeof orderDetails.paymentMethod === "number"
+          ? paymentOptions[orderDetails.paymentMethod].name
+          : ""}</>
       <Divider />
       <p>
         Skulle någonting inte stämma, eller om du har övriga frågor är du varmt
