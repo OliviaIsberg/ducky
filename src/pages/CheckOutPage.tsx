@@ -56,19 +56,22 @@ function CheckOutPage() {
       <Divider />
       {/* get and print total price of products */}
       <Box sx={{ textAlign: 'right' }}>
-        <Typography>Pris för produkter (inkl 25% moms)</Typography>
-        <Typography>{`${total} kr`}</Typography>
+        <Typography variant="h6">Pris för produkter (inkl 25% moms)</Typography>
+        <Typography variant="body1">{`${total} kr`}</Typography>
       </Box>
 
       {/* the second "total" should be shipping cost */}
       <Box sx={{ textAlign: 'right' }}>
-        <Typography>Totalpris (inkl moms & frakt)</Typography>
-        <Typography>{`${
-          total +
-          (typeof shippingMethod === 'number'
-            ? deliveryOptions[shippingMethod].price
-            : 0)
-        }`}</Typography>
+        <Typography variant="h6">Totalpris (inkl moms & frakt)</Typography>
+        <Typography variant="body1">
+          {`${
+            total +
+            (typeof shippingMethod === 'number'
+              ? deliveryOptions[shippingMethod].price
+              : 0)
+          }`}{' '}
+          kr
+        </Typography>
       </Box>
 
       {/* the full form with adress, payment and shipping */}
