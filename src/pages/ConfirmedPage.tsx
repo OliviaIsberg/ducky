@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material'
 import { deliveryOptions, paymentOptions } from '../Api/Data'
-import { OrderData } from '../components/Forms/OrderForm'
+import { AllOrderData, OrderData } from '../components/Forms/OrderForm'
 import { CartType } from '../contexts/Reducers'
 import useLocalStorage from '../Hooks/useLocalStorage'
 
@@ -19,9 +19,10 @@ function RandomOrderNumber() {
 
 function ConfirmedOrderPage() {
   // get cart, total cartsum, all orderdetails and shippingdetails from local storage
-  const [cart] = useLocalStorage<CartType[]>('cart', '')
-  const [total] = useLocalStorage<number>('cartSum', 0)
-  const [orderDetails] = useLocalStorage<OrderData>('orderDetails', '')
+  // const [cart] = useLocalStorage<CartType[]>('cart', '')
+
+  // const [total] = useLocalStorage<number>('cartSum', 0)
+  const [orderDetails] = useLocalStorage<AllOrderData>('orderDetails', '')
 
   return (
     <Container maxWidth="md">
@@ -37,8 +38,8 @@ function ConfirmedOrderPage() {
       <h3>Produkter:</h3>
       {/* get the summary of bought products, loops thought cart array */}
       <List dense>
-        {cart?.length &&
-          cart.map((c: CartType) => (
+        {orderDetails.products?.length &&
+          orderDetails.products.map((c: CartType) => (
             <ListItem key={c.id}>
               <ListItemAvatar>
                 <img
@@ -66,46 +67,46 @@ function ConfirmedOrderPage() {
       {/* get and print total price of products */}
       {/* the second "total" should be shipping cost */}
       <Typography variant="body1" sx={{ textAlign: 'right' }}>
-        Totalpris (inkl moms & frakt) : {`${total}`} kr
+        Totalpris (inkl moms & frakt) : {`${orderDetails.orderTotal}`} kr
       </Typography>
       {/* Totalpris (inkl moms & frakt) : {`${total}`} kr */}
       {/* Get shipping adress from local storage  */}
       <h3>Leveransadress:</h3>
       {/* first and last name */}
       <>
-        {orderDetails.shippingAdress.firstName}{' '}
-        {orderDetails.shippingAdress.lastName}
+        {orderDetails.orderDetails.shippingAdress.firstName}{' '}
+        {orderDetails.orderDetails.shippingAdress.lastName}
       </>
       <br />
       {/* shipping adress */}
-      <>{orderDetails.shippingAdress.streetAdress}</>
+      <>{orderDetails.orderDetails.shippingAdress.streetAdress}</>
       <br />
       {/* post code and city */}
       <>
-        {orderDetails.shippingAdress.postCode}{' '}
-        {orderDetails.shippingAdress.city}
+        {orderDetails.orderDetails.shippingAdress.postCode}{' '}
+        {orderDetails.orderDetails.shippingAdress.city}
       </>
       <br />
       {/* phone number */}
-      <>Telefonnummer: {orderDetails.shippingAdress.phoneNumber}</>
+      <>Telefonnummer: {orderDetails.orderDetails.shippingAdress.phoneNumber}</>
       <br />
       {/* e-mailadress */}
-      <>e-postadress: {orderDetails.shippingAdress.emailAdress}</>
+      <>e-postadress: {orderDetails.orderDetails.shippingAdress.emailAdress}</>
       <br />
       <Divider />
       {/* Get shipping method from local storage  */}
       <h3>Leveransmetod:</h3>
       <>
-        {typeof orderDetails.shippingMethod === 'number'
-          ? deliveryOptions[orderDetails.shippingMethod].name
+        {typeof orderDetails.orderDetails.shippingMethod === 'number'
+          ? deliveryOptions[orderDetails.orderDetails.shippingMethod].name
           : ''}
       </>
       <Divider />
       {/* Get payment method from local storage  */}
       <h3>Betalningsmetod:</h3>
       <>
-        {typeof orderDetails.paymentMethod === 'number'
-          ? paymentOptions[orderDetails.paymentMethod].name
+        {typeof orderDetails.orderDetails.paymentMethod === 'number'
+          ? paymentOptions[orderDetails.orderDetails.paymentMethod].name
           : ''}
       </>
       <Divider />
