@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { createTheme } from '@mui/material/styles';
-import { green } from '@mui/material/colors';
 import { ThemeProvider } from '@emotion/react';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -111,6 +110,7 @@ function LinksContainer() {
           sx={{
             display: 'flex',
             flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <Typography gutterBottom variant="h6">
