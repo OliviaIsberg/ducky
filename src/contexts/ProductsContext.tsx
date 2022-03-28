@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { mockedProducts } from '../Api/Data';
 // import useLocalStorage from '../Hooks/useLocalStorage'
-import { ProductActions, productReducer } from './Reducers';
+import { ProductActions, productReducer, ProductTypes } from './Reducers';
 
 export type ProductType = {
   id: number;
@@ -14,6 +14,7 @@ export type ProductType = {
 type PContext = {
   products: ProductType[];
   dispatch: React.Dispatch<ProductActions>;
+  deleteProduct: (id: number) => void;
 };
 
 export const ProductContext = createContext<PContext>({} as PContext);
@@ -23,10 +24,16 @@ export const ProductsProvider: React.FC = ({ children }) => {
   const initialStateProducts =
     lsProducts !== null ? JSON.parse(lsProducts) : mockedProducts;
 
-  const [products, dispatch] = useReducer<
+  let [products, dispatch] = useReducer<
     React.Reducer<ProductType[], ProductActions>
   >(productReducer, initialStateProducts);
 
+  function deleteProduct(id: number) {
+    dispatch({
+      type: ProductTypes.Delete,
+      payload: { id },
+    });
+  }
   // useLocalStorage('stateLS', '')
 
   useEffect(() => {
@@ -34,7 +41,7 @@ export const ProductsProvider: React.FC = ({ children }) => {
   }, [products]);
 
   return (
-    <ProductContext.Provider value={{ products, dispatch }}>
+    <ProductContext.Provider value={{ products, dispatch, deleteProduct }}>
       {children}
     </ProductContext.Provider>
   );

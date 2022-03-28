@@ -120,7 +120,11 @@ export const productReducer = (state: Data, action: ProductActions) => {
 
       return products;
     case ProductTypes.Delete:
-      return state;
+      const productsAfterDeletion = state.filter(
+        (product) => product.id !== action.payload.id
+      );
+
+      return productsAfterDeletion;
     default:
       return state;
   }
