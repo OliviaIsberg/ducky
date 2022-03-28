@@ -1,19 +1,10 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Container,
-  List,
-} from '@mui/material';
+import { Box, Button, Container, List } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { Link } from 'react-router-dom';
 import { Product } from '../Api/Data';
-import { ProductContext, useProduct } from '../contexts/ProductsContext';
+import { useProduct } from '../contexts/ProductsContext';
 import AdminPageAccordion from '../components/AdminPageAccordion';
-import { ProductActions, ProductTypes } from '../contexts/Reducers';
 import { useState } from 'react';
 
 function AdminPage() {

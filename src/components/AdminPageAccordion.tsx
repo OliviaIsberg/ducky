@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { Categories, Product } from '../Api/Data';
-import { ProductTypes } from '../contexts/Reducers';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
 import Save from '@mui/icons-material/Save';
