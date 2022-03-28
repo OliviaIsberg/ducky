@@ -14,6 +14,8 @@ enum ProductEditReducerType {
   UpdateTitle,
   UpdateInformation,
   UpdateImgURL,
+  UpdatePrice,
+  Updatecategory,
   Save,
   Reset,
 }
@@ -22,6 +24,8 @@ type Action =
   | { type: ProductEditReducerType.UpdateTitle; value: string }
   | { type: ProductEditReducerType.UpdateInformation; value: string }
   | { type: ProductEditReducerType.UpdateImgURL; value: string }
+  | { type: ProductEditReducerType.UpdatePrice; value: number }
+  | { type: ProductEditReducerType.Updatecategory; value: string }
   | { type: ProductEditReducerType.Save }
   | { type: ProductEditReducerType.Reset; product: Product };
 
@@ -34,6 +38,10 @@ function AdminPageAccordion({ product, dispatch }: any) {
         return { ...state, information: action.value };
       case ProductEditReducerType.UpdateImgURL:
         return { ...state, imgURL: action.value };
+      case ProductEditReducerType.UpdatePrice:
+        return { ...state, price: action.value };
+      case ProductEditReducerType.Updatecategory:
+        return { ...state, category: action.value };
       case ProductEditReducerType.Save:
         dispatch({
           type: ProductTypes.Update,
@@ -68,6 +76,7 @@ function AdminPageAccordion({ product, dispatch }: any) {
         >
           {open ? (
             <input
+              type="text"
               value={productState.title}
               onChange={(e) => {
                 dispatchProductState({
@@ -105,6 +114,7 @@ function AdminPageAccordion({ product, dispatch }: any) {
         <Typography sx={{ marginBottom: '2ex' }}>
           Bild URL:
           <input
+            type="url"
             value={productState.imgURL}
             onChange={(e) => {
               dispatchProductState({
@@ -124,6 +134,39 @@ function AdminPageAccordion({ product, dispatch }: any) {
           }}
           value={productState.information}
         />
+        <Box>
+          <Typography>Redigera pris</Typography>
+          {open ? (
+            <input
+              type="number"
+              value={productState.price}
+              onChange={(e) => {
+                dispatchProductState({
+                  type: ProductEditReducerType.UpdatePrice,
+                  value: parseFloat(e.target.value),
+                });
+              }}
+            />
+          ) : (
+            <Typography>{productState.title}</Typography>
+          )}
+        </Box>
+        <Box>
+          <Typography>Redigera kategori</Typography>
+          {open ? (
+            <input
+              value={productState.category}
+              onChange={(e) => {
+                dispatchProductState({
+                  type: ProductEditReducerType.Updatecategory,
+                  value: e.target.value,
+                });
+              }}
+            />
+          ) : (
+            <Typography>{productState.title}</Typography>
+          )}
+        </Box>
         <Box>
           <Button
             onClick={() =>
