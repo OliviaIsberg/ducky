@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 import { CartType, Types } from '../contexts/Reducers'
 
-function CartList() {
+function CartList({ handleClose }: any) {
   const { cart, dispatch, total } = useCart()
 
   return (
@@ -55,7 +55,7 @@ function CartList() {
                       type: Types.UpdateQty,
                       payload: {
                         id: product.id,
-                        qty: (product.qty = product.qty - 1),
+                        qty: (product.qty -= 1),
                       },
                     })
                   }}
@@ -111,7 +111,7 @@ function CartList() {
           {total} kr
         </Typography>
         <Link to="/products">
-          <Button variant="contained" sx={{ mr: 2 }}>
+          <Button variant="contained" sx={{ mr: 2 }} onClick={handleClose}>
             Fortsätt handla
           </Button>
         </Link>
@@ -120,6 +120,7 @@ function CartList() {
             variant="outlined"
             endIcon={<PaymentIcon />}
             disabled={cart.length > 0 ? false : true}
+            onClick={handleClose}
           >
             Till betalning
           </Button>
