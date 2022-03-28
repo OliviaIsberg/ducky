@@ -7,17 +7,16 @@ import {
   Container,
   List,
   Typography,
-} from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { useProduct } from '../contexts/ProductsContext'
+import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useProduct } from '../contexts/ProductsContext';
+import AdminPageAccordion from '../components/AdminPageAccordion';
 
 function AdminPage() {
-  const { products } = useProduct()
-  const [open, setOpen] = useState(false)
-  const handleOpen = (e: EventTarget) => setOpen(!open)
+  const { products, dispatch } = useProduct();
 
   return (
     <Container maxWidth="xl" sx={{ height: '100%' }}>
@@ -31,20 +30,12 @@ function AdminPage() {
       >
         <List>
           {products.map((p, i) => (
-            <Accordion key={i}>
-              <AccordionSummary onClick={(e) => handleOpen}>
-                <Typography>{p.title}</Typography>
-                {!open ? <Button>Spara</Button> : <Button>Redigera</Button>}
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>{p.information}</Typography>
-              </AccordionDetails>
-            </Accordion>
+            <AdminPageAccordion key={i} product={p} dispatch={dispatch} />
           ))}
         </List>
       </Box>
     </Container>
-  )
+  );
 }
 
-export default AdminPage
+export default AdminPage;
