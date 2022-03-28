@@ -84,7 +84,7 @@ export enum ProductTypes {
 
 type ProductPayload = {
   [ProductTypes.Create]: {
-    id: number;
+    product: Product;
   };
   [ProductTypes.Read]: {
     id: number;
@@ -106,7 +106,9 @@ export type ProductActions =
 export const productReducer = (state: Data, action: ProductActions) => {
   switch (action.type) {
     case ProductTypes.Create:
-      return state;
+      const productsAfterCreate = [...state];
+      productsAfterCreate.push(action.payload.product);
+      return productsAfterCreate;
     case ProductTypes.Read:
       return state;
     case ProductTypes.Update:
