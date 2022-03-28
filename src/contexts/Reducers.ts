@@ -18,6 +18,7 @@ export enum Types {
   AddToCart = 'ADD_TO_CART',
   DeleteFromCart = 'REMOVE_FROM_CART',
   UpdateQty = 'CHANGE_PROD_QTY',
+  ResetCart = 'RESET_CART',
 }
 
 export type CartType = {
@@ -46,6 +47,7 @@ type CartPayload = {
     id: number
     qty: number
   }
+  [Types.ResetCart]: {}
 }
 
 export const initialState = [] as CartType[]
@@ -67,6 +69,8 @@ export const cartReducer = (state: State, action: CartActions) => {
             : cartItem.qty
         }),
       ]
+    case Types.ResetCart:
+      return (state = initialState)
     default:
       throw new Error('error')
   }
