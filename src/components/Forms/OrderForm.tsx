@@ -2,111 +2,135 @@ import ShippingForm, {
   AdressFormSchema,
   emptyShippingForm,
   ShippingAdress,
-} from './ShippingForm'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import PaymentBox from './PaymentBox'
+} from "./ShippingForm";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import PaymentBox from "./PaymentBox";
 import {
   FormControlLabel,
   Checkbox,
   Button,
   LinearProgress,
-} from '@mui/material'
-import ShipmentBox from './ShipmentBox'
-import { Link, useNavigate } from 'react-router-dom'
-import { placeOrderFetch } from '../../Api/Api'
-import useLocalStorage from '../../Hooks/useLocalStorage'
-import React from 'react'
-import { useCart } from '../../contexts/CartContext'
-import { Types } from '../../contexts/Reducers'
+} from "@mui/material";
+import ShipmentBox from "./ShipmentBox";
+import { Link, useNavigate } from "react-router-dom";
+import { placeOrderFetch } from "../../Api/Api";
+import useLocalStorage from "../../Hooks/useLocalStorage";
+import React from "react";
+import { useCart } from "../../contexts/CartContext";
+import { CartType, Types } from "../../contexts/Reducers";
+import { deliveryOptions } from "../../Api/Data";
 
 export interface OrderData {
-  shippingAdress: ShippingAdress
-  paymentMethod: string | number | readonly string[] | undefined
-  shippingMethod: number | undefined
-  cardNumber: string
-  cvc: string
-  expDate: string
-  personalNumber: string
-  phoneNumber: string
+  shippingAdress: ShippingAdress;
+  paymentMethod: string | number | readonly string[] | undefined;
+  shippingMethod: number | undefined;
+  cardNumber: string;
+  cvc: string;
+  expDate: string;
+  personalNumber: string;
+  phoneNumber: string;
 }
 
 const emptyForm: OrderData = {
   shippingAdress: emptyShippingForm,
-  paymentMethod: '',
+  paymentMethod: "",
   shippingMethod: undefined,
-  cardNumber: '',
-  cvc: '',
-  expDate: '',
-  personalNumber: '',
-  phoneNumber: '',
-}
+  cardNumber: "",
+  cvc: "",
+  expDate: "",
+  personalNumber: "",
+  phoneNumber: "",
+};
 
-export type OrderSchemaType = Record<keyof OrderData, Yup.AnySchema>
+export type OrderSchemaType = Record<keyof OrderData, Yup.AnySchema>;
 
 const OrderFormSchema = Yup.object().shape<OrderSchemaType>({
   shippingAdress: AdressFormSchema,
-  paymentMethod: Yup.string().required('Du måste välja ett betalsätt'),
-  shippingMethod: Yup.string().required('Du måste välja ett fraktsätt'),
-  cardNumber: Yup.string().when('paymentMethod', {
-    is: 'card',
-    then: (schema) => schema.required('Vänligen fyll i ditt kortnummer.'),
+  paymentMethod: Yup.string().required("Du måste välja ett betalsätt"),
+  shippingMethod: Yup.string().required("Du måste välja ett fraktsätt"),
+  cardNumber: Yup.string().when("paymentMethod", {
+    is: "card",
+    then: (schema) => schema.required("Vänligen fyll i ditt kortnummer."),
   }),
-  cvc: Yup.string().when('paymentMethod', {
-    is: 'card',
-    then: (schema) => schema.required('Vänligen fyll i din CVC-kod.'),
+  cvc: Yup.string().when("paymentMethod", {
+    is: "card",
+    then: (schema) => schema.required("Vänligen fyll i din CVC-kod."),
   }),
-  expDate: Yup.string().when('paymentMethod', {
-    is: 'card',
-    then: (schema) => schema.required('Vänligen fyll i utgångsdatum.'),
+  expDate: Yup.string().when("paymentMethod", {
+    is: "card",
+    then: (schema) => schema.required("Vänligen fyll i utgångsdatum."),
   }),
-  personalNumber: Yup.string().when('paymentMethod', {
-    is: 'klarna',
-    then: (schema) => schema.required('Vänligen fyll i ditt personnummer.'),
+  personalNumber: Yup.string().when("paymentMethod", {
+    is: "klarna",
+    then: (schema) => schema.required("Vänligen fyll i ditt personnummer."),
   }),
-  phoneNumber: Yup.string().when('paymentMethod', {
-    is: 'swish',
-    then: (schema) => schema.required('Vänligen fyll i ditt telefonnummer.'),
+  phoneNumber: Yup.string().when("paymentMethod", {
+    is: "swish",
+    then: (schema) => schema.required("Vänligen fyll i ditt telefonnummer."),
   }),
-})
+});
+
+export interface AllOrderData {
+  orderDetails: OrderData;
+  orderTotal: number;
+  products: CartType[];
+}
 
 interface Props {
-  defaultOrderData?: OrderData
-  setShippingMethod: React.Dispatch<React.SetStateAction<number | undefined>>
+  defaultOrderData?: OrderData;
+  setShippingMethod: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 function OrderForm(props: Props) {
-  let navigate = useNavigate()
-  const { dispatch } = useCart()
-  const [, setOrderDetails] = useLocalStorage<OrderData>('orderDetails', '')
-  const [isLoading, setLoading] = React.useState<boolean>(false)
+  let navigate = useNavigate();
+  const { dispatch } = useCart();
+  const [isLoading, setLoading] = React.useState<boolean>(false);
+  let [allOrderDetails, setAllDetails] = useLocalStorage<AllOrderData>("orderDetails", "");
+  let [sumDetails] = useLocalStorage<number>("cartSum", "");
+  let [productsDetails] = useLocalStorage<CartType[]>("cart", "");
+
+  
   // successful submit
   function handleSubmit(orderData: OrderData) {
-    setOrderDetails(orderData)
-    setLoading(true)
+    setLoading(true);
+    setOrderDetails(orderData);
 
     // fetch api and navigate to confirmed-order page if successful
-    confirmOrder()
+    confirmOrder();
+  }
+
+  //populate a full Local storage key with all order details
+  function setOrderDetails(orderDetails: OrderData) {
+    allOrderDetails = {
+      orderDetails: orderDetails,
+      orderTotal: sumDetails + (typeof orderDetails.shippingMethod === "number"
+      ? deliveryOptions[orderDetails.shippingMethod].price
+      : 0),
+      products: productsDetails,
+    };
+
+    setAllDetails(allOrderDetails);
   }
 
   const formikProps = useFormik<OrderData>({
     initialValues: emptyForm,
     validationSchema: OrderFormSchema,
     onSubmit: (orderData) => {
-      handleSubmit(orderData)
+      handleSubmit(orderData);
     },
-  })
+  });
 
   // fetches api to check if order went through, navigates to confirmed-order if successful
   async function confirmOrder() {
-    const success = await placeOrderFetch()
+    const success = await placeOrderFetch();
     if (success) {
-      setLoading(false)
-      navigate('/confirmed-order')
       dispatch({
         type: Types.ResetCart,
         payload: {},
-      })
+      });
+      setLoading(false);
+      navigate("/confirmed-order");
     }
   }
 
@@ -169,13 +193,13 @@ function OrderForm(props: Props) {
         </>
       ) : (
         <>
-          {' '}
+          {" "}
           <LinearProgress /> <br />
           Kontrollerar beställning...
         </>
       )}
     </>
-  )
+  );
 }
 
-export default OrderForm
+export default OrderForm;
