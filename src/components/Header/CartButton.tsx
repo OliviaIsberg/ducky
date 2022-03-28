@@ -11,15 +11,17 @@ function CartButton() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [active, setActive] = useState(false)
 
-  const checkoutPageLoc = location.pathname
+  const pageLoc = location.pathname
 
   useEffect(() => {
-    if (checkoutPageLoc === '/checkoutPage') {
+    if (pageLoc === '/checkoutPage') {
+      setActive(true)
+    } else if (pageLoc === '/confirmed-order') {
       setActive(true)
     } else {
       setActive(false)
     }
-  }, [checkoutPageLoc])
+  }, [pageLoc])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
