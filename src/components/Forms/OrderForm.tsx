@@ -97,6 +97,19 @@ function OrderForm(props: Props) {
     },
   })
 
+  // fetches api to check if order went through, navigates to confirmed-order if successful
+  async function confirmOrder() {
+    const success = await placeOrderFetch()
+    if (success) {
+      setLoading(false)
+      navigate('/confirmed-order')
+      dispatch({
+        type: Types.ResetCart,
+        payload: {},
+      })
+    }
+  }
+
   return (
     <>
       {!isLoading ? (
@@ -163,19 +176,6 @@ function OrderForm(props: Props) {
       )}
     </>
   )
-
-  // fetches api to check if order went through, navigates to confirmed-order if successful
-  async function confirmOrder() {
-    const success = await placeOrderFetch()
-    if (success) {
-      setLoading(false)
-      navigate('/confirmed-order')
-      dispatch({
-        type: Types.ResetCart,
-        payload: {},
-      })
-    }
-  }
 }
 
 export default OrderForm
