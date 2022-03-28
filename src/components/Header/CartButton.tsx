@@ -1,25 +1,27 @@
-import {
-  Button,
-  Badge,
-  Popover,
-  List,
-  ListItem,
-  Typography,
-  Tooltip,
-  IconButton,
-  ListItemText,
-  ListItemAvatar,
-} from '@mui/material'
-import React from 'react'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
+import { Button, Badge, Popover, Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useCart } from '../../contexts/CartContext'
-import { CartType, Types } from '../../contexts/Reducers'
+import CartList from '../CartList'
 
 function CartButton() {
-  const { cart, dispatch } = useCart()
+  let location = useLocation()
+  const { cart } = useCart()
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+  const [active, setActive] = useState(false)
+
+  const pageLoc = location.pathname
+
+  useEffect(() => {
+    if (pageLoc === '/checkoutPage') {
+      setActive(true)
+    } else if (pageLoc === '/confirmed-order') {
+      setActive(true)
+    } else {
+      setActive(false)
+    }
+  }, [pageLoc])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -34,7 +36,12 @@ function CartButton() {
 
   return (
     <>
-      <Button variant="contained" aria-describedby={id} onClick={handleClick}>
+      <Button
+        variant="contained"
+        aria-describedby={id}
+        onClick={handleClick}
+        disabled={active}
+      >
         Din kundkorg
         <Badge badgeContent={cart?.length} color="info" showZero>
           <ShoppingCartIcon color="action" />
@@ -54,45 +61,11 @@ function CartButton() {
           horizontal: 'right',
         }}
       >
-        <List dense>
-          {cart && cart.length > 0 ? (
-            cart.map((product: CartType) => (
-              <ListItem key={product.id}>
-                <ListItemAvatar>
-                  <img
-                    src={product.imgURL}
-                    alt={product.title}
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                    }}
-                  />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={product.title}
-                  secondary={`${product.price} kr/st`}
-                />
-                <Tooltip title="Ta bort">
-                  <IconButton
-                    aria-label="delete"
-                    edge="end"
-                    onClick={() => {
-                      dispatch({
-                        type: Types.DeleteFromCart,
-                        payload: product,
-                      })
-                    }}
-                  >
-                    <RemoveCircleIcon color="error" />
-                  </IconButton>
-                </Tooltip>
-              </ListItem>
-            ))
-          ) : (
-            <Typography variant="body2">Du har inget i kundkorgen</Typography>
-          )}
-        </List>
+        {cart?.length > 0 ? (
+          <CartList handleClose={handleClose} />
+        ) : (
+          <Typography variant="body2">Du har inget i kundkorgen</Typography>
+        )}
 
         {cart.length > 0 && (
           <Link to="cartPage" onClick={handleClose}>
