@@ -5,9 +5,10 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  ButtonGroup,
 } from '@mui/material';
 import { useEffect, useReducer, useRef, useState } from 'react';
-import { Product } from '../Api/Data';
+import { Categories, Product } from '../Api/Data';
 import { ProductTypes } from '../contexts/Reducers';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
@@ -20,7 +21,7 @@ enum ProductEditReducerType {
   UpdateInformation,
   UpdateImgURL,
   UpdatePrice,
-  Updatecategory,
+  UpdateCategory,
   Save,
   Reset,
   Delete,
@@ -32,7 +33,7 @@ type Action =
   | { type: ProductEditReducerType.UpdateInformation; value: string }
   | { type: ProductEditReducerType.UpdateImgURL; value: string }
   | { type: ProductEditReducerType.UpdatePrice; value: number }
-  | { type: ProductEditReducerType.Updatecategory; value: string }
+  | { type: ProductEditReducerType.UpdateCategory; category: string }
   | { type: ProductEditReducerType.Save }
   | { type: ProductEditReducerType.Reset; product: Product };
 
@@ -49,8 +50,8 @@ function AdminPageAccordion({ product, dispatch, deleteProduct }: any) {
         return { ...state, imgURL: action.value };
       case ProductEditReducerType.UpdatePrice:
         return { ...state, price: action.value };
-      case ProductEditReducerType.Updatecategory:
-        return { ...state, category: action.value };
+      case ProductEditReducerType.UpdateCategory:
+        return { ...state, category: action.category };
       case ProductEditReducerType.Save:
         dispatch({
           type: ProductTypes.Update,
@@ -98,7 +99,7 @@ function AdminPageAccordion({ product, dispatch, deleteProduct }: any) {
             {open ? (
               <input
                 type="text"
-                value={product.title}
+                value={productState.title}
                 onChange={(e) => {
                   dispatchProductState({
                     type: ProductEditReducerType.UpdateTitle,
@@ -111,17 +112,7 @@ function AdminPageAccordion({ product, dispatch, deleteProduct }: any) {
               <Typography>{productState.title}</Typography>
             )}
             {open ? (
-              <Button
-                startIcon={<Save />}
-                onClick={(e) => {
-                  dispatchProductState({
-                    type: ProductEditReducerType.Save,
-                  });
-                  e.stopPropagation();
-                }}
-              >
-                Spara
-              </Button>
+              <Button>Stäng</Button>
             ) : (
               <Button startIcon={<EditIcon />}>Redigera</Button>
             )}
@@ -179,21 +170,37 @@ function AdminPageAccordion({ product, dispatch, deleteProduct }: any) {
           </Box>
           <Box sx={{ margin: '1rem 0' }}>
             <Typography>Redigera kategori</Typography>
-            {open ? (
-              <input
-                value={productState.category}
-                onChange={(e) => {
-                  dispatchProductState({
-                    type: ProductEditReducerType.Updatecategory,
-                    value: e.target.value,
-                  });
-                }}
-              />
-            ) : (
-              <Typography>{productState.title}</Typography>
-            )}
+            <ButtonGroup aria-label="button group">
+              {Categories.map((category) => (
+                <Button
+                  variant={
+                    category === productState.category
+                      ? 'contained'
+                      : 'outlined'
+                  }
+                  onClick={() =>
+                    dispatchProductState({
+                      type: ProductEditReducerType.UpdateCategory,
+                      category,
+                    })
+                  }
+                >
+                  {category}
+                </Button>
+              ))}
+            </ButtonGroup>
           </Box>
           <Box>
+            <Button
+              startIcon={<Save />}
+              onClick={() =>
+                dispatchProductState({
+                  type: ProductEditReducerType.Save,
+                })
+              }
+            >
+              Spara
+            </Button>
             <Button
               onClick={() =>
                 dispatchProductState({
