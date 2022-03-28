@@ -16,24 +16,12 @@ import PaymentIcon from '@mui/icons-material/Payment'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../contexts/CartContext'
 import { CartType, Types } from '../contexts/Reducers'
-import useLocalStorage from '../Hooks/useLocalStorage'
 
 function CartList() {
-  const { cart, dispatch } = useCart()
-  const [total, setTotal] = useLocalStorage('cartSum', 0)
-
-  useEffect(() => {
-    setTotal(
-      cart.reduce(
-        (acc: number, current: CartType) => acc + current.price * current.qty,
-        0
-      )
-    )
-  }, [cart, setTotal])
+  const { cart, dispatch, total } = useCart()
 
   return (
     <>
