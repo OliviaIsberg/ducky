@@ -9,6 +9,7 @@ import {
 import { useReducer, useState } from 'react';
 import { Product } from '../Api/Data';
 import { ProductTypes } from '../contexts/Reducers';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 enum ProductEditReducerType {
   UpdateTitle,
@@ -66,12 +67,13 @@ function AdminPageAccordion({ product, dispatch }: any) {
 
   return (
     <Accordion onChange={handleOpen}>
-      <AccordionSummary>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
+            margin: '1rem 0',
           }}
         >
           {open ? (
@@ -106,11 +108,13 @@ function AdminPageAccordion({ product, dispatch }: any) {
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        <img
-          style={{ width: 100, height: 100 }}
-          src={productState.imgURL}
-          alt=""
-        ></img>
+        <Box sx={{ margin: '1rem 0' }}>
+          <img
+            style={{ width: 100, height: 100 }}
+            src={productState.imgURL}
+            alt=""
+          ></img>
+        </Box>
         <Typography sx={{ marginBottom: '2ex' }}>
           Bild URL:
           <input
@@ -124,34 +128,36 @@ function AdminPageAccordion({ product, dispatch }: any) {
             }}
           />
         </Typography>
-        <Typography>Beskrivning</Typography>
-        <textarea
-          onChange={(e) => {
-            dispatchProductState({
-              type: ProductEditReducerType.UpdateInformation,
-              value: e.target.value,
-            });
-          }}
-          value={productState.information}
-        />
         <Box>
-          <Typography>Redigera pris</Typography>
-          {open ? (
-            <input
-              type="number"
-              value={productState.price}
-              onChange={(e) => {
-                dispatchProductState({
-                  type: ProductEditReducerType.UpdatePrice,
-                  value: parseFloat(e.target.value),
-                });
-              }}
-            />
-          ) : (
-            <Typography>{productState.title}</Typography>
-          )}
+          <Typography>Beskrivning</Typography>
+          <textarea
+            onChange={(e) => {
+              dispatchProductState({
+                type: ProductEditReducerType.UpdateInformation,
+                value: e.target.value,
+              });
+            }}
+            value={productState.information}
+          />
+          <Box sx={{ margin: '1rem 0' }}>
+            <Typography>Redigera pris</Typography>
+            {open ? (
+              <input
+                type="number"
+                value={productState.price}
+                onChange={(e) => {
+                  dispatchProductState({
+                    type: ProductEditReducerType.UpdatePrice,
+                    value: parseFloat(e.target.value),
+                  });
+                }}
+              />
+            ) : (
+              <Typography>{productState.title}</Typography>
+            )}
+          </Box>
         </Box>
-        <Box>
+        <Box sx={{ margin: '1rem 0' }}>
           <Typography>Redigera kategori</Typography>
           {open ? (
             <input
