@@ -6,12 +6,15 @@ import {
   AccordionSummary,
   Box,
   ButtonGroup,
+  Modal,
 } from '@mui/material';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { Categories, Product } from '../Api/Data';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
 import Save from '@mui/icons-material/Save';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 enum ProductEditReducerType {
   Update,
@@ -59,6 +62,7 @@ function AdminPageAccordion({
   deleteAction,
 }: any) {
   const [open, setOpen] = useState(expanded ?? false);
+  const [openModal, setOpenModal] = useState(false);
   const [productState, dispatchProductState] = useReducer(
     ProductEditReducer,
     product
@@ -90,21 +94,24 @@ function AdminPageAccordion({
             margin: '1rem 0',
           }}
         >
-          {open ? (
-            <input
-              type="text"
-              value={productState.title}
-              onChange={(e) => {
-                dispatchProductState({
-                  type: ProductEditReducerType.UpdateTitle,
-                  value: e.target.value,
-                });
-              }}
-              onClick={(e) => e.stopPropagation()}
-            />
-          ) : (
-            <Typography>{productState.title}</Typography>
-          )}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <img src={productState.imgURL} width="48px" alt=""></img>
+            {open ? (
+              <input
+                type="text"
+                value={productState.title}
+                onChange={(e) => {
+                  dispatchProductState({
+                    type: ProductEditReducerType.UpdateTitle,
+                    value: e.target.value,
+                  });
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <Typography>{productState.title}</Typography>
+            )}
+          </Box>
           {open ? (
             <Button>Stäng</Button>
           ) : (
@@ -188,6 +195,7 @@ function AdminPageAccordion({
             Spara
           </Button>
           <Button
+            startIcon={<RestartAltIcon />}
             onClick={() =>
               dispatchProductState({
                 type: ProductEditReducerType.Reset,
@@ -198,6 +206,47 @@ function AdminPageAccordion({
             Återställ
           </Button>
           <Button
+            startIcon={<DeleteForeverIcon />}
+            onClick={() => setOpenModal(true)}
+          >
+            Ta bort produkt
+          </Button>
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
+                boxShadow: 24,
+                p: 4,
+              }}
+            >
+              <Typography>
+                Är du säker på att du vill ta bort produkt?
+              </Typography>
+              <Button
+                onClick={(e) => {
+                  deleteAction(product.id);
+                  setOpenModal(false);
+                  setOpen(false);
+                  e.stopPropagation();
+                }}
+              >
+                Ja
+              </Button>
+              <Button onClick={() => setOpenModal(false)}>Nej</Button>
+            </Box>
+          </Modal>
+          {/* <Button
             onClick={(e) => {
               deleteAction(product.id);
               setOpen(false);
@@ -205,7 +254,7 @@ function AdminPageAccordion({
             }}
           >
             Ta bort produkt
-          </Button>
+          </Button> */}
         </Box>
       </AccordionDetails>
     </Accordion>

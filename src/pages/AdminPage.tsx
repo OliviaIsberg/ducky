@@ -6,6 +6,7 @@ import { Product } from '../Api/Data';
 import { useProduct } from '../contexts/ProductsContext';
 import AdminPageAccordion from '../components/AdminPageAccordion';
 import { useState } from 'react';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 function AdminPage() {
   const { products, createProduct, updateProduct, deleteProduct } =
@@ -56,7 +57,10 @@ function AdminPage() {
           )}
         </List>
         {!addingProduct && (
-          <Button onClick={() => setAddingProduct(true)}>
+          <Button
+            startIcon={<AddCircleOutlineOutlinedIcon />}
+            onClick={() => setAddingProduct(true)}
+          >
             Lägg till ny produkt
           </Button>
         )}
