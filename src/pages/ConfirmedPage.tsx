@@ -6,23 +6,21 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-} from '@mui/material'
-import { deliveryOptions, paymentOptions } from '../Api/Data'
-import { AllOrderData, OrderData } from '../components/Forms/OrderForm'
-import { CartType } from '../contexts/Reducers'
-import useLocalStorage from '../Hooks/useLocalStorage'
+} from '@mui/material';
+import { deliveryOptions, paymentOptions } from '../Api/Data';
+import { AllOrderData } from '../components/Forms/OrderForm';
+import { CartType } from '../contexts/Reducers';
+import useLocalStorage from '../Hooks/useLocalStorage';
 
 // randomizes a 6 digit order number
 function RandomOrderNumber() {
-  return Math.floor(Math.random() * 1000000)
+  return Math.floor(Math.random() * 1000000);
 }
 
 function ConfirmedOrderPage() {
   // get cart, total cartsum, all orderdetails and shippingdetails from local storage
-  // const [cart] = useLocalStorage<CartType[]>('cart', '')
 
-  // const [total] = useLocalStorage<number>('cartSum', 0)
-  const [orderDetails] = useLocalStorage<AllOrderData>('orderDetails', '')
+  const [orderDetails] = useLocalStorage<AllOrderData>('orderDetails', '');
 
   return (
     <Container maxWidth="md">
@@ -115,7 +113,7 @@ function ConfirmedOrderPage() {
         välkommen att kontakta oss på: support@ducky.se
       </p>
     </Container>
-  )
+  );
 }
 
-export default ConfirmedOrderPage
+export default ConfirmedOrderPage;
