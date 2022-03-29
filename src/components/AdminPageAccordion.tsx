@@ -7,53 +7,28 @@ import {
   Box,
   ButtonGroup,
   Modal,
+  Chip,
 } from '@mui/material';
 import { useEffect, useReducer, useRef, useState } from 'react';
-import { Categories, Product } from '../Api/Data';
+import { Product, Categories } from '../Api/Data';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
 import Save from '@mui/icons-material/Save';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import {
+  ProductEditReducer,
+  ProductEditReducerType,
+  productReducer,
+} from '../contexts/Reducers';
 
-enum ProductEditReducerType {
-  Update,
-  UpdateTitle,
-  UpdateInformation,
-  UpdateImgURL,
-  UpdatePrice,
-  UpdateCategory,
-  Reset,
-  Delete,
-}
-
-type Action =
-  | { type: ProductEditReducerType.Update; product: Product }
-  | { type: ProductEditReducerType.UpdateTitle; value: string }
-  | { type: ProductEditReducerType.UpdateInformation; value: string }
-  | { type: ProductEditReducerType.UpdateImgURL; value: string }
-  | { type: ProductEditReducerType.UpdatePrice; value: number }
-  | { type: ProductEditReducerType.UpdateCategory; category: string }
-  | { type: ProductEditReducerType.Reset; product: Product };
-
-function ProductEditReducer(state: Product, action: Action) {
-  switch (action.type) {
-    case ProductEditReducerType.Update:
-      return action.product;
-    case ProductEditReducerType.UpdateTitle:
-      return { ...state, title: action.value };
-    case ProductEditReducerType.UpdateInformation:
-      return { ...state, information: action.value };
-    case ProductEditReducerType.UpdateImgURL:
-      return { ...state, imgURL: action.value };
-    case ProductEditReducerType.UpdatePrice:
-      return { ...state, price: action.value };
-    case ProductEditReducerType.UpdateCategory:
-      return { ...state, category: action.category };
-    case ProductEditReducerType.Reset:
-      return action.product;
-  }
-}
+const isProductEdited = (product: Product, productState: Product) =>
+  productState.title !== product.title ||
+  productState.information !== product.information ||
+  productState.id !== product.id ||
+  productState.category !== product.category ||
+  productState.price !== product.price ||
+  productState.imgURL !== product.imgURL;
 
 function AdminPageAccordion({
   product,
@@ -115,7 +90,12 @@ function AdminPageAccordion({
           {open ? (
             <Button>Stäng</Button>
           ) : (
-            <Button startIcon={<EditIcon />}>Redigera</Button>
+            <Box>
+              {isProductEdited(product, productState) ? (
+                <Chip label="OSPARAD" variant="outlined" />
+              ) : null}
+              <Button startIcon={<EditIcon />}>Redigera</Button>
+            </Box>
           )}
         </Box>
       </AccordionSummary>
@@ -156,7 +136,7 @@ function AdminPageAccordion({
             {open ? (
               <input
                 type="number"
-                value={productState.price}
+                value={!isNaN(productState.price) ? productState.price : ''}
                 onChange={(e) => {
                   dispatchProductState({
                     type: ProductEditReducerType.UpdatePrice,
@@ -191,7 +171,13 @@ function AdminPageAccordion({
           </ButtonGroup>
         </Box>
         <Box>
-          <Button startIcon={<Save />} onClick={() => saveAction(productState)}>
+          <Button
+            startIcon={<Save />}
+            onClick={() => {
+              saveAction(productState);
+              setOpen(false);
+            }}
+          >
             Spara
           </Button>
           <Button
@@ -246,15 +232,6 @@ function AdminPageAccordion({
               <Button onClick={() => setOpenModal(false)}>Nej</Button>
             </Box>
           </Modal>
-          {/* <Button
-            onClick={(e) => {
-              deleteAction(product.id);
-              setOpen(false);
-              e.stopPropagation();
-            }}
-          >
-            Ta bort produkt
-          </Button> */}
         </Box>
       </AccordionDetails>
     </Accordion>
