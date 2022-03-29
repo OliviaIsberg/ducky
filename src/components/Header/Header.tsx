@@ -89,6 +89,9 @@ const Header: FC<HeaderProps> = () => {
                       padding: "0",
                       bgcolor: "transparent",
                       textalign: "none",
+                      "&:hover": {
+                        bgcolor: "transparent",
+                      },
                     },
                   }}
                   variant="outlined"

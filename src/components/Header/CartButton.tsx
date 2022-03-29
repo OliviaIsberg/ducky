@@ -56,10 +56,11 @@ function CartButton() {
           <ShoppingCartIcon
             sx={{
               color: "#0EDFE6",
-              height:"2.5rem",
-              width:"2.5rem",
+              height: "2.5rem",
+              width: "2.5rem",
               "&:hover": {
                 color: "#eaa0ff",
+                border: "none",
               },
             }}
           />
@@ -86,16 +87,21 @@ function CartButton() {
         )}
 
         {cart.length > 0 && (
-          <Link to="cartPage" onClick={handleClose}>
+          <Link to="cartPage" onClick={handleClose} >
             <Button
               sx={{
                 bgcolor: "#0EDFE6",
                 border: "none",
                 color: " black",
+                marginTop: "1rem",
+                borderRadius: "0",
                 "&:hover": {
                   bgcolor: "#eaa0ff",
                   border: "none",
                   color: "black",
+                },
+                "@media screen and (max-width: 440px)": {
+                  display: "none",
                 },
               }}
               variant="contained"
