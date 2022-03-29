@@ -19,7 +19,6 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   ProductEditReducer,
   ProductEditReducerType,
-  productReducer,
 } from '../contexts/Reducers';
 
 const isProductEdited = (product: Product, productState: Product) =>
