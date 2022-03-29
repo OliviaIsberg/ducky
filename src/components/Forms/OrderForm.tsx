@@ -152,10 +152,7 @@ function OrderForm(props: Props) {
               Välj dina betal och leveransmetoder
             </Typography>
             {/* RANDOM INFO TEXT, DOESN'T ACTUALLY DO/MEAN ANYTHING */}
-            <Typography variant="body2" sx={{ padding: 2, mb: 2 }}>
-              Beställningar som görs innan kl 16.00 skickas samma dag. Ange
-              uppgifter nedan för att se tillgängliga leveransval.
-            </Typography>
+           
 
             {/* The full order form */}
             <form

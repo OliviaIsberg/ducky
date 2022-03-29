@@ -29,53 +29,72 @@ function CheckOutPage() {
   return (
     <Container maxWidth="md">
       {/* cart summary, loops throught cart array */}
-      <Box sx={{bgcolor:"#ffffff"}}>
-      <Typography variant="h5" sx={{mt:-2, mb:2, fontWeight:"bold", padding:"2rem"}}>Din varukorg</Typography>
-      <List dense >
-        {cart?.length &&
-          cart.map((c: CartType) => (
-            <ListItem key={c.id}>
-              <ListItemAvatar>
-                <img
-                  src={c.imgURL}
-                  alt={c.title}
-                  style={{
-                    width: "70px",
-                    height: "70px",
-                    borderRadius: "50%",
-                    marginRight:"2vw",
-                  }}
+      <Box sx={{ bgcolor: "#ffffff" }}>
+        <Typography
+          variant="h5"
+          sx={{ mt: -2, mb: 2, fontWeight: "bold", padding: "2rem" }}
+        >
+          Din varukorg
+        </Typography>
+        <List dense>
+          {cart?.length &&
+            cart.map((c: CartType) => (
+              <ListItem key={c.id}>
+                <ListItemAvatar>
+                  <img
+                    src={c.imgURL}
+                    alt={c.title}
+                    style={{
+                      width: "70px",
+                      height: "70px",
+                      borderRadius: "50%",
+                      marginRight: "2vw",
+                    }}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={c.title}
+                  secondary={
+                    <>
+                      <Typography
+                        sx={{ display: "block" }}
+                        component="span"
+                        variant="body2"
+                      >
+                        Antal: {c.qty} st
+                      </Typography>
+                      <Typography
+                        sx={{ display: "block" }}
+                        component="span"
+                        variant="body2"
+                      >
+                        {" "}
+                        Pris: {c.price} kr/st
+                      </Typography>
+                    </>
+                  }
                 />
-              </ListItemAvatar>
-              <ListItemText
-                primary={c.title}
-                secondary={<>
-                  <Typography
-                  sx={{ display: "block" }}
-                  component="span"
-                  variant="body2">Antal: {c.qty} st</Typography>
-                  <Typography
-                  sx={{ display: "block" }}
-                  component="span"
-                  variant="body2"> Pris: {c.price} kr/st</Typography></>}
-              />
-              <ListItemText
-                primary={`${c.qty * c.price} kr`}
-                sx={{ textAlign: "right"}}
-              />
-            </ListItem>
-          ))}
-      </List>
+                <ListItemText
+                  primary={`${c.qty * c.price} kr`}
+                  sx={{ textAlign: "right" }}
+                />
+              </ListItem>
+            ))}
+        </List>
       </Box>
-      <Divider sx={{mt:2, mb:2,}}/>
+      <Divider sx={{ mt: 2, mb: 2 }} />
       {/* get and print total price of products */}
       <Box sx={{ textAlign: "right" }}>
-      <Typography sx={{mt:2, fontWeight:"bold"}}>Pris för produkter (inkl 25% moms)</Typography>
-        <Typography variant="body2" >{`${total} kr`}</Typography>
+        <Typography sx={{ mt: 2, fontWeight: "bold" }}>
+          Pris för produkter (inkl 25% moms)
+        </Typography>
+        <Typography variant="body2">{`${total} kr`}</Typography>
       </Box>
 
       <Box sx={{ textAlign: "right" }}>
-        <Typography sx={{mt:2,fontWeight:"bold"}}>Totalpris (inkl moms & frakt)</Typography>
+        <Typography sx={{ mt: 2, fontWeight: "bold" }}>
+          Totalpris (inkl moms & frakt)
+        </Typography>
         <Typography variant="body2">
           {`${
             total +
@@ -89,7 +108,7 @@ function CheckOutPage() {
           variant="outlined"
           onClick={toCart}
           sx={{
-            mt:2,
+            mt: 2,
             bgcolor: "white",
             border: "1",
             borderColor: "white",
@@ -101,7 +120,7 @@ function CheckOutPage() {
               color: "black",
             },
             "@media screen and (max-width: 440px)": {
-              display:"none"
+              display: "none",
             },
           }}
         >
@@ -110,7 +129,7 @@ function CheckOutPage() {
       </Box>
 
       {/* the full form with adress, payment and shipping */}
-      <Divider sx={{mt:2, mb:2,}}/>
+      <Divider sx={{ mt: 2, mb: 2 }} />
       <OrderForm setShippingMethod={setShippingMethod} />
     </Container>
   );
