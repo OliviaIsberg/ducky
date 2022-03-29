@@ -15,7 +15,17 @@ function AdminPage() {
 
   const newProduct = () => {
     const id = Math.max(...products.map((p) => p.id)) + 1;
-    return new Product(id);
+
+    const product: Product = {
+      title: '',
+      information: '',
+      id,
+      category: '',
+      price: 0,
+      imgURL: '',
+    };
+
+    return product;
   };
 
   const createNewProduct = (product: Product) => {

@@ -6,22 +6,13 @@ import klarna from '../assets/PaymentLogos/klarna-square.jpg';
 import swish from '../assets/PaymentLogos/swish.svg';
 import { SvgIcon } from '@mui/material';
 
-export class Product {
+export interface Product {
   title: string;
   information: string;
   id: number;
   category: string;
   price: number;
   imgURL: string;
-
-  constructor(id: number) {
-    this.title = '';
-    this.information = '';
-    this.id = id;
-    this.category = '';
-    this.price = 0;
-    this.imgURL = '';
-  }
 }
 
 export enum MockedCategories {
