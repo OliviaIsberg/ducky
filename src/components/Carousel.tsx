@@ -31,7 +31,7 @@ function ShowCarousel() {
       <Carousel
         interval={2000}
         indicators={false}
-        sx={{ width: '90%', height: '35vw', margin: 'auto' }}
+        sx={{ height: '30vw', width: '90%', margin: 'auto' }}
       >
         {images.map((item, i) => (
           <ShowImages key={i} item={item} />
@@ -43,13 +43,15 @@ function ShowCarousel() {
 
 function ShowImages(props: Props) {
   return (
-    <Paper sx={{ height: '35vw', width: '100%' }}>
-      <img
-        style={{ height: '100%', width: '100%' }}
-        src={props.item.image}
-        alt=""
-      />
-    </Paper>
+    // <Paper sx={{ width: '100%' }}>
+    <img
+      style={{
+        width: '100%',
+      }}
+      src={props.item.image}
+      alt=""
+    />
+    // </Paper>
   );
 }
 
