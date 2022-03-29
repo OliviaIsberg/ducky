@@ -1,7 +1,8 @@
 import { Formik, Form, Field } from 'formik';
-import { Button, Typography } from '@mui/material';
+import { Button, Fade, Typography } from '@mui/material';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Box } from '@mui/system';
 
 const SubscribeSchema = Yup.object().shape({
   email: Yup.string().email('Ogiltig email adress').required('Obligatorisk'),
@@ -12,6 +13,12 @@ function SubscribeForm() {
     submitted: false,
     email: '',
   });
+
+  useEffect(() => {
+    if (state.submitted === true) {
+      setTimeout(() => setState({ submitted: false, email: '' }), 4000);
+    }
+  }, [state.submitted]);
 
   return (
     <div>
@@ -34,7 +41,9 @@ function SubscribeForm() {
           </Form>
         )}
       </Formik>
-      {state.submitted ? <p>Tack för anmälan {state.email}</p> : ''}
+      <Fade in={state.submitted}>
+        <Box>Tack för anmälan {state.email}</Box>
+      </Fade>
     </div>
   );
 }
