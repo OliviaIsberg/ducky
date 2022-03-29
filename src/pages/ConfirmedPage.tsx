@@ -1,4 +1,5 @@
 import {
+  Box,
   Container,
   Divider,
   List,
@@ -24,6 +25,7 @@ function ConfirmedOrderPage() {
 
   return (
     <Container maxWidth="md">
+    <Box sx={{ bgcolor: "#ffffff", width:"100%", padding:2,}}> 
       <h2>Tack för din beställning!</h2>
       <p>
         Din betalning och beställning har genomförts, och snart kommer dina nya
@@ -67,7 +69,8 @@ function ConfirmedOrderPage() {
       <Typography variant="body1" sx={{ textAlign: 'right' }}>
         Totalpris (inkl moms & frakt) : {`${orderDetails.orderTotal}`} kr
       </Typography>
-      {/* Totalpris (inkl moms & frakt) : {`${total}`} kr */}
+      
+      
       {/* Get shipping adress from local storage  */}
       <h3>Leveransadress:</h3>
       {/* first and last name */}
@@ -112,7 +115,8 @@ function ConfirmedOrderPage() {
         Skulle någonting inte stämma, eller om du har övriga frågor är du varmt
         välkommen att kontakta oss på: support@ducky.se
       </p>
-    </Container>
+      </Box>
+      </Container>
   );
 }
 

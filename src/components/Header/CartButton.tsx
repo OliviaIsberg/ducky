@@ -1,50 +1,69 @@
-import { Button, Badge, Popover, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { Link, useLocation } from 'react-router-dom'
-import { useCart } from '../../contexts/CartContext'
-import CartList from '../CartList'
+import { Button, Badge, Popover, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Link, useLocation } from "react-router-dom";
+import { useCart } from "../../contexts/CartContext";
+import CartList from "../CartList";
 
 function CartButton() {
-  let location = useLocation()
-  const { cart } = useCart()
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-  const [active, setActive] = useState(false)
+  let location = useLocation();
+  const { cart } = useCart();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
+  const [active, setActive] = useState(false);
 
-  const pageLoc = location.pathname
+  const pageLoc = location.pathname;
 
   useEffect(() => {
-    if (pageLoc === '/checkoutPage') {
-      setActive(true)
-    } else if (pageLoc === '/confirmed-order') {
-      setActive(true)
+    if (pageLoc === "/checkoutPage") {
+      setActive(true);
+    } else if (pageLoc === "/confirmed-order") {
+      setActive(true);
     } else {
-      setActive(false)
+      setActive(false);
     }
-  }, [pageLoc])
+  }, [pageLoc]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
-  const open = Boolean(anchorEl)
-  const id = open ? 'simple-popover' : undefined
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
     <>
       <Button
-        variant="contained"
+        sx={{
+          bgcolor: "transparent",
+          border: "none",
+          "&:hover": {
+            bgcolor: "transparent",
+            border: "none",
+          },
+        }}
+        variant="outlined"
         aria-describedby={id}
         onClick={handleClick}
         disabled={active}
       >
-        Din kundkorg
         <Badge badgeContent={cart?.length} color="info" showZero>
-          <ShoppingCartIcon color="action" />
+          <ShoppingCartIcon
+            sx={{
+              color: "#0EDFE6",
+              height: "2.5rem",
+              width: "2.5rem",
+              "&:hover": {
+                color: "#eaa0ff",
+                border: "none",
+              },
+            }}
+          />
         </Badge>
       </Button>
       <Popover
@@ -53,12 +72,12 @@ function CartButton() {
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         {cart?.length > 0 ? (
@@ -68,15 +87,33 @@ function CartButton() {
         )}
 
         {cart.length > 0 && (
-          <Link to="cartPage" onClick={handleClose}>
-            <Button variant="contained" fullWidth>
+          <Link to="cartPage" onClick={handleClose} >
+            <Button
+              sx={{
+                bgcolor: "#0EDFE6",
+                border: "none",
+                color: " black",
+                marginTop: "1rem",
+                borderRadius: "0",
+                "&:hover": {
+                  bgcolor: "#eaa0ff",
+                  border: "none",
+                  color: "black",
+                },
+                "@media screen and (max-width: 440px)": {
+                  display: "none",
+                },
+              }}
+              variant="contained"
+              fullWidth
+            >
               Till kundkorgen
             </Button>
           </Link>
         )}
       </Popover>
     </>
-  )
+  );
 }
 
-export default CartButton
+export default CartButton;
