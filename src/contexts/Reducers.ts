@@ -136,41 +136,47 @@ export const productReducer = (state: Data, action: ProductActions) => {
   }
 };
 
-export enum ProductEditReducerType {
-  Update,
-  UpdateTitle,
-  UpdateInformation,
-  UpdateImgURL,
-  UpdatePrice,
-  UpdateCategory,
-  Reset,
-  Delete,
+export interface ProductEditState extends Product {
+  titleValid: boolean;
+  informationValid: boolean;
+  categoryValid: boolean;
+  priceValid: boolean;
+  imgURLValid: boolean;
 }
 
-export type ProductEditAction =
-  | { type: ProductEditReducerType.Update; product: Product }
-  | { type: ProductEditReducerType.UpdateTitle; value: string }
-  | { type: ProductEditReducerType.UpdateInformation; value: string }
-  | { type: ProductEditReducerType.UpdateImgURL; value: string }
-  | { type: ProductEditReducerType.UpdatePrice; value: number }
-  | { type: ProductEditReducerType.UpdateCategory; category: string }
-  | { type: ProductEditReducerType.Reset; product: Product };
+export enum ProductEditReducerType {
+  Update,
+  Reset,
+}
 
-export function ProductEditReducer(state: Product, action: ProductEditAction) {
+type ProductEditPayload = {
+  [ProductEditReducerType.Update]: {
+    key: string;
+    value: any;
+  };
+  [ProductEditReducerType.Reset]: {
+    product: Product;
+  };
+};
+
+export type ProductEditAction =
+  ActionMap<ProductEditPayload>[keyof ActionMap<ProductEditPayload>];
+
+export function ProductEditReducer(
+  state: ProductEditState,
+  action: ProductEditAction
+) {
   switch (action.type) {
     case ProductEditReducerType.Update:
-      return { ...action.product, edited: false };
-    case ProductEditReducerType.UpdateTitle:
-      return { ...state, title: action.value };
-    case ProductEditReducerType.UpdateInformation:
-      return { ...state, information: action.value };
-    case ProductEditReducerType.UpdateImgURL:
-      return { ...state, imgURL: action.value };
-    case ProductEditReducerType.UpdatePrice:
-      return { ...state, price: action.value };
-    case ProductEditReducerType.UpdateCategory:
-      return { ...state, category: action.category };
+      const key = action.payload.key;
+      const value = action.payload.value;
+      return {
+        ...state,
+        [key]: action.payload.value,
+        [key + 'Valid']:
+          value !== '' && (typeof value !== typeof 0 || !isNaN(value)),
+      };
     case ProductEditReducerType.Reset:
-      return { ...action.product, edited: false };
+      return { ...state, ...action.payload.product };
   }
 }
