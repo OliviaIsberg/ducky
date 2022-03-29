@@ -11,17 +11,17 @@ import {
   Typography,
   Divider,
   Box,
-} from '@mui/material'
-import PaymentIcon from '@mui/icons-material/Payment'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
-import RemoveIcon from '@mui/icons-material/Remove'
-import AddIcon from '@mui/icons-material/Add'
-import { Link } from 'react-router-dom'
-import { useCart } from '../contexts/CartContext'
-import { CartType, Types } from '../contexts/Reducers'
+} from "@mui/material";
+import PaymentIcon from "@mui/icons-material/Payment";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
+import { CartType, Types } from "../contexts/Reducers";
 
 function CartList({ handleClose }: any) {
-  const { cart, dispatch, total } = useCart()
+  const { cart, dispatch, total } = useCart();
 
   return (
     <>
@@ -34,20 +34,20 @@ function CartList({ handleClose }: any) {
                   src={product.imgURL}
                   alt={product.title}
                   style={{
-                    width: '70px',
-                    height: '70px',
-                    borderRadius: '50%',
+                    width: "70px",
+                    height: "70px",
+                    borderRadius: "50%",
                   }}
                 />
               </ListItemAvatar>
               <ListItemText
                 primary={product.title}
                 secondary={`${product.price} kr/st`}
-                sx={{ marginLeft: '.5rem' }}
+                sx={{ marginLeft: ".5rem" }}
               />
               <ButtonGroup
                 size="small"
-                sx={{ flexGrow: '1', justifyContent: 'flex-end' }}
+                sx={{ flexGrow: "1", justifyContent: "flex-end" }}
               >
                 <Button
                   onClick={() => {
@@ -57,7 +57,7 @@ function CartList({ handleClose }: any) {
                         id: product.id,
                         qty: (product.qty -= 1),
                       },
-                    })
+                    });
                   }}
                 >
                   <RemoveIcon />
@@ -71,14 +71,14 @@ function CartList({ handleClose }: any) {
                         id: product.id,
                         qty: (product.qty += 1),
                       },
-                    })
+                    });
                   }}
                 >
                   <AddIcon />
                 </Button>
               </ButtonGroup>
 
-              <ListItemText sx={{ textAlign: 'right' }}>
+              <ListItemText sx={{ textAlign: "right" }}>
                 {product.price * product.qty} kr
               </ListItemText>
               <ListItemIcon>
@@ -90,7 +90,7 @@ function CartList({ handleClose }: any) {
                       dispatch({
                         type: Types.DeleteFromCart,
                         payload: product,
-                      })
+                      });
                     }}
                   >
                     <RemoveCircleIcon color="error" />
@@ -106,17 +106,43 @@ function CartList({ handleClose }: any) {
       <Divider light textAlign="right">
         Summa
       </Divider>
-      <Box maxWidth="md" sx={{ paddingInline: '1rem', textAlign: 'right' }}>
+      <Box maxWidth="md" sx={{ paddingInline: "1rem", textAlign: "right" }}>
         <Typography variant="h6" textAlign="right" sx={{ mb: 10 }}>
           {total} kr
         </Typography>
         <Link to="/products">
-          <Button variant="contained" sx={{ mr: 2 }} onClick={handleClose}>
+          <Button
+            variant="outlined"
+            sx={{
+              mr: 2,
+              bgcolor: "white",
+              border: "1",
+              borderColor: "white",
+              color: " black",
+              "&:hover": {
+                bgcolor: "#dfdfdf",
+                border: "1",
+                borderColor: "#dfdfdf",
+                color: "black",
+              },
+            }}
+            onClick={handleClose}
+          >
             Fortsätt handla
           </Button>
         </Link>
-        <Link to={cart.length ? '/checkoutPage' : ''}>
+        <Link to={cart.length ? "/checkoutPage" : ""}>
           <Button
+            sx={{
+              bgcolor: "#0EDFE6",
+              border: "none",
+              color: " black",
+              "&:hover": {
+                bgcolor: "#eaa0ff",
+                border: "none",
+                color: "black",
+              },
+            }}
             variant="outlined"
             endIcon={<PaymentIcon />}
             disabled={cart.length > 0 ? false : true}
@@ -127,7 +153,7 @@ function CartList({ handleClose }: any) {
         </Link>
       </Box>
     </>
-  )
+  );
 }
 
-export default CartList
+export default CartList;

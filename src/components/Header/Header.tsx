@@ -1,15 +1,15 @@
-import { Box, Tabs, Tab, Container, Button } from '@mui/material';
-import { FC, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import React from 'react';
-import { useUser } from '../../contexts/UserContext';
-import AdminBar from './AdminBar';
-import CartButton from './CartButton';
+import { Box, Tabs, Tab, Container, Button } from "@mui/material";
+import { FC, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import React from "react";
+import { useUser } from "../../contexts/UserContext";
+import AdminBar from "./AdminBar";
+import CartButton from "./CartButton";
 
 interface HeaderProps {}
 
-const TabValues: string[] = ['/', '/products', '/about'];
+const TabValues: string[] = ["/", "/products", "/about"];
 
 const filteredValue = (value: string) =>
   TabValues.includes(value) ? value : false;
@@ -34,18 +34,24 @@ const Header: FC<HeaderProps> = () => {
     <>
       {!!user?.isAdmin && <AdminBar />}
 
-      <Container maxWidth="md" sx={{ marginBottom: '2rem' }}>
+      <Container maxWidth="md" sx={{ padding: "1rem" }}>
         {!!user && <h3>Välkommen in {user?.username}</h3>}
-        <Box sx={{ width: '100%' }}>{/* logo här */}</Box>
+        <Box sx={{ width: "100%" }}>{/* logo här */}</Box>
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
           }}
         >
           <Tabs
+            sx={{
+              "@media screen and (max-width: 440px)": {
+                padding: "0",
+                marginLeft: "-25px",
+              },
+            }}
             value={value}
             onChange={handleChange}
             textColor="primary"
@@ -55,18 +61,66 @@ const Header: FC<HeaderProps> = () => {
             <Tab value="/" label="Hem" />
             <Tab value="/products" label="Produkter" />
           </Tabs>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              "@media screen and (max-width: 480px)": {
+                marginRight: "-10px",
+              },
+            }}
+          >
             {!user ? (
               <Link to="/login">
                 <Button
+                  sx={{
+                    bgcolor: "white",
+                    border: "none",
+                    color: " black",
+                    minWidth: "1px",
+                    "&:hover": {
+                      bgcolor: "#dadcd9",
+                      border: "none",
+                      color: " black",
+                    },
+                    "@media screen and (max-width: 480px)": {
+                      fontSize: "0",
+                      padding: "0",
+                      bgcolor: "transparent",
+                      textalign: "none",
+                    },
+                  }}
                   variant="outlined"
-                  endIcon={<AccountCircleIcon color="warning" />}
+                  endIcon={
+                    <AccountCircleIcon
+                      sx={{
+                        padding: "0",
+                        height: "2.5rem",
+                        width: "2.5rem",
+                        "@media screen and (max-width: 440px)": {
+                          marginRight: "-30px",
+                        },
+                      }}
+                      color="warning"
+                    />
+                  }
                 >
                   Logga in
                 </Button>
               </Link>
             ) : (
               <Button
+                sx={{
+                  bgcolor: "white",
+                  border: "none",
+                  color: " black",
+                  "&:hover": {
+                    bgcolor: "#dadcd9",
+                    border: "none",
+                    color: " black",
+                  },
+                }}
                 variant="outlined"
                 endIcon={<AccountCircleIcon color="success" />}
                 onClick={() => logout()}
