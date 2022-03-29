@@ -6,6 +6,9 @@ function BuyButton({ dispatch, product }: any) {
   return (
     <>
       <Button
+      sx={{
+        bgcolor: 'green', '&:hover': {
+          bgcolor: 'white',}}}
         onClick={() => {
           dispatch({
             type: Types.AddToCart,
