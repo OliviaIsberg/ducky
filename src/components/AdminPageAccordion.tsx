@@ -5,51 +5,78 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  ButtonGroup,
+  Modal,
 } from '@mui/material';
-import { useReducer, useState } from 'react';
-import { Product } from '../Api/Data';
-import { ProductTypes } from '../contexts/Reducers';
+import { useEffect, useReducer, useRef, useState } from 'react';
+import { Categories, Product } from '../Api/Data';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import EditIcon from '@mui/icons-material/Edit';
+import Save from '@mui/icons-material/Save';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 enum ProductEditReducerType {
+  Update,
   UpdateTitle,
   UpdateInformation,
   UpdateImgURL,
-  Save,
+  UpdatePrice,
+  UpdateCategory,
   Reset,
+  Delete,
 }
 
 type Action =
+  | { type: ProductEditReducerType.Update; product: Product }
   | { type: ProductEditReducerType.UpdateTitle; value: string }
   | { type: ProductEditReducerType.UpdateInformation; value: string }
   | { type: ProductEditReducerType.UpdateImgURL; value: string }
-  | { type: ProductEditReducerType.Save }
+  | { type: ProductEditReducerType.UpdatePrice; value: number }
+  | { type: ProductEditReducerType.UpdateCategory; category: string }
   | { type: ProductEditReducerType.Reset; product: Product };
 
-function AdminPageAccordion({ product, dispatch }: any) {
-  function ProductEditReducer(state: Product, action: Action) {
-    switch (action.type) {
-      case ProductEditReducerType.UpdateTitle:
-        return { ...state, title: action.value };
-      case ProductEditReducerType.UpdateInformation:
-        return { ...state, information: action.value };
-      case ProductEditReducerType.UpdateImgURL:
-        return { ...state, imgURL: action.value };
-      case ProductEditReducerType.Save:
-        dispatch({
-          type: ProductTypes.Update,
-          payload: { product: state },
-        });
-        return state;
-      case ProductEditReducerType.Reset:
-        return action.product;
-    }
+function ProductEditReducer(state: Product, action: Action) {
+  switch (action.type) {
+    case ProductEditReducerType.Update:
+      return action.product;
+    case ProductEditReducerType.UpdateTitle:
+      return { ...state, title: action.value };
+    case ProductEditReducerType.UpdateInformation:
+      return { ...state, information: action.value };
+    case ProductEditReducerType.UpdateImgURL:
+      return { ...state, imgURL: action.value };
+    case ProductEditReducerType.UpdatePrice:
+      return { ...state, price: action.value };
+    case ProductEditReducerType.UpdateCategory:
+      return { ...state, category: action.category };
+    case ProductEditReducerType.Reset:
+      return action.product;
   }
+}
 
-  const [open, setOpen] = useState(false);
+function AdminPageAccordion({
+  product,
+  expanded,
+  saveAction,
+  deleteAction,
+}: any) {
+  const [open, setOpen] = useState(expanded ?? false);
+  const [openModal, setOpenModal] = useState(false);
   const [productState, dispatchProductState] = useReducer(
     ProductEditReducer,
     product
   );
+
+  const firstUpdate = useRef(true);
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+
+    dispatchProductState({ type: ProductEditReducerType.Update, product });
+  }, [product]);
 
   const handleOpen = (
     event: React.SyntheticEvent<Element, Event>,
@@ -57,54 +84,53 @@ function AdminPageAccordion({ product, dispatch }: any) {
   ) => setOpen(!open);
 
   return (
-    <Accordion onChange={handleOpen}>
-      <AccordionSummary>
+    <Accordion onChange={handleOpen} expanded={open}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
             width: '100%',
+            margin: '1rem 0',
           }}
         >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <img src={productState.imgURL} width="48px" alt=""></img>
+            {open ? (
+              <input
+                type="text"
+                value={productState.title}
+                onChange={(e) => {
+                  dispatchProductState({
+                    type: ProductEditReducerType.UpdateTitle,
+                    value: e.target.value,
+                  });
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+            ) : (
+              <Typography>{productState.title}</Typography>
+            )}
+          </Box>
           {open ? (
-            <input
-              value={productState.title}
-              onChange={(e) => {
-                dispatchProductState({
-                  type: ProductEditReducerType.UpdateTitle,
-                  value: e.target.value,
-                });
-              }}
-              onClick={(e) => e.stopPropagation()}
-            />
+            <Button>Stäng</Button>
           ) : (
-            <Typography>{productState.title}</Typography>
-          )}
-          {open ? (
-            <Button
-              onClick={(e) => {
-                dispatchProductState({
-                  type: ProductEditReducerType.Save,
-                });
-                e.stopPropagation();
-              }}
-            >
-              Spara
-            </Button>
-          ) : (
-            <Button>Redigera</Button>
+            <Button startIcon={<EditIcon />}>Redigera</Button>
           )}
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        <img
-          style={{ width: 100, height: 100 }}
-          src={productState.imgURL}
-          alt=""
-        ></img>
+        <Box sx={{ margin: '1rem 0' }}>
+          <img
+            style={{ width: 100, height: 100 }}
+            src={productState.imgURL}
+            alt=""
+          ></img>
+        </Box>
         <Typography sx={{ marginBottom: '2ex' }}>
           Bild URL:
           <input
+            type="url"
             value={productState.imgURL}
             onChange={(e) => {
               dispatchProductState({
@@ -114,18 +140,62 @@ function AdminPageAccordion({ product, dispatch }: any) {
             }}
           />
         </Typography>
-        <Typography>Beskrivning</Typography>
-        <textarea
-          onChange={(e) => {
-            dispatchProductState({
-              type: ProductEditReducerType.UpdateInformation,
-              value: e.target.value,
-            });
-          }}
-          value={productState.information}
-        />
         <Box>
+          <Typography>Beskrivning</Typography>
+          <textarea
+            onChange={(e) => {
+              dispatchProductState({
+                type: ProductEditReducerType.UpdateInformation,
+                value: e.target.value,
+              });
+            }}
+            value={productState.information}
+          />
+          <Box sx={{ margin: '1rem 0' }}>
+            <Typography>Redigera pris</Typography>
+            {open ? (
+              <input
+                type="number"
+                value={productState.price}
+                onChange={(e) => {
+                  dispatchProductState({
+                    type: ProductEditReducerType.UpdatePrice,
+                    value: parseFloat(e.target.value),
+                  });
+                }}
+              />
+            ) : (
+              <Typography>{productState.title}</Typography>
+            )}
+          </Box>
+        </Box>
+        <Box sx={{ margin: '1rem 0' }}>
+          <Typography>Redigera kategori</Typography>
+          <ButtonGroup aria-label="button group">
+            {Categories.map((category, index) => (
+              <Button
+                key={index}
+                variant={
+                  category === productState.category ? 'contained' : 'outlined'
+                }
+                onClick={() =>
+                  dispatchProductState({
+                    type: ProductEditReducerType.UpdateCategory,
+                    category,
+                  })
+                }
+              >
+                {category}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </Box>
+        <Box>
+          <Button startIcon={<Save />} onClick={() => saveAction(productState)}>
+            Spara
+          </Button>
           <Button
+            startIcon={<RestartAltIcon />}
             onClick={() =>
               dispatchProductState({
                 type: ProductEditReducerType.Reset,
@@ -135,6 +205,56 @@ function AdminPageAccordion({ product, dispatch }: any) {
           >
             Återställ
           </Button>
+          <Button
+            startIcon={<DeleteForeverIcon />}
+            onClick={() => setOpenModal(true)}
+          >
+            Ta bort produkt
+          </Button>
+          <Modal
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
+                boxShadow: 24,
+                p: 4,
+              }}
+            >
+              <Typography>
+                Är du säker på att du vill ta bort produkt?
+              </Typography>
+              <Button
+                onClick={(e) => {
+                  deleteAction(product.id);
+                  setOpenModal(false);
+                  setOpen(false);
+                  e.stopPropagation();
+                }}
+              >
+                Ja
+              </Button>
+              <Button onClick={() => setOpenModal(false)}>Nej</Button>
+            </Box>
+          </Modal>
+          {/* <Button
+            onClick={(e) => {
+              deleteAction(product.id);
+              setOpen(false);
+              e.stopPropagation();
+            }}
+          >
+            Ta bort produkt
+          </Button> */}
         </Box>
       </AccordionDetails>
     </Accordion>

@@ -1,25 +1,48 @@
-import postnord from '../assets/ShippingLogos/postnord-short.svg'
-import schenker from '../assets/ShippingLogos/schenker-square.jpg'
-import instabox from '../assets/ShippingLogos/instabox-short.png'
-import CreditCardIcon from '@mui/icons-material/CreditCard'
-import klarna from '../assets/PaymentLogos/klarna-square.jpg'
-import swish from '../assets/PaymentLogos/swish.svg'
-import { SvgIcon } from '@mui/material'
+import postnord from '../assets/ShippingLogos/postnord-short.svg';
+import schenker from '../assets/ShippingLogos/schenker-square.jpg';
+import instabox from '../assets/ShippingLogos/instabox-short.png';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import klarna from '../assets/PaymentLogos/klarna-square.jpg';
+import swish from '../assets/PaymentLogos/swish.svg';
+import { SvgIcon } from '@mui/material';
 
-export interface Product {
-  title: string
-  information: string
-  id: number
-  category: string
-  price: number
-  imgURL: string
+export class Product {
+  title: string;
+  information: string;
+  id: number;
+  category: string;
+  price: number;
+  imgURL: string;
+
+  constructor(id: number) {
+    this.title = '';
+    this.information = '';
+    this.id = id;
+    this.category = '';
+    this.price = 0;
+    this.imgURL = '';
+  }
 }
+
+export enum MockedCategories {
+  Famous = 'Kända',
+  Animals = 'Djur',
+  Hobby = 'Hobby',
+  Misc = 'Övriga',
+}
+
+export const Categories: MockedCategories[] = [
+  MockedCategories.Famous,
+  MockedCategories.Animals,
+  MockedCategories.Hobby,
+  MockedCategories.Misc,
+];
 
 export const mockedProducts: Product[] = [
   {
     title: 'Ducktrix',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Famous,
     price: 99,
     id: 1,
     imgURL:
@@ -28,7 +51,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Unicorn',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Animals,
     price: 79,
     id: 2,
     imgURL:
@@ -37,7 +60,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Corona',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Misc,
     price: 89,
     id: 3,
     imgURL:
@@ -46,7 +69,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Eskimo',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Misc,
     price: 75,
     id: 4,
     imgURL:
@@ -55,7 +78,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Cow',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Animals,
     price: 49,
     id: 5,
     imgURL:
@@ -64,7 +87,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Fitness',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Hobby,
     price: 39,
     id: 6,
     imgURL:
@@ -73,7 +96,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Gamer Girl',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Hobby,
     price: 69,
     id: 7,
     imgURL:
@@ -82,7 +105,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Gamer Boy',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Hobby,
     price: 69,
     id: 8,
     imgURL:
@@ -91,7 +114,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Donkey',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Animals,
     price: 59,
     id: 9,
     imgURL:
@@ -100,7 +123,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'Liberty',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Famous,
     price: 89,
     id: 10,
     imgURL:
@@ -109,7 +132,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'BatDuck',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Famous,
     price: 69,
     id: 11,
     imgURL:
@@ -118,7 +141,7 @@ export const mockedProducts: Product[] = [
   {
     title: 'SpiderDuck',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Famous,
     price: 69,
     id: 12,
     imgURL:
@@ -127,18 +150,18 @@ export const mockedProducts: Product[] = [
   {
     title: 'SkeleDuck',
     information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
-    category: 'starter',
+    category: MockedCategories.Famous,
     price: 69,
     id: 13,
     imgURL:
       'https://www.amsterdamduckstore.com/wp-content/uploads/2015/09/skeleton-rubber-duck-front.jpg',
   },
-]
+];
 
 export interface User {
-  username: string
-  password: string
-  isAdmin: boolean
+  username: string;
+  password: string;
+  isAdmin: boolean;
 }
 
 export const mockedUsers: User[] = [
@@ -152,15 +175,15 @@ export const mockedUsers: User[] = [
     password: 'Admin',
     isAdmin: true,
   },
-]
+];
 
 export interface Delivery {
-  name: string
-  altText: string
-  shippingTime: number
-  price: number
-  logo: string
-  id: string
+  name: string;
+  altText: string;
+  shippingTime: number;
+  price: number;
+  logo: string;
+  id: string;
 }
 
 export const deliveryOptions: Delivery[] = [
@@ -188,14 +211,14 @@ export const deliveryOptions: Delivery[] = [
     logo: instabox,
     id: 'instabox',
   },
-]
+];
 
 export interface Payment {
-  name: string
-  altText: string
-  id: string
-  logo?: string
-  icon?: typeof SvgIcon
+  name: string;
+  altText: string;
+  id: string;
+  logo?: string;
+  icon?: typeof SvgIcon;
 }
 
 export const paymentOptions: Payment[] = [
@@ -217,4 +240,4 @@ export const paymentOptions: Payment[] = [
     icon: CreditCardIcon,
     id: 'card',
   },
-]
+];

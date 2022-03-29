@@ -23,7 +23,7 @@ function TermsOfUsePage() {
         <Typography gutterBottom variant="h5">
           Återbetalning
         </Typography>
-        <Typography gutterBottom variant="subtitle2">
+        <Typography gutterBottom>
           Sker normalt inom 14 arbetsdagar från att vi mottagit besked om önskat
           ånger/retur. Dock tidigast från att vi mottagit och godkänt din retur,
           och kommer att ske på samma sätt som den ursprungliga betalningen om
@@ -32,57 +32,54 @@ function TermsOfUsePage() {
         <Typography gutterBottom variant="h5">
           Reservationer
         </Typography>
-        <Typography variant="subtitle2">
-          <ul>
-            <li>
-              Vi reserverar oss mot förseningar som vi inte kan råda över som
-              t.ex extrema väderförhållanden, force majeure eller tekniska
-              problem hos speditören, förseningar pga överbelastning hos
-              fraktbolaget osv.
-            </li>
-            <li>
-              Geografiskt avlägsna leveransorter, exempelvis Gotland och orter
-              där postnumret börjar på siffran 9. Det brukar ta 1-2 dagar extra
-              i leveranstid.
-            </li>
-            <li>
-              Lantbrevbäring innebär utöver andra eventuella geografiska tillägg
-              också en extra dag i leveranstid.
-            </li>
-            <li>
-              Lantbrevbäring innebär utöver andra eventuella geografiska tillägg
-              också en extra dag i leveranstid.
-            </li>
-            <li>
-              Beställningar som skickas på pall och/eller med hemleverans
-              undantas från våra normala leveransvillkor. Detta gäller till
-              exempel produkter som större grillar, möbler etc. För denna typ av
-              leveranssätt gäller 1-7 dagars leveranstid + eventuella extra
-              dagar enligt reservations punkterna.
-            </li>
-          </ul>
-        </Typography>
+        <ul>
+          <li>
+            Vi reserverar oss mot förseningar som vi inte kan råda över som t.ex
+            extrema väderförhållanden, force majeure eller tekniska problem hos
+            speditören, förseningar pga överbelastning hos fraktbolaget osv.
+          </li>
+          <li>
+            Geografiskt avlägsna leveransorter, exempelvis Gotland och orter där
+            postnumret börjar på siffran 9. Det brukar ta 1-2 dagar extra i
+            leveranstid.
+          </li>
+          <li>
+            Lantbrevbäring innebär utöver andra eventuella geografiska tillägg
+            också en extra dag i leveranstid.
+          </li>
+          <li>
+            Lantbrevbäring innebär utöver andra eventuella geografiska tillägg
+            också en extra dag i leveranstid.
+          </li>
+          <li>
+            Beställningar som skickas på pall och/eller med hemleverans undantas
+            från våra normala leveransvillkor. Detta gäller till exempel
+            produkter som större grillar, möbler etc. För denna typ av
+            leveranssätt gäller 1-7 dagars leveranstid + eventuella extra dagar
+            enligt reservations punkterna.
+          </li>
+        </ul>
         <Typography gutterBottom variant="h5">
           Synlig fraktskada
         </Typography>
-        <Typography gutterBottom variant="subtitle2">
+        <Typography gutterBottom>
           Vid eventuell fraktskada ska anmälan göras direkt av dig på plats -
           innan ni kvitterar godset. Även en smärre skada på ytterkartongen ska
           anmälas.
-          <Typography gutterBottom variant="subtitle2">
-            Observera att du absolut inte får försöka laga eller montera
-            produkten innan den blivit besiktigad av speditörens reklamations
-            ansvariga. Originalemballaget ska behållas.
-          </Typography>
-          <Typography gutterBottom variant="subtitle2">
-            Efter anmälan gjorts hos ansvarig speditör vänligen kontakta ossmed
-            ett reklamationsnummer om skadan orsakat åverkan på din produkt.
-          </Typography>
+        </Typography>
+        <Typography gutterBottom>
+          Observera att du absolut inte får försöka laga eller montera produkten
+          innan den blivit besiktigad av speditörens reklamations ansvariga.
+          Originalemballaget ska behållas.
+        </Typography>
+        <Typography gutterBottom>
+          Efter anmälan gjorts hos ansvarig speditör vänligen kontakta ossmed
+          ett reklamationsnummer om skadan orsakat åverkan på din produkt.
         </Typography>
         <Typography gutterBottom variant="h5">
           Dold fraktskada
         </Typography>
-        <Typography gutterBottom variant="subtitle2">
+        <Typography gutterBottom>
           Vid en dold fraktskada måste en anmälan göras av dig snarast hos
           Schenker eller ansvarig speditör. Efter anmälan gjorts hos speditören
           vänligen kontakta oss med ett reklamationsnummer.
@@ -90,11 +87,11 @@ function TermsOfUsePage() {
         <Typography gutterBottom variant="h5">
           Uthämtning av order / Legitimering
         </Typography>
-        <Typography gutterBottom variant="subtitle2">
+        <Typography gutterBottom>
           För att hämta ut paket hos ditt ombud behöver du en giltig
           legitimation.
         </Typography>
-        <Typography gutterBottom variant="subtitle2">
+        <Typography gutterBottom>
           Observera att giltig legitimation måste kunna uppvisas vid uthämtning
           av paket hos ombud. Mottagarnamnet i beställningen måste överensstämma
           med namnet som står på uthämtarens legitimation. Använd inga smeknamn
@@ -104,7 +101,7 @@ function TermsOfUsePage() {
         <Typography gutterBottom variant="h5">
           Ångerrätt
         </Typography>
-        <Typography gutterBottom variant="subtitle2">
+        <Typography gutterBottom>
           Vid köp av varor gäller alltid 14 dagars ångerrätt i enlighet med
           gällande konsumentskyddslagstiftning. Detta innebär att kunden har
           rätt att ångra sitt köp genom att meddela detta inom 14 dagar från det

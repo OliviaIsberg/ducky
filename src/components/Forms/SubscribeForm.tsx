@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import { Button, Fade, Typography } from '@mui/material';
 import * as Yup from 'yup';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 
 const SubscribeSchema = Yup.object().shape({
