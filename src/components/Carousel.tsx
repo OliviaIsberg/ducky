@@ -1,4 +1,4 @@
-import { Container, Paper } from '@mui/material';
+import { Container } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import firstDuck from '../assets/CarouselPictures/firstDuck.jpg';
 import secondDuck from '../assets/CarouselPictures/secondDuck.jpg';
