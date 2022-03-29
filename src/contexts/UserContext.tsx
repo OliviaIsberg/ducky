@@ -13,7 +13,7 @@ interface UserContextValue {
 export const UserContext = React.createContext<UserContextValue>({
   isLoading: false,
   user: { username: "", password: "", isAdmin: false },
-  login: (loginDetails: LoginDetails): Promise<boolean> => {
+  login: (_loginDetails: LoginDetails): Promise<boolean> => {
     return new Promise(() => {});
   },
   logout: () => {},

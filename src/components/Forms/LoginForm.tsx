@@ -26,7 +26,7 @@ const emptyForm: LoginDetails = {
   password: '',
 }
 
-function LoginForm(props: Props) {
+function LoginForm(_props: Props) {
   const userContext = useUser()
   const [submitError, setSubmitError] = useState<string | undefined>(undefined)
   let nav = useNavigate()

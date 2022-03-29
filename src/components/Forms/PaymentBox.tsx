@@ -24,13 +24,13 @@ interface Props {
 
 function PaymentBox(props: Props) {
   // to handle the state of the accordion
-  const [selectedIndex, setSelectedIndex] = React.useState("");
+  const [selectedIndex, setSelectedIndex] = React.useState<number | undefined>(undefined);
   const [expanded, setExpanded] = React.useState<string | false>(false);
   
   // Checks which button is clicked
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: string
+    index: number
   ) => {
     setSelectedIndex(index);
     // if clicked, sets value (seen in orderDetails) to chosen method
@@ -55,9 +55,9 @@ function PaymentBox(props: Props) {
             // sets value of the object in the array
             <ListItemButton
               key={payment.id}
-              selected={selectedIndex === payment.id}
+              selected={selectedIndex === index}
               onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                handleListItemClick(event, payment.id)
+                handleListItemClick(event, index)
               }
             >
               <Accordion
@@ -83,16 +83,16 @@ function PaymentBox(props: Props) {
                     secondary={`${payment.altText}`}
                   ></ListItemText>
                 </AccordionSummary>
-                
+
                 {/* Inserts forms */}
                 <AccordionDetails>
-                  {selectedIndex === "klarna" && (
+                  {selectedIndex === 0 && (
                     <KlarnaForm formikProps={props.formikProps} />
                   )}
-                  {selectedIndex === "swish" && (
+                  {selectedIndex === 1 && (
                     <SwishForm formikProps={props.formikProps} />
                   )}
-                  {selectedIndex === "card" && (
+                  {selectedIndex === 2 && (
                     <CardPaymentForm formikProps={props.formikProps} />
                   )}
                 </AccordionDetails>
