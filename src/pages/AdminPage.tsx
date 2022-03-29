@@ -1,22 +1,39 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Container,
-  List,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Container, List } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import { Product } from '../Api/Data';
 import { useProduct } from '../contexts/ProductsContext';
 import AdminPageAccordion from '../components/AdminPageAccordion';
+import { useState } from 'react';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 function AdminPage() {
-  const { products, dispatch } = useProduct();
+  const { products, createProduct, updateProduct, deleteProduct } =
+    useProduct();
+  const [addingProduct, setAddingProduct] = useState(false);
+
+  const newProduct = () => {
+    const id = Math.max(...products.map((p) => p.id)) + 1;
+
+    const product: Product = {
+      title: '',
+      information: '',
+      id,
+      category: '',
+      price: 0,
+      imgURL: '',
+    };
+
+    return product;
+  };
+
+  const createNewProduct = (product: Product) => {
+    setAddingProduct(false);
+    createProduct(product);
+  };
+
+  const deleteNewProduct = () => setAddingProduct(false);
 
   return (
     <Container maxWidth="xl" sx={{ height: '100%' }}>
@@ -29,10 +46,34 @@ function AdminPage() {
         }}
       >
         <List>
-          {products.map((p, i) => (
-            <AdminPageAccordion key={i} product={p} dispatch={dispatch} />
-          ))}
+          {products.map((p, i) => {
+            return (
+              <AdminPageAccordion
+                key={i}
+                product={p}
+                saveAction={updateProduct}
+                deleteAction={deleteProduct}
+              />
+            );
+          })}
+          {addingProduct && (
+            <AdminPageAccordion
+              key="new"
+              expanded={true}
+              product={newProduct()}
+              saveAction={createNewProduct}
+              deleteAction={deleteNewProduct}
+            />
+          )}
         </List>
+        {!addingProduct && (
+          <Button
+            startIcon={<AddCircleOutlineOutlinedIcon />}
+            onClick={() => setAddingProduct(true)}
+          >
+            Lägg till ny produkt
+          </Button>
+        )}
       </Box>
     </Container>
   );

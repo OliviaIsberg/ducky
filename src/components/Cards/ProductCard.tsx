@@ -7,6 +7,7 @@ import {
   Rating,
   CardActions,
   Button,
+  CardActionArea,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
@@ -20,33 +21,41 @@ function ProductCard({ product }: any) {
 
   return (
     <Card key={product.id} sx={{ borderRadius: '1rem', padding: '1rem' }}>
-      <CardContent sx={{ padding: '0' }}>
-        <CardMedia component="img" height="240" image={product.imgURL} />
-        <Box
-          component="div"
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBlock: '1rem',
-          }}
-        >
-          <Typography
-            variant="h5"
-            component="span"
-            color="primary"
-            fontWeight="700"
-          >
-            {product.title}
-          </Typography>
-          <Box component="span">
-            <Rating name="read-only" value={ratingValue} readOnly />
-          </Box>
-        </Box>
-        {/* <Typography variant="body2" color="text.secondary" gutterBottom>
-          {product.information}
-        </Typography> */}
-      </CardContent>
+      <CardActionArea>
+        <Link to={`/products/${product.id}`}>
+          <CardContent sx={{ padding: '0' }}>
+            <CardMedia
+              component="img"
+              height="240"
+              image={product.imgURL}
+              sx={{ objectFit: 'contain', objectPosition: 'center top' }}
+            />
+            <Box
+              component="div"
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap-reverse',
+                alignItems: 'center',
+                marginBlock: '1rem',
+              }}
+            >
+              <Typography
+                variant="h5"
+                component="span"
+                color="primary"
+                fontWeight="700"
+                sx={{ marginRight: '.4rem' }}
+              >
+                {product.title}
+              </Typography>
+              <Box component="span">
+                <Rating name="read-only" value={ratingValue} readOnly />
+              </Box>
+            </Box>
+          </CardContent>
+        </Link>
+      </CardActionArea>
       <CardActions
         sx={{
           justifyContent: 'space-between',

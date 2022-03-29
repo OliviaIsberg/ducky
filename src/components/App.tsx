@@ -1,4 +1,3 @@
-
 import { Route, Routes } from 'react-router-dom'
 import ProductListPage from '../pages/ProductListPage'
 import Layout from './Layout'
@@ -13,16 +12,10 @@ import FaqPage from '../pages/FaqPage'
 import TermsOfUsePage from '../pages/TermsOfUsePage'
 import AdminPage from '../pages/AdminPage'
 // import { useUser } from '../contexts/UserContext'
-import SupportPage from '../pages/SupportPage';
-import ConfirmedOrderPage from "../pages/ConfirmedPage";
-
+import SupportPage from '../pages/SupportPage'
+import ConfirmedOrderPage from '../pages/ConfirmedPage'
 
 function App() {
-  // const {
-  //   state: {products},
-  // } = useCart()
-  // const { user } = useUser()
-
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

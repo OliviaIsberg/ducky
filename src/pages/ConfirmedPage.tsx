@@ -1,4 +1,5 @@
 import {
+  Box,
   Container,
   Divider,
   List,
@@ -6,26 +7,25 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-} from '@mui/material'
-import { deliveryOptions, paymentOptions } from '../Api/Data'
-import { AllOrderData, OrderData } from '../components/Forms/OrderForm'
-import { CartType } from '../contexts/Reducers'
-import useLocalStorage from '../Hooks/useLocalStorage'
+} from '@mui/material';
+import { deliveryOptions, paymentOptions } from '../Api/Data';
+import { AllOrderData } from '../components/Forms/OrderForm';
+import { CartType } from '../contexts/Reducers';
+import useLocalStorage from '../Hooks/useLocalStorage';
 
 // randomizes a 6 digit order number
 function RandomOrderNumber() {
-  return Math.floor(Math.random() * 1000000)
+  return Math.floor(Math.random() * 1000000);
 }
 
 function ConfirmedOrderPage() {
   // get cart, total cartsum, all orderdetails and shippingdetails from local storage
-  // const [cart] = useLocalStorage<CartType[]>('cart', '')
 
-  // const [total] = useLocalStorage<number>('cartSum', 0)
-  const [orderDetails] = useLocalStorage<AllOrderData>('orderDetails', '')
+  const [orderDetails] = useLocalStorage<AllOrderData>('orderDetails', '');
 
   return (
     <Container maxWidth="md">
+    <Box sx={{ bgcolor: "#ffffff", width:"100%", padding:2,}}> 
       <h2>Tack för din beställning!</h2>
       <p>
         Din betalning och beställning har genomförts, och snart kommer dina nya
@@ -69,7 +69,8 @@ function ConfirmedOrderPage() {
       <Typography variant="body1" sx={{ textAlign: 'right' }}>
         Totalpris (inkl moms & frakt) : {`${orderDetails.orderTotal}`} kr
       </Typography>
-      {/* Totalpris (inkl moms & frakt) : {`${total}`} kr */}
+      
+      
       {/* Get shipping adress from local storage  */}
       <h3>Leveransadress:</h3>
       {/* first and last name */}
@@ -114,8 +115,9 @@ function ConfirmedOrderPage() {
         Skulle någonting inte stämma, eller om du har övriga frågor är du varmt
         välkommen att kontakta oss på: support@ducky.se
       </p>
-    </Container>
-  )
+      </Box>
+      </Container>
+  );
 }
 
-export default ConfirmedOrderPage
+export default ConfirmedOrderPage;

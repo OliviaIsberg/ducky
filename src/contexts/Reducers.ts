@@ -45,12 +45,11 @@ type CartPayload = {
     id: number;
   };
   [Types.UpdateQty]: {
-    id: number
-    qty: number
-  }
-  [Types.ResetCart]: {}
-}
-
+    id: number;
+    qty: number;
+  };
+  [Types.ResetCart]: {};
+};
 
 export const initialState = [] as CartType[];
 export type State = typeof initialState;
@@ -70,9 +69,9 @@ export const cartReducer = (state: State, action: CartActions) => {
             ? (cartItem.qty = action.payload.qty)
             : cartItem.qty;
         }),
-      ]
+      ];
     case Types.ResetCart:
-      return (state = initialState)
+      return (state = initialState);
     default:
       throw new Error('error');
   }
@@ -89,7 +88,7 @@ export enum ProductTypes {
 
 type ProductPayload = {
   [ProductTypes.Create]: {
-    id: number;
+    product: Product;
   };
   [ProductTypes.Read]: {
     id: number;
@@ -111,7 +110,9 @@ export type ProductActions =
 export const productReducer = (state: Data, action: ProductActions) => {
   switch (action.type) {
     case ProductTypes.Create:
-      return state;
+      const productsAfterCreate = [...state];
+      productsAfterCreate.push(action.payload.product);
+      return productsAfterCreate;
     case ProductTypes.Read:
       return state;
     case ProductTypes.Update:
@@ -125,8 +126,51 @@ export const productReducer = (state: Data, action: ProductActions) => {
 
       return products;
     case ProductTypes.Delete:
-      return state;
+      const productsAfterDeletion = state.filter(
+        (product) => product.id !== action.payload.id
+      );
+
+      return productsAfterDeletion;
     default:
       return state;
   }
 };
+
+export enum ProductEditReducerType {
+  Update,
+  UpdateTitle,
+  UpdateInformation,
+  UpdateImgURL,
+  UpdatePrice,
+  UpdateCategory,
+  Reset,
+  Delete,
+}
+
+export type ProductEditAction =
+  | { type: ProductEditReducerType.Update; product: Product }
+  | { type: ProductEditReducerType.UpdateTitle; value: string }
+  | { type: ProductEditReducerType.UpdateInformation; value: string }
+  | { type: ProductEditReducerType.UpdateImgURL; value: string }
+  | { type: ProductEditReducerType.UpdatePrice; value: number }
+  | { type: ProductEditReducerType.UpdateCategory; category: string }
+  | { type: ProductEditReducerType.Reset; product: Product };
+
+export function ProductEditReducer(state: Product, action: ProductEditAction) {
+  switch (action.type) {
+    case ProductEditReducerType.Update:
+      return { ...action.product, edited: false };
+    case ProductEditReducerType.UpdateTitle:
+      return { ...state, title: action.value };
+    case ProductEditReducerType.UpdateInformation:
+      return { ...state, information: action.value };
+    case ProductEditReducerType.UpdateImgURL:
+      return { ...state, imgURL: action.value };
+    case ProductEditReducerType.UpdatePrice:
+      return { ...state, price: action.value };
+    case ProductEditReducerType.UpdateCategory:
+      return { ...state, category: action.category };
+    case ProductEditReducerType.Reset:
+      return { ...action.product, edited: false };
+  }
+}
