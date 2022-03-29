@@ -24,14 +24,14 @@ function CheckOutPage() {
     undefined
   );
 
-  let navigate = useNavigate()
-  
+  let navigate = useNavigate();
+
   return (
     <Container maxWidth="md">
-      <h2>Kassa</h2>
       {/* cart summary, loops throught cart array */}
-      <h3>Din kundkorg:</h3>
-      <List dense>
+      <Box sx={{bgcolor:"#ffffff"}}>
+      <Typography variant="h5" sx={{mt:-2, mb:2, fontWeight:"bold", padding:"2rem"}}>Din varukorg</Typography>
+      <List dense >
         {cart?.length &&
           cart.map((c: CartType) => (
             <ListItem key={c.id}>
@@ -43,31 +43,40 @@ function CheckOutPage() {
                     width: "70px",
                     height: "70px",
                     borderRadius: "50%",
+                    marginRight:"2vw",
                   }}
                 />
               </ListItemAvatar>
               <ListItemText
                 primary={c.title}
-                secondary={`Antal: ${c.qty} Pris: ${c.price} kr/st`}
+                secondary={<>
+                  <Typography
+                  sx={{ display: "block" }}
+                  component="span"
+                  variant="body2">Antal: {c.qty} st</Typography>
+                  <Typography
+                  sx={{ display: "block" }}
+                  component="span"
+                  variant="body2"> Pris: {c.price} kr/st</Typography></>}
               />
               <ListItemText
                 primary={`${c.qty * c.price} kr`}
-                sx={{ textAlign: "right" }}
+                sx={{ textAlign: "right"}}
               />
             </ListItem>
           ))}
       </List>
-      <Divider />
+      </Box>
+      <Divider sx={{mt:2, mb:2,}}/>
       {/* get and print total price of products */}
       <Box sx={{ textAlign: "right" }}>
-        <Typography variant="h6">Pris för produkter (inkl 25% moms)</Typography>
-        <Typography variant="body1">{`${total} kr`}</Typography>
+      <Typography sx={{mt:2, fontWeight:"bold"}}>Pris för produkter (inkl 25% moms)</Typography>
+        <Typography variant="body2" >{`${total} kr`}</Typography>
       </Box>
 
-      {/* the second "total" should be shipping cost */}
       <Box sx={{ textAlign: "right" }}>
-        <Typography variant="h6">Totalpris (inkl moms & frakt)</Typography>
-        <Typography variant="body1">
+        <Typography sx={{mt:2,fontWeight:"bold"}}>Totalpris (inkl moms & frakt)</Typography>
+        <Typography variant="body2">
           {`${
             total +
             (typeof shippingMethod === "number"
@@ -76,16 +85,38 @@ function CheckOutPage() {
           }`}{" "}
           kr
         </Typography>
-        <Button variant="contained" onClick={toCart}>Tillbaka till kundvagnen</Button>
+        <Button
+          variant="outlined"
+          onClick={toCart}
+          sx={{
+            mt:2,
+            bgcolor: "white",
+            border: "1",
+            borderColor: "white",
+            color: " black",
+            "&:hover": {
+              bgcolor: "#dfdfdf",
+              border: "1",
+              borderColor: "#dfdfdf",
+              color: "black",
+            },
+            "@media screen and (max-width: 440px)": {
+              display:"none"
+            },
+          }}
+        >
+          Tillbaka till kundvagnen
+        </Button>
       </Box>
 
       {/* the full form with adress, payment and shipping */}
+      <Divider sx={{mt:2, mb:2,}}/>
       <OrderForm setShippingMethod={setShippingMethod} />
     </Container>
   );
 
-  function toCart(){
-    navigate("/cartPage")
+  function toCart() {
+    navigate("/cartPage");
   }
 }
 

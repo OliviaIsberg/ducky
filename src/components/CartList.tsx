@@ -28,7 +28,7 @@ function CartList({ handleClose }: any) {
       <List>
         {cart && cart.length > 0 ? (
           cart.map((product: CartType) => (
-            <ListItem key={product.id}>
+            <ListItem key={product.id} sx={{bgcolor:"#fffff"}}>
               <ListItemAvatar>
                 <img
                   src={product.imgURL}

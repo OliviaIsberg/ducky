@@ -11,6 +11,8 @@ import {
   Checkbox,
   Button,
   LinearProgress,
+  Box,
+  Typography,
 } from "@mui/material";
 import ShipmentBox from "./ShipmentBox";
 import { Link, useNavigate } from "react-router-dom";
@@ -86,11 +88,13 @@ function OrderForm(props: Props) {
   let navigate = useNavigate();
   const { dispatch } = useCart();
   const [isLoading, setLoading] = React.useState<boolean>(false);
-  let [allOrderDetails, setAllDetails] = useLocalStorage<AllOrderData>("orderDetails", "");
+  let [allOrderDetails, setAllDetails] = useLocalStorage<AllOrderData>(
+    "orderDetails",
+    ""
+  );
   let [sumDetails] = useLocalStorage<number>("cartSum", "");
   let [productsDetails] = useLocalStorage<CartType[]>("cart", "");
 
-  
   // successful submit
   function handleSubmit(orderData: OrderData) {
     setLoading(true);
@@ -104,9 +108,11 @@ function OrderForm(props: Props) {
   function setOrderDetails(orderDetails: OrderData) {
     allOrderDetails = {
       orderDetails: orderDetails,
-      orderTotal: sumDetails + (typeof orderDetails.shippingMethod === "number"
-      ? deliveryOptions[orderDetails.shippingMethod].price
-      : 0),
+      orderTotal:
+        sumDetails +
+        (typeof orderDetails.shippingMethod === "number"
+          ? deliveryOptions[orderDetails.shippingMethod].price
+          : 0),
       products: productsDetails,
     };
 
@@ -138,58 +144,101 @@ function OrderForm(props: Props) {
     <>
       {!isLoading ? (
         <>
-          <h3>Välj dina betal och leveransmetoder</h3>
-          {/* RANDOM INFO TEXT, DOESN'T ACTUALLY DO/MEAN ANYTHING */}
-          <p>
-            Beställningar som görs innan kl 16.00 skickas samma dag. Ange
-            uppgifter nedan för att se tillgängliga leveransval.
-          </p>
+          <Box sx={{ bgcolor: "#ffffff", mt: 3, alignItems:"center", display:"flex",flexDirection:"column"}}>
+            <Typography
+              variant="h6"
+              sx={{ padding: 2, fontWeight: "bold" }}
+            >
+              Välj dina betal och leveransmetoder
+            </Typography>
+            {/* RANDOM INFO TEXT, DOESN'T ACTUALLY DO/MEAN ANYTHING */}
+            <Typography variant="body2" sx={{ padding: 2, mb: 2 }}>
+              Beställningar som görs innan kl 16.00 skickas samma dag. Ange
+              uppgifter nedan för att se tillgängliga leveransval.
+            </Typography>
 
-          {/* The full order form */}
-          <form onSubmit={formikProps.handleSubmit}>
-            {/* Shipping adress */}
-            <h3>Leveransadress</h3>
-            <ShippingForm formikProps={formikProps} />
+            {/* The full order form */}
+            <form
+            onSubmit={formikProps.handleSubmit}>
+              {/* Shipping adress */}
+              <Typography
+                variant="body1"
+                sx={{ mt:1,fontWeight: "bold"}}
+              >
+                Leveransadress
+              </Typography>
+              <ShippingForm formikProps={formikProps} />
 
-            {/* Shipping methods */}
-            <h3>Leveransmetod</h3>
+              {/* Shipping methods */}
+              <Typography
+                variant="body1"
+                sx={{ mt:1, fontWeight: "bold" }}
+              >
+                Leveransmetod
+              </Typography>
 
-            {/* Show error if no shipping method is selected */}
-            {formikProps.touched.shippingMethod &&
-              formikProps.errors.shippingMethod}
+              {/* Show error if no shipping method is selected */}
+              {formikProps.touched.shippingMethod &&
+                formikProps.errors.shippingMethod}
 
-            <ShipmentBox
-              formikProps={formikProps}
-              setShippingMethod={props.setShippingMethod}
-            />
+              <ShipmentBox
+                formikProps={formikProps}
+                setShippingMethod={props.setShippingMethod}
+              />
 
-            {/* Payment methods (and payment details) */}
-            <h3>Betalningsmetod</h3>
+              {/* Payment methods (and payment details) */}
+              <Typography
+                variant="body1"
+                sx={{ mt:1, fontWeight: "bold" }}
+              >
+                Betalningsmetod{" "}
+              </Typography>
 
-            {/* Show error if no payment method is selected */}
-            {formikProps.touched.paymentMethod &&
-              formikProps.errors.paymentMethod}
+              {/* Show error if no payment method is selected */}
+              {formikProps.touched.paymentMethod &&
+                formikProps.errors.paymentMethod}
 
-            <PaymentBox formikProps={formikProps} />
+              <PaymentBox formikProps={formikProps} />
 
-            {/* Newsletter checkbox, does nothing for now */}
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Ja tack! Jag vill ha nyhetsbrev."
-            />
 
-            {/* conditions checkbox, does nothing for now */}
-            <div>
-              <FormControlLabel control={<Checkbox />} label="Jag godkänner" />
-              <Link to="/termsOfUse">Köpvillkoren.</Link>
-            </div>
+              {/* conditions checkbox, does nothing for now */}
+              <div>
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Jag godkänner"
+                />
+                <Link to="/termsOfUse">Köpvillkoren.</Link>
+              </div>
 
-            {/* Post form */}
+              {/* Post form */}
 
-            <Button variant="contained" type="submit">
-              Slutför beställning
-            </Button>
-          </form>
+              <Button
+                sx={{
+                  mt:2,
+                  mb:2,
+                  height:"3rem",
+                  width:"100%",
+                  bgcolor: "#0EDFE6",
+                  border: "none",
+                  color: " black",
+                  "&:hover": {
+                    bgcolor: "#eaa0ff",
+                    border: "none",
+                    color: "black",
+                  },
+                  "@media screen and (max-width: 440px)": {
+                    borderRadius: "0",
+                    mt:2,
+                    mb:0,
+                  },
+                }}
+                variant="outlined"
+                type="submit"
+              >
+                Slutför beställning
+              </Button>
+            </form>
+          </Box>
         </>
       ) : (
         <>
