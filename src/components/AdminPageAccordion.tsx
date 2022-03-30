@@ -117,7 +117,7 @@ function AdminPageAccordion({
                   onClick={(e) => e.stopPropagation()}
                 />
                 {!productState.titleValid && (
-                  <Typography>Vänligen ange titel</Typography>
+                  <Typography>Vänligen ange en titel.</Typography>
                 )}
               </>
             ) : (
@@ -157,7 +157,7 @@ function AdminPageAccordion({
             }}
           />
           {!productState.imgURLValid && (
-            <Typography>Vänligen ange bild adress</Typography>
+            <Typography>Vänligen ange en bildadress.</Typography>
           )}
         </Typography>
         <Box>
@@ -172,7 +172,7 @@ function AdminPageAccordion({
             value={productState.information}
           />
           {!productState.informationValid && (
-            <Typography>Vänligen ange beskrivning</Typography>
+            <Typography>Vänligen ange en beskrivning.</Typography>
           )}
           <Box sx={{ margin: '1rem 0' }}>
             <Typography>Redigera pris</Typography>
@@ -192,7 +192,7 @@ function AdminPageAccordion({
               }}
             />
             {!productState.priceValid && (
-              <Typography>Vänligen ange pris</Typography>
+              <Typography>Vänligen ange ett pris.</Typography>
             )}
           </Box>
         </Box>
@@ -266,7 +266,7 @@ function AdminPageAccordion({
               }}
             >
               <Typography>
-                Är du säker på att du vill ta bort produkt?
+                Är du säker på att du vill ta bort produkten?
               </Typography>
               <Button
                 onClick={(e) => {
