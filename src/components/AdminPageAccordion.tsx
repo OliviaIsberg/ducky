@@ -117,7 +117,9 @@ function AdminPageAccordion({
                   onClick={(e) => e.stopPropagation()}
                 />
                 {!productState.titleValid && (
-                  <Typography>Vänligen ange titel</Typography>
+                  <Typography sx={{ color: 'red' }}>
+                    Vänligen ange titel
+                  </Typography>
                 )}
               </>
             ) : (
@@ -157,7 +159,9 @@ function AdminPageAccordion({
             }}
           />
           {!productState.imgURLValid && (
-            <Typography>Vänligen ange bild adress</Typography>
+            <Typography sx={{ color: 'red' }}>
+              Vänligen ange bild adress
+            </Typography>
           )}
         </Typography>
         <Box>
@@ -172,7 +176,9 @@ function AdminPageAccordion({
             value={productState.information}
           />
           {!productState.informationValid && (
-            <Typography>Vänligen ange beskrivning</Typography>
+            <Typography sx={{ color: 'red' }}>
+              Vänligen ange beskrivning
+            </Typography>
           )}
           <Box sx={{ margin: '1rem 0' }}>
             <Typography>Redigera pris</Typography>
@@ -192,7 +198,7 @@ function AdminPageAccordion({
               }}
             />
             {!productState.priceValid && (
-              <Typography>Vänligen ange pris</Typography>
+              <Typography sx={{ color: 'red' }}>Vänligen ange pris</Typography>
             )}
           </Box>
         </Box>
