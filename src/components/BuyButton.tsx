@@ -7,9 +7,16 @@ function BuyButton({ dispatch, product }: any) {
     <>
       <Button
         sx={{
+          mt: 2,
+          mb: 2,
+          height: "3rem",
           bgcolor: "#0EDFE6",
+          border: "none",
+          color: " black",
           "&:hover": {
-            bgcolor: "#09a0a5",
+            bgcolor: "#eaa0ff",
+            border: "none",
+            color: "black",
           },
         }}
         onClick={() => {
@@ -18,7 +25,7 @@ function BuyButton({ dispatch, product }: any) {
             payload: product,
           });
         }}
-        variant="contained"
+        variant="outlined"
         endIcon={<AddShoppingCartIcon />}
       >
         Köp nu {product.price}kr

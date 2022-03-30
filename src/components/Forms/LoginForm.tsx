@@ -1,3 +1,4 @@
+import { Button, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -46,7 +47,7 @@ function LoginForm(_props: Props) {
             nav('/')
           })
           .catch((e) => {
-            setSubmitError(e)
+            setSubmitError(e.message)
           })
       },
     })
@@ -55,7 +56,9 @@ function LoginForm(_props: Props) {
     // Log-in form
     <form onSubmit={handleSubmit}>
       {/* Display error if invalid input */}
-      {!!submitError && <h3>{submitError}</h3>}
+      {!!submitError && (
+        <Typography sx={{ color: 'red' }}>{submitError}</Typography>
+      )}
 
       {/* user name input */}
       <InputField
@@ -83,7 +86,30 @@ function LoginForm(_props: Props) {
         helperText={touched.password && errors.password}
       />
 
-      <button type="submit">Logga in</button>
+      <Button
+        variant="outlined"
+        type="submit"
+        sx={{
+          mt: 2,
+          mb: 2,
+          height: '3rem',
+          bgcolor: '#0EDFE6',
+          border: 'none',
+          color: ' black',
+          '&:hover': {
+            bgcolor: '#eaa0ff',
+            border: 'none',
+            color: 'black',
+          },
+          '@media screen and (max-width: 440px)': {
+            borderRadius: '0',
+            mt: 2,
+            mb: 0,
+          },
+        }}
+      >
+        Logga in
+      </Button>
     </form>
   )
 }

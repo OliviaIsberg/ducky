@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
-import { Box, createTheme, Typography } from '@mui/material';
+import { Box, Container, createTheme, Typography } from '@mui/material';
 
 const theme = createTheme({
   components: {
@@ -15,7 +15,8 @@ const theme = createTheme({
 
 function TermsOfUsePage() {
   return (
-    <Box sx={{ width: '90%', margin: 'auto', marginBottom: '3rem' }}>
+    <Container maxWidth="md">
+      <Box sx={{ bgcolor: "#ffffff", mt: 2, padding: 3, minHeight:"40vh",}}>
       <ThemeProvider theme={theme}>
         <Typography sx={{ marginBottom: '2rem' }} gutterBottom variant="h4">
           Allmänna villkor
@@ -118,6 +119,7 @@ function TermsOfUsePage() {
         </Typography>
       </ThemeProvider>
     </Box>
+    </Container>
   );
 }
 
