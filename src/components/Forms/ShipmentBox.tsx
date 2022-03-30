@@ -43,10 +43,9 @@ function ShipmentBox(props: Props) {
         {/* loops through array of delivery options */}
         {deliveryOptions.length !== 0 &&
           deliveryOptions.map((delivery: Delivery, index) => (
-            <>
+            <React.Fragment key={delivery.id}>
               {/* displays all objects in array based on index */}
-              <ListItemButton
-                key={delivery.id}
+              <ListItemButton 
                 selected={selectedIndex === index}
                 onClick={(
                   event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -92,7 +91,7 @@ function ShipmentBox(props: Props) {
                   }
                 />
               </ListItemButton>
-            </>
+            </React.Fragment>
           ))}
       </List>
     </Box>

@@ -29,7 +29,7 @@ function CheckOutPage() {
   return (
     <Container maxWidth="md">
       {/* cart summary, loops throught cart array */}
-      <Box sx={{ bgcolor: "#ffffff", mt:2,}}>
+      <Box sx={{ bgcolor: "#ffffff", mt: 2 }}>
         <Typography
           variant="h5"
           sx={{ mt: -2, mb: 2, fontWeight: "bold", padding: "2rem" }}

@@ -3,15 +3,17 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Container,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function FaqPage() {
   return (
-    <Box sx={{ padding: "1rem" }}>
+    <Container maxWidth="md">
+      <Box sx={{ bgcolor: "#ffffff", mt: 2, padding: 3, minHeight:"40vh",}}>
       <Typography
-        sx={{ textAlign: "center", marginBottom: "1rem" }}
+        sx={{ textAlign: "center", marginBottom: "1rem"}}
         variant="h4"
       >
         Vanliga frågor och svar
@@ -56,6 +58,7 @@ function FaqPage() {
         </AccordionDetails>
       </Accordion>
     </Box>
+    </Container>
   );
 }
 

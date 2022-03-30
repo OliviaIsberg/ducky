@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import duckyComputer from '../assets/duckyComputer.webp';
 
 function SupportPage() {
   return (
-    <Box
-      sx={{
-        textAlign: 'center',
-        backgroundColor: '#c7f0e1',
-        margin: 'auto',
-        padding: '3rem 0',
-      }}
-    >
+    <Container maxWidth="md">
+      <Box sx={{ bgcolor: "#c7f0e1",textAlign: 'center', mt: 2, padding: 3, minHeight:"40vh",}}>
       <Typography gutterBottom variant="h4">
         Kundtjänst
       </Typography>
@@ -39,6 +33,7 @@ function SupportPage() {
         alt=""
       ></img>
     </Box>
+    </Container>
   );
 }
 

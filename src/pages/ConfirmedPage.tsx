@@ -25,7 +25,7 @@ function ConfirmedOrderPage() {
 
   return (
     <Container maxWidth="md">
-    <Box sx={{ bgcolor: "#ffffff", width:"100%", padding:2,}}> 
+    <Box sx={{ bgcolor: "#ffffff", padding:2,}}> 
       <h2>Tack för din beställning!</h2>
       <p>
         Din betalning och beställning har genomförts, och snart kommer dina nya

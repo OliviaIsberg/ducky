@@ -7,13 +7,13 @@ function AdminBar() {
       sx={{
         minWidth: '100vw',
         margin: 0,
-        marginBottom: '2rem',
-        bgcolor: 'turquoise',
+        marginBottom: '0',
+        bgcolor: '#00ffe5',
       }}
     >
       <Link to="/admin">
         <Box sx={{ width: '100%', padding: '0.3rem' }}>
-          <Typography variant="h6" sx={{ textAlign: 'center' }}>
+          <Typography sx={{ textAlign: 'center',color:'black', fontSize:"1rem", fontWeight:"bold" }}>
             Du är inloggad som administatör - Klicka här för att gå till
             Admin-sidan
           </Typography>
