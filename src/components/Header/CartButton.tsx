@@ -46,6 +46,9 @@ function CartButton() {
             bgcolor: "transparent",
             border: "none",
           },
+          "&:disabled": {
+            border: "none",
+          },
         }}
         variant="outlined"
         aria-describedby={id}
@@ -58,9 +61,9 @@ function CartButton() {
               color: "#0EDFE6",
               height: "2.5rem",
               width: "2.5rem",
+              border: "none",
               "&:hover": {
                 color: "#eaa0ff",
-                border: "none",
               },
             }}
           />
@@ -83,11 +86,11 @@ function CartButton() {
         {cart?.length > 0 ? (
           <CartList handleClose={handleClose} />
         ) : (
-          <Typography variant="body2">Du har inget i kundkorgen</Typography>
+          <Typography variant="body2">Du har inget i kundkorgen.</Typography>
         )}
 
         {cart.length > 0 && (
-          <Link to="cartPage" onClick={handleClose} >
+          <Link to="cartPage" onClick={handleClose}>
             <Button
               sx={{
                 bgcolor: "#0EDFE6",

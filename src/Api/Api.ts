@@ -1,34 +1,33 @@
 import { User, mockedUsers } from '../Api/Data'
 import { LoginDetails } from '../components/Forms/LoginForm';
 
-export async function FakeUserFetch(loginDetails: LoginDetails) {
-
-  return new Promise<User>((resolve) => {
+function wait(time: number) {
+  return new Promise<boolean>((resolve) => {
     setTimeout(() => {
-      const foundUsers = mockedUsers.filter((user) => {
-        return user.username === loginDetails.username
-      })
+      resolve(true)
+    }, time)
+  })
+}
+export async function FakeUserFetch(loginDetails: LoginDetails): Promise<User> {
+  await wait(2000)
+  const foundUsers = mockedUsers.filter((user) => {
+    return user.username === loginDetails.username
+  })
 
-      if (!foundUsers.length) {
-        throw new Error('Tyvärr så finns inte denna användare.')
-      }
+  if (!foundUsers.length) {
+    throw new Error('Tyvärr så finns inte denna användare.')
+  }
 
-      const foundUser = foundUsers[0]
+  const foundUser = foundUsers[0]
 
-      if (foundUser.password !== loginDetails.password) {
-        throw new Error('Tyvärr så stämmer ej lösenordet.')
-      }
+  if (foundUser.password !== loginDetails.password) {
+    throw new Error('Tyvärr så stämmer ej lösenordet.')
+  }
 
-      resolve(foundUser);
-    }, 1000);
-  });
+  return foundUser
 }
 
 
 export async function placeOrderFetch() {
-  return new Promise<boolean>((resolve) => {
-    setTimeout(() => {
-      resolve(true);
-    }, 2000);
-  });
+  return await wait(2000)
 }
