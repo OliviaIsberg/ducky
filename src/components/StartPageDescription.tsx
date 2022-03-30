@@ -81,7 +81,7 @@ function StartPageDesription() {
                 color: "black",
               },
             }}
-            variant="contained"
+            variant="outlined"
           >
             Visa alla produkter
           </Button>
