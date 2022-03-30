@@ -118,7 +118,7 @@ function AdminPageAccordion({
                 />
                 {!productState.titleValid && (
                   <Typography sx={{ color: 'red' }}>
-                    Vänligen ange titel
+                    Vänligen ange en titel.
                   </Typography>
                 )}
               </>
@@ -146,24 +146,22 @@ function AdminPageAccordion({
             alt=""
           ></img>
         </Box>
-        <Typography sx={{ marginBottom: '2ex' }}>
-          Bild URL:&nbsp;
-          <input
-            type="url"
-            value={productState.imgURL}
-            onChange={(e) => {
-              dispatch({
-                type: ProductEditReducerType.Update,
-                payload: { key: 'imgURL', value: e.target.value },
-              });
-            }}
-          />
-          {!productState.imgURLValid && (
-            <Typography sx={{ color: 'red' }}>
-              Vänligen ange bild adress
-            </Typography>
-          )}
-        </Typography>
+        <Typography sx={{ marginBottom: '2ex' }}>Bild URL:&nbsp;</Typography>
+        <input
+          type="url"
+          value={productState.imgURL}
+          onChange={(e) => {
+            dispatch({
+              type: ProductEditReducerType.Update,
+              payload: { key: 'imgURL', value: e.target.value },
+            });
+          }}
+        />
+        {!productState.imgURLValid && (
+          <Typography sx={{ color: 'red' }}>
+            Vänligen ange en bildadress.
+          </Typography>
+        )}
         <Box>
           <Typography>Beskrivning</Typography>
           <textarea
@@ -177,7 +175,7 @@ function AdminPageAccordion({
           />
           {!productState.informationValid && (
             <Typography sx={{ color: 'red' }}>
-              Vänligen ange beskrivning
+              Vänligen ange en beskrivning.
             </Typography>
           )}
           <Box sx={{ margin: '1rem 0' }}>
@@ -198,7 +196,7 @@ function AdminPageAccordion({
               }}
             />
             {!productState.priceValid && (
-              <Typography sx={{ color: 'red' }}>Vänligen ange pris</Typography>
+              <Typography>Vänligen ange ett pris.</Typography>
             )}
           </Box>
         </Box>
@@ -222,6 +220,11 @@ function AdminPageAccordion({
               </Button>
             ))}
           </ButtonGroup>
+          {!productState.categoryValid && (
+            <Typography sx={{ color: 'red' }}>
+              Vänligen välj kategori.
+            </Typography>
+          )}
         </Box>
         <Box>
           <Button
@@ -272,7 +275,7 @@ function AdminPageAccordion({
               }}
             >
               <Typography>
-                Är du säker på att du vill ta bort produkt?
+                Är du säker på att du vill ta bort produkten?
               </Typography>
               <Button
                 onClick={(e) => {
