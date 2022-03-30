@@ -8,21 +8,20 @@ import {
   ButtonGroup,
   Modal,
   Chip,
-} from "@mui/material";
-import { useEffect, useReducer, useRef, useState } from "react";
-import { Product, Categories } from "../Api/Data";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import EditIcon from "@mui/icons-material/Edit";
-import Save from "@mui/icons-material/Save";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+} from '@mui/material';
+import { useEffect, useReducer, useRef, useState } from 'react';
+import { Product, Categories } from '../Api/Data';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import EditIcon from '@mui/icons-material/Edit';
+import Save from '@mui/icons-material/Save';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   ProductEditAction,
   ProductEditReducer,
   ProductEditReducerType,
   ProductEditState,
 } from '../contexts/Reducers';
-
 
 function createProductEditState(product: Product): ProductEditState {
   const productEditState: ProductEditState = {
@@ -96,23 +95,23 @@ function AdminPageAccordion({
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-            margin: "1rem 0",
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            margin: '1rem 0',
           }}
         >
           <Box
             sx={{
-              gap: "0.5rem",
-              display: "flex",
-              flexDirection: "row",
-              bgcolor: "#fffff",
-              borderColor: "#0EDFE6",
-              color: " black",
+              gap: '0.5rem',
+              display: 'flex',
+              flexDirection: 'row',
+              bgcolor: '#fffff',
+              borderColor: '#0EDFE6',
+              color: ' black',
 
-              "@media screen and (max-width: 440px)": {
-                flexDirection: "column",
+              '@media screen and (max-width: 440px)': {
+                flexDirection: 'column',
               },
             }}
           >
@@ -153,7 +152,7 @@ function AdminPageAccordion({
         </Box>
       </AccordionSummary>
       <AccordionDetails>
-        <Box sx={{ margin: "1rem 0" }}>
+        <Box sx={{ margin: '1rem 0' }}>
           <img
             style={{ width: 100, height: 100 }}
             src={productState.imgURL}
@@ -214,18 +213,18 @@ function AdminPageAccordion({
             )}
           </Box>
         </Box>
-        <Box sx={{ margin: "1rem 0" }}>
+        <Box sx={{ margin: '1rem 0' }}>
           <Typography>Redigera kategori</Typography>
           <ButtonGroup
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              bgcolor: "#fffff",
-              borderColor: "#0EDFE6",
-              color: " black",
+              display: 'flex',
+              flexDirection: 'row',
+              bgcolor: '#fffff',
+              borderColor: '#0EDFE6',
+              color: ' black',
 
-              "@media screen and (max-width: 440px)": {
-                flexDirection: "column",
+              '@media screen and (max-width: 440px)': {
+                flexDirection: 'column',
               },
             }}
             aria-label="button group"
@@ -234,7 +233,7 @@ function AdminPageAccordion({
               <Button
                 key={index}
                 variant={
-                  category === productState.category ? "contained" : "outlined"
+                  category === productState.category ? 'contained' : 'outlined'
                 }
                 onClick={() =>
                   dispatch({
@@ -290,13 +289,13 @@ function AdminPageAccordion({
           >
             <Box
               sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 400,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 250,
+                bgcolor: 'background.paper',
+                border: '2px solid #000',
                 boxShadow: 24,
                 p: 4,
               }}
