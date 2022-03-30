@@ -141,11 +141,11 @@ function LinksContainer() {
         sx={{ display: 'flex', justifyContent: 'center' }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <img width="75" height="40" src={klarna} alt=""></img>
-          <img width="75" height="70" src={swish} alt=""></img>
-          <img width="75" height="40" src={visa} alt=""></img>
-          <img width="75" height="40" src={maestro} alt=""></img>
-          <img width="75" height="40" src={mastercard} alt=""></img>
+          <img width="75" src={klarna} alt=""></img>
+          <img width="75" src={swish} alt=""></img>
+          <img width="75" src={visa} alt=""></img>
+          <img width="75" src={maestro} alt=""></img>
+          <img width="75" src={mastercard} alt=""></img>
         </Box>
       </Grid>
       <Grid
@@ -156,9 +156,9 @@ function LinksContainer() {
         sx={{ display: 'flex', justifyContent: 'center' }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <img width="100" height="40" src={instabox} alt=""></img>
-          <img width="100" height="40" src={postnord} alt=""></img>
-          <img width="90" height="20" src={schenker} alt=""></img>
+          <img width="100" src={instabox} alt=""></img>
+          <img width="100" src={postnord} alt=""></img>
+          <img width="90" src={schenker} alt=""></img>
         </Box>
       </Grid>
     </Grid>

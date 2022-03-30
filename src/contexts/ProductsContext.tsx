@@ -3,13 +3,7 @@ import { mockedProducts, Product } from '../Api/Data';
 // import useLocalStorage from '../Hooks/useLocalStorage'
 import { ProductActions, productReducer, ProductTypes } from './Reducers';
 
-export type ProductType = {
-  id: number;
-  title: string;
-  information: string;
-  price: number;
-  imgURL: string;
-};
+export interface ProductType extends Product {}
 
 type PContext = {
   products: ProductType[];
