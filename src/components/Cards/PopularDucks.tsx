@@ -3,19 +3,18 @@ import { useState } from 'react';
 import { useProduct, ProductType } from '../../contexts/ProductsContext';
 import ProductCard from './ProductCard';
 
-function getRandomProducts(products: ProductType[], numberOfIndicies: number) {
+function getRandomProducts(
+  products: ProductType[],
+  requestedNumberOfIndicies: number
+) {
+  const numberOfIndicies = Math.min(requestedNumberOfIndicies, products.length);
+  let productsCopy = [...products];
   let randomProducts: ProductType[] = new Array<ProductType>(numberOfIndicies);
-  let productIndicies: number[] = new Array<number>();
-
-  while (productIndicies.length < numberOfIndicies) {
-    let index = Math.floor(Math.random() * products.length);
-    if (!productIndicies.includes(index)) {
-      productIndicies.push(index);
-    }
-  }
 
   for (let i = 0; i < numberOfIndicies; i++) {
-    randomProducts[i] = products[productIndicies[i]];
+    let index = Math.floor(Math.random() * productsCopy.length);
+    randomProducts[i] = productsCopy[index];
+    productsCopy.splice(index, 1);
   }
 
   return randomProducts;
