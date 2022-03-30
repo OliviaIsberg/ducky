@@ -8,6 +8,7 @@ import {
   ButtonGroup,
   Modal,
   Chip,
+  useMediaQuery,
 } from '@mui/material';
 import { useEffect, useReducer, useRef, useState } from 'react';
 import { Product, Categories } from '../Api/Data';
@@ -89,6 +90,7 @@ function AdminPageAccordion({
   ) => setOpen(!open);
 
   const formValid = isFormValid(productState);
+  const matches = useMediaQuery('(max-width: 440px)');
 
   return (
     <Accordion onChange={handleOpen} expanded={open}>
@@ -215,37 +217,40 @@ function AdminPageAccordion({
         </Box>
         <Box sx={{ margin: '1rem 0' }}>
           <Typography>Redigera kategori</Typography>
-          <ButtonGroup
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              bgcolor: '#fffff',
-              borderColor: '#0EDFE6',
-              color: ' black',
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <ButtonGroup
+              orientation={matches ? 'vertical' : 'horizontal'}
+              sx={{
+                bgcolor: '#fffff',
+                borderColor: '#0EDFE6',
+                color: ' black',
 
-              '@media screen and (max-width: 440px)': {
-                flexDirection: 'column',
-              },
-            }}
-            aria-label="button group"
-          >
-            {Categories.map((category, index) => (
-              <Button
-                key={index}
-                variant={
-                  category === productState.category ? 'contained' : 'outlined'
-                }
-                onClick={() =>
-                  dispatch({
-                    type: ProductEditReducerType.Update,
-                    payload: { key: 'category', value: category },
-                  })
-                }
-              >
-                {category}
-              </Button>
-            ))}
-          </ButtonGroup>
+                '@media screen and (max-width: 440px)': {
+                  flexDirection: 'column',
+                },
+              }}
+              aria-label="button group"
+            >
+              {Categories.map((category, index) => (
+                <Button
+                  key={index}
+                  variant={
+                    category === productState.category
+                      ? 'contained'
+                      : 'outlined'
+                  }
+                  onClick={() =>
+                    dispatch({
+                      type: ProductEditReducerType.Update,
+                      payload: { key: 'category', value: category },
+                    })
+                  }
+                >
+                  {category}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </Box>
           {!productState.categoryValid && (
             <Typography sx={{ color: 'red' }}>
               Vänligen välj kategori.
