@@ -14,7 +14,7 @@ import instabox from '../../assets/ShippingLogos/instabox-full.jpg';
 import postnord from '../../assets/ShippingLogos/postnord-full.png';
 import schenker from '../../assets/ShippingLogos/schenker-full.png';
 import SubscribeForm from '../Forms/SubscribeForm';
-import duckLogo from '../../assets/ducky2 1.png';
+import duckLogo from '../../assets/ducky2.png';
 
 const theme = createTheme({
   palette: {

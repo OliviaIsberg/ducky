@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
-import ducky from '../assets/ProductPictures/ducky2 1.png';
+import ducky from '../assets/ducky2.png';
 import PopularDucks from './Cards/PopularDucks';
 import ShowCarousel from './Carousel';
 
