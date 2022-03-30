@@ -43,7 +43,6 @@ function ShowCarousel() {
 
 function ShowImages(props: Props) {
   return (
-    // <Paper sx={{ width: '100%' }}>
     <img
       style={{
         width: '100%',
@@ -51,7 +50,6 @@ function ShowImages(props: Props) {
       src={props.item.image}
       alt=""
     />
-    // </Paper>
   );
 }
 
