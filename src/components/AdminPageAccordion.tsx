@@ -17,30 +17,58 @@ import Save from '@mui/icons-material/Save';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
+  ProductEditAction,
   ProductEditReducer,
   ProductEditReducerType,
+  ProductEditState,
 } from '../contexts/Reducers';
 
-const isProductEdited = (product: Product, productState: Product) =>
+function createProductEditState(product: Product): ProductEditState {
+  const productEditState: ProductEditState = {
+    ...product,
+    titleValid: product.title !== '',
+    informationValid: product.information !== '',
+    categoryValid: product.category !== '',
+    priceValid: !isNaN(product.price),
+    imgURLValid: product.imgURL !== '',
+  };
+
+  return productEditState;
+}
+
+const isProductEdited = (product: Product, productState: ProductEditState) =>
   productState.title !== product.title ||
   productState.information !== product.information ||
-  productState.id !== product.id ||
   productState.category !== product.category ||
   productState.price !== product.price ||
   productState.imgURL !== product.imgURL;
+
+const isFormValid = (productState: ProductEditState) =>
+  productState.titleValid &&
+  productState.informationValid &&
+  productState.categoryValid &&
+  productState.priceValid &&
+  productState.imgURLValid;
+
+interface AdminPageAccordionProps {
+  product: Product;
+  expanded?: boolean;
+  saveAction: (product: Product) => void;
+  deleteAction: (productId: number) => void;
+}
 
 function AdminPageAccordion({
   product,
   expanded,
   saveAction,
   deleteAction,
-}: any) {
+}: AdminPageAccordionProps) {
   const [open, setOpen] = useState(expanded ?? false);
   const [openModal, setOpenModal] = useState(false);
-  const [productState, dispatchProductState] = useReducer(
-    ProductEditReducer,
-    product
-  );
+
+  const [productState, dispatch] = useReducer<
+    React.Reducer<ProductEditState, ProductEditAction>
+  >(ProductEditReducer, createProductEditState(product));
 
   const firstUpdate = useRef(true);
   useEffect(() => {
@@ -49,13 +77,18 @@ function AdminPageAccordion({
       return;
     }
 
-    dispatchProductState({ type: ProductEditReducerType.Update, product });
+    dispatch({
+      type: ProductEditReducerType.Reset,
+      payload: { product },
+    });
   }, [product]);
 
   const handleOpen = (
     event: React.SyntheticEvent<Element, Event>,
     expanded: boolean
   ) => setOpen(!open);
+
+  const formValid = isFormValid(productState);
 
   return (
     <Accordion onChange={handleOpen} expanded={open}>
@@ -71,17 +104,24 @@ function AdminPageAccordion({
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <img src={productState.imgURL} width="48px" alt=""></img>
             {open ? (
-              <input
-                type="text"
-                value={productState.title}
-                onChange={(e) => {
-                  dispatchProductState({
-                    type: ProductEditReducerType.UpdateTitle,
-                    value: e.target.value,
-                  });
-                }}
-                onClick={(e) => e.stopPropagation()}
-              />
+              <>
+                <input
+                  type="text"
+                  value={productState.title}
+                  onChange={(e) => {
+                    dispatch({
+                      type: ProductEditReducerType.Update,
+                      payload: { key: 'title', value: e.target.value },
+                    });
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                {!productState.titleValid && (
+                  <Typography sx={{ color: 'red' }}>
+                    Vänligen ange en titel.
+                  </Typography>
+                )}
+              </>
             ) : (
               <Typography>{productState.title}</Typography>
             )}
@@ -106,45 +146,57 @@ function AdminPageAccordion({
             alt=""
           ></img>
         </Box>
-        <Typography sx={{ marginBottom: '2ex' }}>
-          Bild URL:
-          <input
-            type="url"
-            value={productState.imgURL}
-            onChange={(e) => {
-              dispatchProductState({
-                type: ProductEditReducerType.UpdateImgURL,
-                value: e.target.value,
-              });
-            }}
-          />
-        </Typography>
+        <Typography sx={{ marginBottom: '2ex' }}>Bild URL:&nbsp;</Typography>
+        <input
+          type="url"
+          value={productState.imgURL}
+          onChange={(e) => {
+            dispatch({
+              type: ProductEditReducerType.Update,
+              payload: { key: 'imgURL', value: e.target.value },
+            });
+          }}
+        />
+        {!productState.imgURLValid && (
+          <Typography sx={{ color: 'red' }}>
+            Vänligen ange en bildadress.
+          </Typography>
+        )}
         <Box>
           <Typography>Beskrivning</Typography>
           <textarea
             onChange={(e) => {
-              dispatchProductState({
-                type: ProductEditReducerType.UpdateInformation,
-                value: e.target.value,
+              dispatch({
+                type: ProductEditReducerType.Update,
+                payload: { key: 'information', value: e.target.value },
               });
             }}
             value={productState.information}
           />
+          {!productState.informationValid && (
+            <Typography sx={{ color: 'red' }}>
+              Vänligen ange en beskrivning.
+            </Typography>
+          )}
           <Box sx={{ margin: '1rem 0' }}>
             <Typography>Redigera pris</Typography>
-            {open ? (
-              <input
-                type="number"
-                value={!isNaN(productState.price) ? productState.price : ''}
-                onChange={(e) => {
-                  dispatchProductState({
-                    type: ProductEditReducerType.UpdatePrice,
-                    value: parseFloat(e.target.value),
-                  });
-                }}
-              />
-            ) : (
-              <Typography>{productState.title}</Typography>
+            <input
+              type="number"
+              min="1"
+              value={!isNaN(productState.price) ? productState.price : ''}
+              onChange={(e) => {
+                const price = parseFloat(e.target.value);
+                dispatch({
+                  type: ProductEditReducerType.Update,
+                  payload: {
+                    key: 'price',
+                    value: price > 0 ? price : NaN,
+                  },
+                });
+              }}
+            />
+            {!productState.priceValid && (
+              <Typography>Vänligen ange ett pris.</Typography>
             )}
           </Box>
         </Box>
@@ -158,9 +210,9 @@ function AdminPageAccordion({
                   category === productState.category ? 'contained' : 'outlined'
                 }
                 onClick={() =>
-                  dispatchProductState({
-                    type: ProductEditReducerType.UpdateCategory,
-                    category,
+                  dispatch({
+                    type: ProductEditReducerType.Update,
+                    payload: { key: 'category', value: category },
                   })
                 }
               >
@@ -168,9 +220,15 @@ function AdminPageAccordion({
               </Button>
             ))}
           </ButtonGroup>
+          {!productState.categoryValid && (
+            <Typography sx={{ color: 'red' }}>
+              Vänligen välj kategori.
+            </Typography>
+          )}
         </Box>
         <Box>
           <Button
+            disabled={!formValid}
             startIcon={<Save />}
             onClick={() => {
               saveAction(productState);
@@ -180,11 +238,12 @@ function AdminPageAccordion({
             Spara
           </Button>
           <Button
+            disabled={!formValid}
             startIcon={<RestartAltIcon />}
             onClick={() =>
-              dispatchProductState({
+              dispatch({
                 type: ProductEditReducerType.Reset,
-                product: product,
+                payload: { product: product },
               })
             }
           >
@@ -216,7 +275,7 @@ function AdminPageAccordion({
               }}
             >
               <Typography>
-                Är du säker på att du vill ta bort produkt?
+                Är du säker på att du vill ta bort produkten?
               </Typography>
               <Button
                 onClick={(e) => {
