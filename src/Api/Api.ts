@@ -9,7 +9,7 @@ function wait(time: number) {
   })
 }
 export async function FakeUserFetch(loginDetails: LoginDetails): Promise<User> {
-  await wait(2000)
+  await wait(1000)
   const foundUsers = mockedUsers.filter((user) => {
     return user.username === loginDetails.username
   })
@@ -29,5 +29,5 @@ export async function FakeUserFetch(loginDetails: LoginDetails): Promise<User> {
 
 
 export async function placeOrderFetch() {
-  return await wait(2000)
+  return await wait(1000)
 }
