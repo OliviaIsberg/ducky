@@ -48,7 +48,7 @@ function StartPageDesription() {
         <Typography
           sx={{ marginBottom: '2rem', fontSize: 'clamp(1.5rem, 2.5vw, 2rem)' }}
         >
-          Våra mest sålda produkter
+          Se våra produkter
         </Typography>
         <PopularDucks />
         <Link to="products">
