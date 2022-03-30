@@ -8,11 +8,20 @@ import {
   Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import spidermanDuck from '../../assets/CategoriesPictures/spidermanDuck.jpg';
-import weddingDuck from '../../assets/CategoriesPictures/weddingDuck.jpg';
-import glowingDuck from '../../assets/CategoriesPictures/glowingDuck.jpg';
+import { Categories } from '../../Api/Data';
+import { useProduct } from '../../contexts/ProductsContext';
 
 function CategoriesCard() {
+  const { products } = useProduct();
+  const displayCategories = Categories.filter(
+    (c) => c !== 'Övriga' && products.findIndex((p) => p.category === c) >= 0
+  );
+
+  displayCategories.splice(Math.min(displayCategories.length, 3));
+  const categoryImages = displayCategories.map(
+    (c) => products.find((p) => p.category === c)?.imgURL
+  );
+
   return (
     <Container sx={{ marginTop: '2rem' }} maxWidth="xl">
       <Typography
@@ -30,54 +39,24 @@ function CategoriesCard() {
         container
         sx={{ gap: '5rem', margin: '2rem 0' }}
       >
-        <Link to="products">
-          <Card sx={{ maxWidth: 300, borderRadius: '1rem' }}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="340"
-                image={spidermanDuck}
-              ></CardMedia>
-              <CardContent>
-                <Typography gutterBottom variant="h6">
-                  Spiderman
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Link>
-        <Link to="products">
-          <Card sx={{ maxWidth: 300, borderRadius: '1rem' }}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="340"
-                image={weddingDuck}
-              ></CardMedia>
-              <CardContent>
-                <Typography gutterBottom variant="h6">
-                  Bröllop
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Link>
-        <Link to="products">
-          <Card sx={{ maxWidth: 300, borderRadius: '1rem' }}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="340"
-                image={glowingDuck}
-              ></CardMedia>
-              <CardContent>
-                <Typography gutterBottom variant="h6">
-                  Lysande
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        </Link>
+        {displayCategories.map((c, i) => (
+          <Link key={c} to={'products?category=' + (c as string).toLowerCase()}>
+            <Card sx={{ maxWidth: 300, borderRadius: '1rem' }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="340"
+                  image={categoryImages[i]}
+                ></CardMedia>
+                <CardContent>
+                  <Typography gutterBottom variant="h6">
+                    {c}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Link>
+        ))}
       </Grid>
     </Container>
   );
