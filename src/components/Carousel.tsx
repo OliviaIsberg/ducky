@@ -1,4 +1,4 @@
-import { Container, Paper } from '@mui/material';
+import { Container } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import firstDuck from '../assets/CarouselPictures/firstDuck.jpg';
 import secondDuck from '../assets/CarouselPictures/secondDuck.jpg';
@@ -31,7 +31,7 @@ function ShowCarousel() {
       <Carousel
         interval={2000}
         indicators={false}
-        sx={{ width: '90%', height: '35vw', margin: 'auto' }}
+        sx={{ height: '30vw', width: '90%', margin: 'auto' }}
       >
         {images.map((item, i) => (
           <ShowImages key={i} item={item} />
@@ -43,13 +43,13 @@ function ShowCarousel() {
 
 function ShowImages(props: Props) {
   return (
-    <Paper sx={{ height: '35vw', width: '100%' }}>
-      <img
-        style={{ height: '100%', width: '100%' }}
-        src={props.item.image}
-        alt=""
-      />
-    </Paper>
+    <img
+      style={{
+        width: '100%',
+      }}
+      src={props.item.image}
+      alt=""
+    />
   );
 }
 
