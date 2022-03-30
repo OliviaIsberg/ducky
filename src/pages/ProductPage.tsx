@@ -23,7 +23,7 @@ function ProductPage() {
   )
 
   return (
-    <Container maxWidth="md" sx={{ height: '100%' }}>
+    <Container maxWidth="md">
       <Link to="/products">
         <Button startIcon={<ArrowBackIcon />}>
           Tillbaka till produktsidan
@@ -45,7 +45,7 @@ function ProductPage() {
               sx={{ objectFit: 'contain', maxWidth: '20rem' }}
             />
             <Box
-              sx={{ display: 'flex', flexDirection: 'column', flexGrow: '1' }}
+              sx={{ display: 'flex', flexDirection: 'column', flexGrow: '1', alignItems:"center" }}
             >
               <CardContent sx={{ flexGrow: '1' }}>
                 <Typography variant="h5" component="div" gutterBottom>
