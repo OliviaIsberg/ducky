@@ -1,18 +1,18 @@
 // import { initialState } from './ProductsInCartContext'
 
-import { Product } from '../Api/Data';
-import { ProductType } from './ProductsContext';
+import { Product } from '../Api/Data'
+import { ProductType } from './ProductsContext'
 
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
     ? {
-        type: Key;
+        type: Key
       }
     : {
-        type: Key;
-        payload: M[Key];
-      };
-};
+        type: Key
+        payload: M[Key]
+      }
+}
 //Cart
 
 export enum Types {
@@ -23,59 +23,59 @@ export enum Types {
 }
 
 export type CartType = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  qty: number;
-  imgURL: string;
-};
+  id: number
+  title: string
+  description: string
+  price: number
+  qty: number
+  imgURL: string
+}
 
 type CartPayload = {
   [Types.AddToCart]: {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    qty: number;
-    imgURL: string;
-  };
+    id: number
+    title: string
+    description: string
+    price: number
+    qty: number
+    imgURL: string
+  }
 
   [Types.DeleteFromCart]: {
-    id: number;
-  };
+    id: number
+  }
   [Types.UpdateQty]: {
-    id: number;
-    qty: number;
-  };
-  [Types.ResetCart]: {};
-};
+    id: number
+    qty: number
+  }
+  [Types.ResetCart]: {}
+}
 
-export const initialState = [] as CartType[];
-export type State = typeof initialState;
+export const initialState = [] as CartType[]
+export type State = typeof initialState
 
-export type CartActions = ActionMap<CartPayload>[keyof ActionMap<CartPayload>];
+export type CartActions = ActionMap<CartPayload>[keyof ActionMap<CartPayload>]
 
 export const cartReducer = (state: State, action: CartActions) => {
   switch (action.type) {
     case Types.AddToCart:
-      return [...state, { ...action.payload, qty: 1 }];
+      return [...state, { ...action.payload, qty: 1 }]
     case Types.DeleteFromCart:
-      return state.filter((c: { id: number }) => c.id !== action.payload.id);
+      return state.filter((c: { id: number }) => c.id !== action.payload.id)
     case Types.UpdateQty:
       return [
         ...state.filter((cartItem: CartType) => {
           return cartItem.id === action.payload.id
             ? (cartItem.qty = action.payload.qty)
-            : cartItem.qty;
+            : cartItem.qty
         }),
-      ];
+      ]
     case Types.ResetCart:
-      return (state = initialState);
+      return (state = initialState)
     default:
-      throw new Error('error');
+      throw new Error('error')
   }
-};
+}
 
 // Products
 
@@ -88,89 +88,98 @@ export enum ProductTypes {
 
 type ProductPayload = {
   [ProductTypes.Create]: {
-    product: Product;
-  };
+    product: Product
+  }
   [ProductTypes.Read]: {
-    id: number;
-  };
+    id: number
+  }
   [ProductTypes.Update]: {
-    product: Product;
-  };
+    product: Product
+  }
   [ProductTypes.Delete]: {
-    id: number;
-  };
-};
+    id: number
+  }
+}
 
-const initialStateProd = [] as ProductType[];
-export type Data = typeof initialStateProd;
+const initialStateProd = [] as ProductType[]
+export type Data = typeof initialStateProd
 
 export type ProductActions =
-  ActionMap<ProductPayload>[keyof ActionMap<ProductPayload>];
+  ActionMap<ProductPayload>[keyof ActionMap<ProductPayload>]
 
 export const productReducer = (state: Data, action: ProductActions) => {
   switch (action.type) {
     case ProductTypes.Create:
-      const productsAfterCreate = [...state];
-      productsAfterCreate.push(action.payload.product);
-      return productsAfterCreate;
+      const productsAfterCreate = [...state]
+      productsAfterCreate.push(action.payload.product)
+      return productsAfterCreate
     case ProductTypes.Read:
-      return state;
+      return state
     case ProductTypes.Update:
-      const products = [...state];
+      const products = [...state]
       let productIndex = products.findIndex(
         (product) => product.id === action.payload.product.id
-      );
+      )
       if (productIndex !== -1) {
-        products[productIndex] = action.payload.product;
+        products[productIndex] = action.payload.product
       }
 
-      return products;
+      return products
     case ProductTypes.Delete:
       const productsAfterDeletion = state.filter(
         (product) => product.id !== action.payload.id
-      );
+      )
 
-      return productsAfterDeletion;
+      return productsAfterDeletion
+
     default:
-      return state;
+      throw new Error('error')
   }
-};
+}
+
+export interface ProductEditState extends Product {
+  titleValid: boolean
+  informationValid: boolean
+  categoryValid: boolean
+  priceValid: boolean
+  imgURLValid: boolean
+}
 
 export enum ProductEditReducerType {
   Update,
-  UpdateTitle,
-  UpdateInformation,
-  UpdateImgURL,
-  UpdatePrice,
-  UpdateCategory,
   Reset,
-  Delete,
+}
+
+type ProductEditPayload = {
+  [ProductEditReducerType.Update]: {
+    key: string
+    value: any
+  }
+  [ProductEditReducerType.Reset]: {
+    product: Product
+  }
 }
 
 export type ProductEditAction =
-  | { type: ProductEditReducerType.Update; product: Product }
-  | { type: ProductEditReducerType.UpdateTitle; value: string }
-  | { type: ProductEditReducerType.UpdateInformation; value: string }
-  | { type: ProductEditReducerType.UpdateImgURL; value: string }
-  | { type: ProductEditReducerType.UpdatePrice; value: number }
-  | { type: ProductEditReducerType.UpdateCategory; category: string }
-  | { type: ProductEditReducerType.Reset; product: Product };
+  ActionMap<ProductEditPayload>[keyof ActionMap<ProductEditPayload>]
 
-export function ProductEditReducer(state: Product, action: ProductEditAction) {
+export function ProductEditReducer(
+  state: ProductEditState,
+  action: ProductEditAction
+) {
   switch (action.type) {
     case ProductEditReducerType.Update:
-      return { ...action.product, edited: false };
-    case ProductEditReducerType.UpdateTitle:
-      return { ...state, title: action.value };
-    case ProductEditReducerType.UpdateInformation:
-      return { ...state, information: action.value };
-    case ProductEditReducerType.UpdateImgURL:
-      return { ...state, imgURL: action.value };
-    case ProductEditReducerType.UpdatePrice:
-      return { ...state, price: action.value };
-    case ProductEditReducerType.UpdateCategory:
-      return { ...state, category: action.category };
+      const key = action.payload.key
+      const value = action.payload.value
+      return {
+        ...state,
+        [key]: action.payload.value,
+        [key + 'Valid']:
+          value !== '' && (typeof value !== typeof 0 || !isNaN(value)),
+      }
     case ProductEditReducerType.Reset:
-      return { ...action.product, edited: false };
+      return { ...state, ...action.payload.product }
+    default:
+      throw new Error('error')
   }
 }
