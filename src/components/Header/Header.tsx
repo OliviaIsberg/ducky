@@ -1,4 +1,4 @@
-import { Box, Tabs, Tab, Container, Button } from "@mui/material";
+import { Box, Tabs, Tab, Container, Button, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -34,9 +34,10 @@ const Header: FC<HeaderProps> = () => {
     <>
       {!!user?.isAdmin && <AdminBar />}
 
-      <Container maxWidth="md" sx={{ padding: "1rem" }}>
-        {!!user && <h3>Välkommen in {user?.username}</h3>}
-        <Box sx={{ width: "100%" }}>{/* logo här */}</Box>
+      <Container maxWidth="md" sx={{ padding: "0,2rem", mb:1,mt:2 }}>
+        <Box sx={{ width: "100%" }}>
+          {!!user && <Typography sx={{color:"#c900c1"}}>Du är nu inloggad som: {user?.username}</Typography>}
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -118,14 +119,36 @@ const Header: FC<HeaderProps> = () => {
                   bgcolor: "white",
                   border: "none",
                   color: " black",
+                  minWidth: "1px",
                   "&:hover": {
                     bgcolor: "#dadcd9",
                     border: "none",
                     color: " black",
                   },
+                  "@media screen and (max-width: 480px)": {
+                    fontSize: "0",
+                    padding: "0",
+                    bgcolor: "transparent",
+                    textalign: "none",
+                    "&:hover": {
+                      bgcolor: "transparent",
+                    },
+                  },
                 }}
                 variant="outlined"
-                endIcon={<AccountCircleIcon color="success" />}
+                endIcon={
+                  <AccountCircleIcon
+                    sx={{
+                      padding: "0",
+                      height: "2.5rem",
+                      width: "2.5rem",
+                      "@media screen and (max-width: 440px)": {
+                        marginRight: "-30px",
+                      },
+                    }}
+                    color="success"
+                  />
+                }
                 onClick={() => logout()}
               >
                 Logga ut
