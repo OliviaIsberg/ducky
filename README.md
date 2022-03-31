@@ -24,7 +24,7 @@ We also used MUI (Material UI) as we needed to implement a react component libra
 Find the docs of mui here: https://mui.com/getting-started/installation/
 
 
-Download this repository to your computer and/or open it in your code editor.
+Clone this repository to your computer and/or open it in your code editor.
 
 $ npm install
 To install npm
