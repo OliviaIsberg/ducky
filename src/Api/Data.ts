@@ -32,7 +32,8 @@ export const Categories: MockedCategories[] = [
 export const mockedProducts: Product[] = [
   {
     title: 'Ducktrix',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Ducktrix gummianka. Denna science fiction-anka är baserad på filmen The Matrix med Keanu Reeves som Neo, "The One" cyberbrottsling kontaktad av Morpheus för att träffa Oracle. Se upp för agenten Smith... Perfekt present till ett Matrix-fan. På baksidan står det "Enter Ducktrix". Grönt tryck, lyser i mörkret!',
     category: MockedCategories.Famous,
     price: 99,
     id: 1,
@@ -41,7 +42,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Unicorn',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Rosa enhörning gummianka. Köp den legendariska varelsen. Rosa med lila hår och gult horn.',
     category: MockedCategories.Animals,
     price: 79,
     id: 2,
@@ -50,7 +52,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Corona',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Corona gummianka. Denna specialutgåva bär en grön ansiktsmask.',
     category: MockedCategories.Misc,
     price: 89,
     id: 3,
@@ -59,7 +62,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Eskimo',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Eskimo med bebis gummianka. Hon bär sin bebis i en vit filt, klädd i en röd traditionell skinnparkas för att tåla den arktiska kylan. Fin present till en vän som älskar vinterväder med snö och is.',
     category: MockedCategories.Misc,
     price: 75,
     id: 4,
@@ -68,7 +72,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Cow',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Svartvit ko gummianka. En typisk holländsk ko med vackra fläckar och en koklocka. Kommer direkt från gården. Ge den till en bondvän eller någon som verkligen älskar mjölk!',
     category: MockedCategories.Animals,
     price: 49,
     id: 5,
@@ -77,7 +82,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Fitness',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Fitness gummianka. Lyfter vikter och visar hans sexpack. Klädd i röda träningsshorts.',
     category: MockedCategories.Hobby,
     price: 39,
     id: 6,
@@ -86,7 +92,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Gamer Girl',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Gamer Girl gummianka . Hon kan bara inte sluta spela. Iklädd blå skjorta med tryck "Gamer girl" och blått headset, med rosa hår och en spelkonsol. Fin present till en gamervän.',
     category: MockedCategories.Hobby,
     price: 69,
     id: 7,
@@ -95,7 +102,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Gamer Boy',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Gamer Boy gummianka. Han kan spela hela natten med vänner online. Iklädd röd skjorta med tryck "Game over" och blå keps, håller en spelkonsol. perfekt present till en gamervän.',
     category: MockedCategories.Hobby,
     price: 69,
     id: 8,
@@ -104,7 +112,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Donkey',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Åsnka gummianka. Denna underbara varelse har en ljusgrå päls och en svart svans. Ge den här åsnan till någon älskar åsnor.',
     category: MockedCategories.Animals,
     price: 59,
     id: 9,
@@ -113,7 +122,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'Liberty',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Liberty gummianka. Denna fyr i New York ger frihet för alla våra gummiankor. Oavsett färg, tro eller livsstil. Fin present till vänner som älskar att besöka New York',
     category: MockedCategories.Famous,
     price: 89,
     id: 10,
@@ -122,7 +132,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'BatDuck',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Batman gummianka. Han kommer bara ut på natten till säkra ankor i nöd. Styr kanalerna och skrämmer bort skurkar. Gör denna mörka hjälte till din egen skyddsängel!',
     category: MockedCategories.Famous,
     price: 69,
     id: 11,
@@ -131,7 +142,8 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'SpiderDuck',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information:
+      'Spiderman gummianka. I rött och blått med spindeltryck. Denna spiderman gummianka är en trevlig present att ge bort till en spiderman älskande vän.',
     category: MockedCategories.Famous,
     price: 69,
     id: 12,
@@ -140,7 +152,7 @@ export const mockedProducts: Product[] = [
   },
   {
     title: 'SkeleDuck',
-    information: 'Lorem ipsum jdksjdksajdajkd jdksaljdkasjdklas jdlsjdsajdlsa',
+    information: 'Skelett gummianka. Perfekt goding för halloween.',
     category: MockedCategories.Famous,
     price: 69,
     id: 13,
