@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+A school project made in Javascript advanced course.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+School: Medieinsitutet Gothenburg
 
-## Available Scripts
+Class: FED21G
 
-In the project directory, you can run:
+Date: 2022-03-31
 
-### `npm start`
+Coders:
+Tomas Fridekrans
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Olivia Isberg
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Sabina Andersson
 
-### `npm test`
+Teacher: David Jensen
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+About
+"ducky" is a webshop app built in TSX (Typescript React).
+This is only a mock-shop that fetches a fake api to place orders, with pre-coded products and users to log in as either admin or as a regular user. No real database has been implemented in this app.
+All data for products and orders are stored in localstorage and can easily be viewed in the inspector.
 
-### `npm run build`
+We also used MUI (Material UI) as we needed to implement a react component library in this project.
+Find the docs of mui here: https://mui.com/getting-started/installation/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Clone this repository to your computer and/or open it in your code editor.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+$ npm install
+To install npm
 
-### `npm run eject`
+$ npm start
+Runs the app in the development mode.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Demo link
+Link to a demo: https://duckyshop.netlify.app/
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Link to github repo: https://github.com/OliviaIsberg/ducky
